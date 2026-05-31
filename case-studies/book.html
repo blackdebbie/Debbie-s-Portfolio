@@ -36,7 +36,7 @@
     /* Buttons */
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
-      padding: 0.8rem 1.8rem; border-radius: 10px; font-weight: 600; font-size: 0.95rem;
+      padding: 0.8rem 1.8rem; border-radius: 100px; font-weight: 600; font-size: 0.95rem;
       text-decoration: none; transition: all 0.2s; border: none; cursor: pointer;
     }
     .btn-black { background: var(--black); color: var(--white); }
@@ -180,7 +180,7 @@
     .srv-card { cursor: pointer; }
     .srv-card.selected { border-color: var(--primary); box-shadow: 0 10px 20px rgba(249, 115, 22, 0.1); background: var(--primary-light); transform: translateY(-2px); }
 
-    .confirm-btn { width: 100%; margin-top: 2rem; padding: 1.2rem; font-size: 1.1rem; border-radius: 12px; }
+    .confirm-btn { width: 100%; margin-top: 2rem; padding: 1.2rem; font-size: 1.1rem; border-radius: 100px; }
 
     /* Modal */
     .modal-overlay {
@@ -572,7 +572,9 @@
       document.querySelectorAll('a[href="signup.html"]').forEach(btn => {
         btn.href = 'book.html';
         btn.innerText = 'Book an Appointment';
-        btn.style.padding = '0.6rem 1.5rem';
+        if (!btn.closest('.mobile-menu-overlay')) {
+          btn.style.padding = '0.6rem 1.5rem';
+        }
       });
     }
   </script>

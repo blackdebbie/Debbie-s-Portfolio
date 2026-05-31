@@ -29,7 +29,7 @@
     /* Buttons */
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
-      padding: 0.8rem 1.8rem; border-radius: 10px; font-weight: 600; font-size: 0.95rem;
+      padding: 0.8rem 1.8rem; border-radius: 100px; font-weight: 600; font-size: 0.95rem;
       text-decoration: none; transition: all 0.2s; border: none; cursor: pointer;
     }
     .btn-black { background: var(--black); color: var(--white); }
@@ -130,7 +130,7 @@
     .c-input::placeholder { color: #9CA3AF; font-weight: 500; }
     .c-textarea { resize: vertical; min-height: 140px; }
     .c-form .btn-black {
-      width: 100%; padding: 1.2rem; border-radius: 8px;
+      width: 100%; padding: 1.2rem; border-radius: 100px;
       font-size: 1rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-top: 0.5rem;
     }
 
@@ -312,6 +312,16 @@
           });
         });
       }
+
+      // Pre-fill message if dog query param is present
+      const urlParams = new URLSearchParams(window.location.search);
+      const dogName = urlParams.get('dog');
+      if (dogName) {
+        const messageTextarea = document.querySelector('textarea.c-textarea');
+        if (messageTextarea) {
+          messageTextarea.value = `Hi Pet Hub! I am extremely interested in adopting ${dogName} and would love to know more about the next steps in the adoption journey. 🐾`;
+        }
+      }
     });
   </script>
   <script>
@@ -319,7 +329,9 @@
       document.querySelectorAll('a[href="signup.html"]').forEach(btn => {
         btn.href = 'book.html';
         btn.innerText = 'Book an Appointment';
-        btn.style.padding = '0.6rem 1.5rem';
+        if (!btn.closest('.mobile-menu-overlay')) {
+          btn.style.padding = '0.6rem 1.5rem';
+        }
       });
     }
   </script>

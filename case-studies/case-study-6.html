@@ -663,7 +663,7 @@
           <div class="s-icon" style="background: var(--blue);"><iconify-icon icon="ph:paw-print"></iconify-icon></div>
           <h3>Find a Pet</h3>
           <p>Looking for a furry friend? Browse our listings of pets waiting for a loving home.</p>
-          <a href="#" class="btn btn-black">Adopt a Pet</a>
+          <a href="adopt.html" class="btn btn-black">Adopt a Pet</a>
         </div>
         <div class="service-card">
           <div class="s-icon" style="background: var(--green);"><iconify-icon icon="ph:stethoscope"></iconify-icon></div>
@@ -675,7 +675,7 @@
           <div class="s-icon" style="background: var(--secondary);"><iconify-icon icon="ph:bone"></iconify-icon></div>
           <h3>Quality Food</h3>
           <p>Shop premium pet food, accessories, and daily essentials delivered to your door.</p>
-          <a href="#" class="btn btn-black">Shop Essentials</a>
+          <a href="store.html" class="btn btn-black">Shop Essentials</a>
         </div>
       </div>
     </section>
@@ -719,7 +719,7 @@
           <span class="pet-tag">Max</span>
         </div>
       </div>
-      <a href="#" class="btn btn-black" style="padding: 0.6rem 3rem;">Adopt me</a>
+      <a href="adopt.html" class="btn btn-black" style="padding: 0.6rem 3rem;">Adopt me</a>
     </section>
 
     <section class="shop">
@@ -728,7 +728,7 @@
           <span class="section-subtitle">Premium Products</span>
           <h2 class="section-title" style="margin-bottom:0;">Shop food, accessories, and<br>daily essentials.</h2>
         </div>
-        <a href="#" class="btn btn-black">View All</a>
+        <a href="store.html" class="btn btn-black">View All</a>
       </div>
       <div class="shop-grid">
         <div class="shop-card">
@@ -913,7 +913,7 @@
               <li><a href="case-study-6.html"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>Home</a></li>
               <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>About Us</a></li>
               <li><a href="service.html"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>Services</a></li>
-              <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>Contact</a></li>
+              <li><a href="contact.html"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>Contact</a></li>
             </ul>
           </div>
           <div>
@@ -986,7 +986,9 @@
       document.querySelectorAll('a[href="signup.html"]').forEach(btn => {
         btn.href = 'book.html';
         btn.innerText = 'Book an Appointment';
-        btn.style.padding = '0.6rem 1.5rem';
+        if (!btn.closest('.mobile-menu-overlay')) {
+          btn.style.padding = '0.6rem 1.5rem';
+        }
       });
     }
   </script>

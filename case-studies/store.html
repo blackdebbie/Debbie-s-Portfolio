@@ -36,7 +36,7 @@
     /* Buttons */
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
-      padding: 0.8rem 1.8rem; border-radius: 10px; font-weight: 600; font-size: 0.95rem;
+      padding: 0.8rem 1.8rem; border-radius: 100px; font-weight: 600; font-size: 0.95rem;
       text-decoration: none; transition: all 0.2s; border: none; cursor: pointer;
     }
     .btn-black { background: var(--black); color: var(--white); }
@@ -144,7 +144,7 @@
     .st-title { font-size: 1.05rem; font-weight: 700; color: var(--black); margin-bottom: 0.3rem; }
     .st-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 1rem; flex-grow: 1; }
     .st-price { font-size: 1.1rem; font-weight: 800; color: var(--black); margin-bottom: 1rem; }
-    .st-card .btn { width: 100%; padding: 0.7rem; font-size: 0.85rem; border-radius: 8px; }
+    .st-card .btn { width: 100%; padding: 0.7rem; font-size: 0.85rem; border-radius: 100px; }
     
     /* Footer */
     footer { background: var(--black); color: var(--white); border-radius: 24px; padding: 4rem 3rem; margin-bottom: 3rem; }
@@ -180,6 +180,28 @@
       .footer-logo { font-size: 1.8rem; }
       br { display: none; }
     }
+
+    /* Toast Notification style */
+    .toast {
+      background: var(--black);
+      color: var(--white);
+      padding: 1rem 1.5rem;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: auto;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
   </style>
   <style>
     .animate-on-scroll {
@@ -195,6 +217,9 @@
   </style>
 </head>
 <body>
+
+  <!-- Toast container -->
+  <div id="toast-container" style="position: fixed; bottom: 2rem; right: 2rem; z-index: 10000; display: flex; flex-direction: column; gap: 0.8rem; pointer-events: none;"></div>
 
   <!-- Mobile Navigation Overlay Menu -->
   <div class="mobile-menu-overlay" id="mobileMenu">
@@ -369,10 +394,10 @@
           <h4 class="f-title">Quick Link</h4>
           <div style="width: 30px; height: 2px; background: #F97316; margin-bottom: 1.5rem;"></div>
           <ul class="f-links">
-            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Home</a></li>
+            <li><a href="case-study-6.html"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Home</a></li>
             <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> About Us</a></li>
-            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Services</a></li>
-            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Contact</a></li>
+            <li><a href="service.html"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Services</a></li>
+            <li><a href="contact.html"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Contact</a></li>
           </ul>
         </div>
         <div class="f-contact-col">
@@ -408,6 +433,37 @@
           });
         });
       }
+
+      // Add to Cart toast system
+      const toastContainer = document.getElementById('toast-container');
+      document.querySelectorAll('.st-card .btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const card = btn.closest('.st-card');
+          const title = card.querySelector('.st-title').innerText;
+          
+          // Create Toast element
+          const toast = document.createElement('div');
+          toast.className = 'toast';
+          toast.innerHTML = `<iconify-icon icon="ph:shopping-cart-fill" style="color: var(--primary); font-size: 1.2rem;"></iconify-icon> ${title} added to cart! 🛒`;
+          
+          if (toastContainer) {
+            toastContainer.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => {
+              toast.classList.add('show');
+            }, 10);
+            
+            // Remove Toast after 3 seconds
+            setTimeout(() => {
+              toast.classList.remove('show');
+              setTimeout(() => {
+                toast.remove();
+              }, 400);
+            }, 3000);
+          }
+        });
+      });
     });
   </script>
   <script>
@@ -415,7 +471,9 @@
       document.querySelectorAll('a[href="signup.html"]').forEach(btn => {
         btn.href = 'book.html';
         btn.innerText = 'Book an Appointment';
-        btn.style.padding = '0.6rem 1.5rem';
+        if (!btn.closest('.mobile-menu-overlay')) {
+          btn.style.padding = '0.6rem 1.5rem';
+        }
       });
     }
   </script>

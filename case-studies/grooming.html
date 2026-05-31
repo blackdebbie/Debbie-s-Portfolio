@@ -429,10 +429,10 @@
           <h4 class="f-title">Quick Link</h4>
           <div style="width: 30px; height: 2px; background: #F97316; margin-bottom: 1.5rem;"></div>
           <ul class="f-links">
-            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Home</a></li>
+            <li><a href="case-study-6.html"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Home</a></li>
             <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> About Us</a></li>
-            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Services</a></li>
-            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Contact</a></li>
+            <li><a href="service.html"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Services</a></li>
+            <li><a href="contact.html"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Contact</a></li>
           </ul>
         </div>
         <div class="f-contact-col">
@@ -475,7 +475,9 @@
       document.querySelectorAll('a[href="signup.html"]').forEach(btn => {
         btn.href = 'book.html';
         btn.innerText = 'Book an Appointment';
-        btn.style.padding = '0.6rem 1.5rem';
+        if (!btn.closest('.mobile-menu-overlay')) {
+          btn.style.padding = '0.6rem 1.5rem';
+        }
       });
     }
   </script>

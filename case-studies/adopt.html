@@ -370,7 +370,7 @@
               <div class="a-row"><span class="a-label">Breed:</span> <span class="a-val">Cavapoo</span></div>
               <div class="a-row"><span class="a-label">Age:</span> <span class="a-val">8 months</span></div>
             </div>
-            <button class="btn btn-black">Adopt Me</button>
+            <a href="contact.html?dog=Bella" class="btn btn-black" style="text-decoration: none; color: var(--white);">Adopt Me</a>
           </div>
         </div>
         <!-- Card 2 -->
@@ -383,7 +383,7 @@
               <div class="a-row"><span class="a-label">Breed:</span> <span class="a-val">Jack Russell</span></div>
               <div class="a-row"><span class="a-label">Age:</span> <span class="a-val">4 years</span></div>
             </div>
-            <button class="btn btn-black">Adopt Me</button>
+            <a href="contact.html?dog=Max" class="btn btn-black" style="text-decoration: none; color: var(--white);">Adopt Me</a>
           </div>
         </div>
         <!-- Card 3 -->
@@ -396,7 +396,7 @@
               <div class="a-row"><span class="a-label">Breed:</span> <span class="a-val">Tuxedo Cat</span></div>
               <div class="a-row"><span class="a-label">Age:</span> <span class="a-val">1 year</span></div>
             </div>
-            <button class="btn btn-black">Adopt Me</button>
+            <a href="contact.html?dog=Luna" class="btn btn-black" style="text-decoration: none; color: var(--white);">Adopt Me</a>
           </div>
         </div>
         <!-- Card 4 -->
@@ -409,7 +409,7 @@
               <div class="a-row"><span class="a-label">Breed:</span> <span class="a-val">Ragdoll Cat</span></div>
               <div class="a-row"><span class="a-label">Age:</span> <span class="a-val">3 years</span></div>
             </div>
-            <button class="btn btn-black">Adopt Me</button>
+            <a href="contact.html?dog=Milo" class="btn btn-black" style="text-decoration: none; color: var(--white);">Adopt Me</a>
           </div>
         </div>
         <!-- Card 5 -->
@@ -422,7 +422,7 @@
               <div class="a-row"><span class="a-label">Breed:</span> <span class="a-val">Bichon Frise</span></div>
               <div class="a-row"><span class="a-label">Age:</span> <span class="a-val">6 years</span></div>
             </div>
-            <button class="btn btn-black">Adopt Me</button>
+            <a href="contact.html?dog=Charlie" class="btn btn-black" style="text-decoration: none; color: var(--white);">Adopt Me</a>
           </div>
         </div>
         <!-- Card 6 -->
@@ -435,7 +435,7 @@
               <div class="a-row"><span class="a-label">Breed:</span> <span class="a-val">Tabby Cat</span></div>
               <div class="a-row"><span class="a-label">Age:</span> <span class="a-val">4 months</span></div>
             </div>
-            <button class="btn btn-black">Adopt Me</button>
+            <a href="contact.html?dog=Daisy" class="btn btn-black" style="text-decoration: none; color: var(--white);">Adopt Me</a>
           </div>
         </div>
         <!-- Card 7 -->
@@ -448,7 +448,7 @@
               <div class="a-row"><span class="a-label">Breed:</span> <span class="a-val">Beagle</span></div>
               <div class="a-row"><span class="a-label">Age:</span> <span class="a-val">10 months</span></div>
             </div>
-            <button class="btn btn-black">Adopt Me</button>
+            <a href="contact.html?dog=Cooper" class="btn btn-black" style="text-decoration: none; color: var(--white);">Adopt Me</a>
           </div>
         </div>
         <!-- Card 8 -->
@@ -461,7 +461,7 @@
               <div class="a-row"><span class="a-label">Breed:</span> <span class="a-val">Husky</span></div>
               <div class="a-row"><span class="a-label">Age:</span> <span class="a-val">3 years</span></div>
             </div>
-            <button class="btn btn-black">Adopt Me</button>
+            <a href="contact.html?dog=Rocky" class="btn btn-black" style="text-decoration: none; color: var(--white);">Adopt Me</a>
           </div>
         </div>
       </div>
@@ -494,7 +494,7 @@
             <li><a href="case-study-6.html"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>Home</a></li>
             <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>About Us</a></li>
             <li><a href="service.html"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>Services</a></li>
-            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>Contact</a></li>
+            <li><a href="contact.html"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>Contact</a></li>
           </ul>
         </div>
         <div>
@@ -569,7 +569,9 @@
       document.querySelectorAll('a[href="signup.html"]').forEach(btn => {
         btn.href = 'book.html';
         btn.innerText = 'Book an Appointment';
-        btn.style.padding = '0.6rem 1.5rem';
+        if (!btn.closest('.mobile-menu-overlay')) {
+          btn.style.padding = '0.6rem 1.5rem';
+        }
       });
     }
   </script>
