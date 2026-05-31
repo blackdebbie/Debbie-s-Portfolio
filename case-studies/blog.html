@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MailNova AI - Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #050301;
+      --bg-surface: #110A05;
+      --bg-card: #140C08;
+      --border: rgba(255, 107, 0, 0.15);
+      --border-light: rgba(255, 255, 255, 0.05);
+      --primary: #FF6B00;
+      --primary-hover: #FF8533;
+      --text: #F4F0EB;
+      --muted: #A09A95;
+      --font: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background-color: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; overflow-x: hidden; }
+    h1, h2, h3, h4 { font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
+    h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); text-align: center; margin-bottom: 24px; }
+    h2 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 16px; }
+    h3 { font-size: 1.25rem; margin-bottom: 12px; }
+    p { color: var(--muted); }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 100px 0; position: relative; }
+    
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.95rem;
+      text-decoration: none; transition: all 0.2s ease; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); box-shadow: 0 0 20px rgba(255, 107, 0, 0.4); }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; padding: 20px 0;
+      background: rgba(5, 3, 1, 0.8); backdrop-filter: blur(12px); z-index: 100;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 1.25rem; color: #fff; text-decoration: none; }
+    .logo i { color: var(--primary); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--text); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a.active { color: var(--primary); }
+    .nav-links a:hover { color: var(--primary); }
+
+    /* BLOG LAYOUT */
+    .blog-hero-image {
+      width: 100%; height: 320px; object-fit: cover; border-radius: 24px;
+      margin-top: 40px; margin-bottom: 24px;
+    }
+
+    .blog-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 48px; margin-top: 64px; flex-wrap: wrap; gap: 24px;
+    }
+    .blog-header h2 { margin: 0; font-size: 2.5rem; }
+
+    .search-input-wrapper { position: relative; }
+    .search-input-wrapper i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+    .search-input-wrapper input {
+      background: transparent; border: 1px solid var(--border-light); border-radius: 100px;
+      padding: 10px 24px 10px 44px; color: var(--text); width: 280px; font-family: var(--font);
+      outline: none; transition: border-color 0.3s;
+    }
+    .search-input-wrapper input:focus { border-color: rgba(255, 107, 0, 0.5); }
+    
+    .blog-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+    }
+    
+    .blog-main-card img {
+      width: 100%; height: 320px; object-fit: cover; border-radius: 16px; margin-bottom: 24px;
+    }
+    .blog-main-card h3 { font-size: 1.8rem; margin: 12px 0 16px; line-height: 1.3; }
+    .blog-main-card p { font-size: 1.05rem; margin-bottom: 24px; max-width: 95%; }
+
+    .blog-side-cards { display: flex; flex-direction: column; gap: 40px; }
+    .blog-side-card {
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 24px; align-items: start;
+    }
+    .blog-side-card img {
+      width: 100%; height: 220px; object-fit: cover; border-radius: 16px;
+    }
+    .blog-side-card h3 { font-size: 1.4rem; margin: 8px 0 12px; line-height: 1.3; }
+    .blog-side-card p { font-size: 0.95rem; margin-bottom: 16px; line-height: 1.5; }
+
+    .read-more-btn {
+      border: 1px solid rgba(255, 107, 0, 0.3); border-radius: 100px; padding: 8px 20px;
+      font-size: 0.85rem; color: var(--text); text-decoration: none; display: inline-flex;
+      align-items: center; gap: 8px; transition: all 0.2s; font-weight: 500;
+    }
+    .read-more-btn:hover { background: rgba(255, 107, 0, 0.1); border-color: var(--primary); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border-light); padding: 80px 0 40px; margin-top: 100px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px; margin-bottom: 64px; }
+    .footer-col h4 { margin-bottom: 24px; font-size: 1.1rem; color: #fff; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 12px; }
+    .footer-links a { color: var(--muted); text-decoration: none; transition: color 0.2s; font-size: 0.9rem; }
+    .footer-links a:hover { color: var(--primary); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; border-top: 1px solid var(--border-light); color: var(--muted); font-size: 0.9rem; }
+    .social-links { display: flex; gap: 16px; }
+    .social-links a { color: var(--primary); font-size: 1.1rem; transition: background 0.2s, color 0.2s; border: 1px solid var(--primary); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .social-links a:hover { background: var(--primary); color: #fff; }
+    
+    .contact-info { color: var(--muted); font-size: 0.9rem; line-height: 1.8; }
+
+    @media (max-width: 992px) {
+      .blog-grid { grid-template-columns: 1fr; }
+      .blog-header { flex-direction: column; align-items: flex-start; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .blog-side-card { grid-template-columns: 1fr; }
+      .blog-side-card img { height: auto; aspect-ratio: 16/9; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="case-study-3.html" class="logo">
+        <i class="fa-solid fa-envelope-open-text"></i> MailNova AI
+      </a>
+      <ul class="nav-links">
+        <li><a href="case-study-3.html">Home</a></li>
+        <li><a href="feature.html">Feature</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+      </ul>
+      <a href="signup.html" class="btn btn-primary">Get Started</a>
+    </div>
+  </nav>
+
+  <!-- BLOG CONTENT -->
+  <section style="padding-top: 100px;">
+    <div class="container">
+      
+      <!-- Huge Banner Image -->
+      <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=1200&h=400" alt="News Banner" class="blog-hero-image">
+
+      <!-- Header -->
+      <div class="blog-header">
+        <h2>Our Articles</h2>
+        <div style="display: flex; gap: 16px; align-items: center;">
+          <div class="search-input-wrapper">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" placeholder="Search your blog">
+          </div>
+          <button class="btn btn-primary" style="border-radius: 100px; padding: 10px 32px;">Search</button>
+        </div>
+      </div>
+
+      <!-- Blog Grid -->
+      <div class="blog-grid">
+        
+        <!-- Main Card (Left) -->
+        <div class="blog-main-card">
+          <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800&h=500" alt="Hand holding phone">
+          <span style="color: var(--muted); font-size: 0.85rem;">8 Min</span>
+          <h3>AI Moves From Hype To Practical Tools</h3>
+          <p>Experts say 2026 will focus less on just "bigger models" and more on useful AI agents, smaller specialized models, and AI that works reliably in real products.</p>
+          <a href="#" class="read-more-btn">Read more <i class="fa-solid fa-arrow-up-right"></i></a>
+        </div>
+
+        <!-- Side Cards (Right) -->
+        <div class="blog-side-cards">
+          
+          <div class="blog-side-card">
+            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=400&h=400" alt="Multiple phones">
+            <div>
+              <span style="color: var(--muted); font-size: 0.85rem;">8 Min</span>
+              <h3>Big Tech Bets Huge On AI</h3>
+              <p>Google, Microsoft, Meta, Apple and others plan to spend around 600-700 billion dollars on AI infrastructure in 2026, pushing even faster AI growth worldwide.</p>
+              <a href="#" class="read-more-btn">Read more <i class="fa-solid fa-arrow-up-right"></i></a>
+            </div>
+          </div>
+
+          <div class="blog-side-card">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=400&h=400" alt="iPad and laptop">
+            <div>
+              <span style="color: var(--muted); font-size: 0.85rem;">8 Min</span>
+              <h3>Apple Teams Up With Google On AI</h3>
+              <p>Apple is partnering with Google's Gemini models to power the next generation of Siri and other AI features, showing how even rivals now collaborate in AI.</p>
+              <a href="#" class="read-more-btn">Read more <i class="fa-solid fa-arrow-up-right"></i></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="#" class="logo" style="margin-bottom: 24px;">
+            <i class="fa-solid fa-envelope-open-text"></i> MailNova AI
+          </a>
+          <p style="font-size: 0.9rem; margin-bottom: 24px; max-width: 280px;">We help businesses reduce manual work by designing and deploying AI-powered automation that is simple, secure, and built to scale.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Process</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Help</h4>
+          <ul class="footer-links">
+            <li><a href="#">Customer Support</a></li>
+            <li><a href="#">Terms & Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect With Us</h4>
+          <div class="contact-info">
+            <p>2 Saint, New York,<br>NY 10142, USA</p>
+            <p style="margin-top: 16px;">+123 324 2653</p>
+            <p style="margin-top: 16px;">AMD12@mail.com</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2025 All Right Reserved.</div>
+        <div class="social-links">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-google"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

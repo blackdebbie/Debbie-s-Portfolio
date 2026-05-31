@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Silveroak Law Firm - About Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #123940;
+      --bg-light: #F8F9FA;
+      --primary: #A1EDF2;
+      --text-light: #FFFFFF;
+      --text-dark: #1A1A1A;
+      --text-muted: #E0E0E0;
+      --text-muted-dark: #666666;
+      --font: 'Plus Jakarta Sans', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      font-family: var(--font);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-weight: 700; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 4vw, 3.2rem); text-align: center; margin-bottom: 24px; color: var(--text-light); }
+    h2 { font-size: clamp(1.75rem, 3.5vw, 2.2rem); margin-bottom: 16px; }
+    h3 { font-size: 1.1rem; margin-bottom: 12px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 100px 0; }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary { background: var(--primary); color: var(--bg-dark); }
+    .btn-primary:hover { background: #8cd6db; }
+    .btn-dark { background: var(--bg-dark); color: var(--text-light); }
+    .btn-dark:hover { background: #0f2d33; }
+
+    /* NAV */
+    nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      padding: 24px 0;
+      z-index: 100;
+    }
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 64px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--text-light);
+      text-decoration: none;
+    }
+    .logo span { color: var(--primary); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-links a.active { color: var(--primary); font-weight: 700; }
+
+    /* ABOUT HERO */
+    .about-hero {
+      background: var(--bg-dark);
+      text-align: center;
+      color: var(--text-light);
+      padding-top: 200px;
+      padding-bottom: 120px;
+    }
+    .about-hero p {
+      max-width: 800px;
+      margin: 0 auto;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    /* STATS BANNER */
+    .stats-banner {
+      position: relative;
+      margin-top: -60px;
+      z-index: 10;
+    }
+    .stats-box {
+      background: #C4F4F7; /* Light cyan from mockup */
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 0;
+      text-align: center;
+      color: var(--bg-dark);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .stat-item {
+      position: relative;
+    }
+    .stat-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 60%;
+      width: 1px;
+      background: rgba(18, 57, 64, 0.15); /* light dividing line */
+    }
+    .stat-item h2 {
+      font-size: 3rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .stat-item span {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* MISSION VISION */
+    .mission-vision {
+      background: #FFFFFF;
+      padding: 120px 0;
+    }
+    .mv-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .mv-text h2 {
+      font-size: 2.2rem;
+      color: #1A1A1A;
+      margin-bottom: 24px;
+    }
+    .mv-text p {
+      color: #555;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    .mv-img {
+      text-align: center;
+    }
+    .mv-img img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      transform: scale(1.05);
+    }
+    .vision-text {
+      padding-top: 180px; /* offset downwards */
+    }
+    .mission-text {
+      padding-bottom: 180px; /* offset upwards */
+    }
+
+    /* TEAM */
+    .team-section {
+      background: var(--bg-dark);
+      text-align: center;
+      padding: 100px 0;
+      color: var(--text-light);
+    }
+    .team-section h2 {
+      margin-bottom: 64px;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .team-card {
+      background: var(--bg-dark);
+      border-right: 1px solid rgba(255,255,255,0.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .team-card:last-child {
+      border-right: none;
+    }
+    .team-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+    .team-info {
+      padding: 32px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+    .team-info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+    .team-info p {
+      color: #E0E0E0;
+      font-size: 0.85rem;
+      margin-bottom: 24px;
+    }
+    .team-social-wrap {
+      width: 80%;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding-top: 24px;
+    }
+    .team-social {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+    }
+    .team-social a {
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+    }
+    .team-social a:hover {
+      color: var(--primary);
+    }
+    .social-sep {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.8rem;
+    }
+
+    /* TESTIMONIALS (copied from case study 5) */
+    .testimonials {
+      background: #FFFFFF;
+      text-align: center;
+      color: var(--text-dark);
+      padding: 100px 0;
+    }
+    .slider-container {
+      overflow: hidden;
+      max-width: 800px;
+      margin: 48px auto 0;
+      position: relative;
+    }
+    .slider-track {
+      display: flex;
+      animation: slide 15s infinite;
+    }
+    .testimonial-card {
+      background: #FFFFFF;
+      color: var(--text-dark);
+      min-width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 40px;
+    }
+    .test-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 24px;
+    }
+    .test-content h4 { font-size: 1.2rem; margin-bottom: 12px; font-weight: 700; }
+    .test-content p { color: #555; margin-bottom: 24px; line-height: 1.6; font-size: 1rem; }
+    .test-date { font-size: 0.8rem; color: #888; display: block; margin-top: 16px; font-weight: 600;}
+    
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 40px;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; border: 1px solid var(--bg-dark); background: transparent; }
+    .dot:nth-child(1) { animation: dot1-dark 15s infinite; }
+    .dot:nth-child(2) { animation: dot2-dark 15s infinite; }
+    .dot:nth-child(3) { animation: dot3-dark 15s infinite; }
+
+    @keyframes slide {
+      0%, 25% { transform: translateX(0); }
+      33%, 58% { transform: translateX(-100%); }
+      66%, 91% { transform: translateX(-200%); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes dot1-dark {
+      0%, 25% { background: var(--bg-dark); border-color: transparent; }
+      33%, 100% { background: transparent; border-color: var(--bg-dark); }
+    }
+    @keyframes dot2-dark {
+      0%, 25% { background: transparent; border-color: var(--bg-dark); }
+      33%, 58% { background: var(--bg-dark); border-color: transparent; }
+      66%, 100% { background: transparent; border-color: var(--bg-dark); }
+    }
+    @keyframes dot3-dark {
+      0%, 58% { background: transparent; border-color: var(--bg-dark); }
+      66%, 91% { background: var(--bg-dark); border-color: transparent; }
+      100% { background: transparent; border-color: var(--bg-dark); }
+    }
+
+    /* CTA SECTION */
+    .cta {
+      background: #FFFFFF;
+      padding: 80px 24px;
+    }
+    .cta-inner {
+      max-width: 1128px;
+      margin: 0 auto;
+      background-color: var(--bg-dark);
+      background-image: url('case-studies/Group 1948754963.png');
+      background-size: cover;
+      background-position: center;
+      padding: 100px 24px;
+      text-align: center;
+      color: var(--text-light);
+      position: relative;
+    }
+    .cta span {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      display: block;
+      color: var(--text-muted);
+    }
+    .cta h2 {
+      font-size: 2.5rem;
+      margin-bottom: 24px;
+    }
+    .cta p {
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      font-size: 1rem;
+    }
+    .cta-form {
+      display: flex;
+      max-width: 500px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      padding: 6px;
+      border-radius: 4px;
+    }
+    .cta-form input {
+      flex: 1;
+      border: none;
+      padding: 0 16px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .cta-bg {
+      display: none;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      padding: 80px 0 40px;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 64px;
+    }
+    .footer-col h4 { font-size: 0.95rem; margin-bottom: 24px; color: #FFFFFF; font-weight: 600; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 16px; }
+    .footer-col a { color: #E0E0E0; text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--primary); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 50%; border: 1px solid #FFFFFF;
+      color: #FFFFFF; text-decoration: none; transition: all 0.2s;
+    }
+    .footer-social a:hover { background: #FFFFFF; color: var(--bg-dark); }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+      .stats-grid, .mv-grid, .team-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+      .vision-text, .mission-text { padding: 0; }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .footer-bottom { flex-direction: column; gap: 24px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .cta-form { flex-direction: column; background: transparent; padding: 0; gap: 16px; }
+      .cta-form input { padding: 16px; border-radius: 4px; }
+      .cta-form .btn { width: 100%; padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        <img src="case-studies/Group 2.png" alt="Silveroak Logo" style="height: 48px;">
+      </a>
+      <ul class="nav-links">
+        <li><a href="case-studies/case-study-5.html">Home</a></li>
+        <li><a href="about.html" class="active">About Us</a></li>
+        <li><a href="practice.html">Practice</a></li>
+        <li><a href="blog.html">Blogs</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <a href="consultation.html" class="btn btn-primary">Book a Consultation</a>
+    </div>
+  </nav>
+
+  <!-- ABOUT HERO -->
+  <section class="about-hero">
+    <div class="container">
+      <h1>About our Firm</h1>
+      <p>We are a full-service law firm dedicated to protecting the interests of individuals and businesses. With years of experience in corporate, family, criminal, property, and immigration law, we combine deep legal knowledge with a client-centered approach.</p>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats-banner" style="padding: 0;">
+    <div class="container">
+      <div class="stats-box">
+        <div class="stat-item">
+          <h2>1M+</h2>
+          <span>CLIENT ACCOUNTS</span>
+        </div>
+        <div class="stat-item">
+          <h2>148+</h2>
+          <span>CLIENT COUNTRIES</span>
+        </div>
+        <div class="stat-item">
+          <h2>24</h2>
+          <span>INTERNS/YEAR</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION VISION -->
+  <section class="mission-vision">
+    <div class="container mv-grid">
+      <div class="mv-text mission-text">
+        <h2>Our Mission</h2>
+        <p>Our mission is simple: to provide trusted, strategic and transparent legal representation. We aim to empower our clients with knowledge, guide them through the legal process, and achieve results that protect their rights and interests.</p>
+      </div>
+      <div class="mv-img">
+        <img src="case-studies/unsplash_L4YGuSg0fxs.png" alt="Innovation Works Book">
+      </div>
+      <div class="mv-text vision-text">
+        <h2>Our Vision</h2>
+        <p>To be recognized as a leading law firm that combines professionalism, innovation, and integrity, setting the standard for legal excellence locally and globally.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team-section">
+    <div class="container">
+      <h2>Meet Our Lawyers</h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <img src="case-studies/Link.png" alt="Elle Woods">
+          <div class="team-info">
+            <h3>Elle Woods</h3>
+            <p>Commercial Lawyer</p>
+            <div class="team-social-wrap">
+              <div class="team-social">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <span class="social-sep">|</span>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <span class="social-sep">|</span>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <span class="social-sep">|</span>
+                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="team-card">
+          <img src="case-studies/Link (1).png" alt="Emmett Richmond">
+          <div class="team-info">
+            <h3>Emmett Richmond</h3>
+            <p>IP Lawyer</p>
+            <div class="team-social-wrap">
+              <div class="team-social">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <span class="social-sep">|</span>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <span class="social-sep">|</span>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <span class="social-sep">|</span>
+                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="team-card">
+          <img src="case-studies/Link (2).png" alt="Vivian Kensington">
+          <div class="team-info">
+            <h3>Vivian Kensington</h3>
+            <p>Family Lawyer</p>
+            <div class="team-social-wrap">
+              <div class="team-social">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <span class="social-sep">|</span>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <span class="social-sep">|</span>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <span class="social-sep">|</span>
+                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="team-card">
+          <img src="case-studies/Link (3).png" alt="Warner Huntington III">
+          <div class="team-info">
+            <h3>Warner Huntington III</h3>
+            <p>CriminalLawyer</p>
+            <div class="team-social-wrap">
+              <div class="team-social">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <span class="social-sep">|</span>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <span class="social-sep">|</span>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <span class="social-sep">|</span>
+                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="container">
+      <h2>What Our Clients Say<br>About Us</h2>
+      
+      <div class="slider-container">
+        <div class="slider-track">
+          <!-- Slide 1 -->
+          <div class="testimonial-card">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200&h=200&crop=faces" alt="Hannah Schmitt" class="test-img">
+            <div class="test-content">
+              <h4>Hannah Schmitt</h4>
+              <p>The team provided incredible support during a very difficult time for my family. Their compassionate approach combined with fierce advocacy gave me the peace of mind I needed to move forward.</p>
+              <span class="test-date">Feb 18, 2026</span>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="testimonial-card">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=200&h=200&crop=faces" alt="Sarah Jenkins" class="test-img">
+            <div class="test-content">
+              <h4>Sarah Jenkins</h4>
+              <p>Outstanding service from start to finish. They broke down complex legal jargon into plain language and kept me informed at every stage of the process. I highly recommend Silveroak.</p>
+              <span class="test-date">Mar 02, 2026</span>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="testimonial-card">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&h=200&q=80&crop=faces" alt="Michael Ross" class="test-img">
+            <div class="test-content">
+              <h4>Michael Ross</h4>
+              <p>They handled our commercial contract dispute with precision and expertise. Their strategic approach protected our business interests and resolved the matter efficiently. We couldn't have asked for better representation.</p>
+              <span class="test-date">Apr 14, 2026</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="slider-dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="cta-bg"></div>
+    <div class="container cta-inner">
+      <span>HOW CAN WE HELP?</span>
+      <h2>Get a Free Consultation</h2>
+      <p>Contact our legal team today for a confidential consultation.</p>
+      
+      <div class="cta-form">
+        <input type="email" placeholder="Email address">
+        <button type="button" class="btn btn-dark">Get Started</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="margin-bottom: 24px; display: flex; align-items: center; gap: 8px;">
+            <img src="case-studies/Group 2.png" alt="Silveroak Logo" style="height: 48px;">
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Case Study</a></li>
+            <li><a href="#">Leagal</a></li>
+            <li><a href="#">Case Study</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">Customer Support</a></li>
+            <li><a href="#">Terms & Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Connect With Us</h4>
+          <ul>
+            <li style="color: #E0E0E0;">2 Saint, New York,<br>NY 10142, USA</li>
+            <li style="color: #E0E0E0; margin-top: 24px;">+123 324 2653</li>
+            <li style="color: #E0E0E0;">AMD12@mail.com</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p style="color: #E0E0E0;">&copy; 2026 All Right Reserved by Deborah.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-google"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

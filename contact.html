@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Silveroak Law Firm - Contact Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #123940;
+      --bg-light: #F8F9FA;
+      --primary: #A1EDF2;
+      --text-light: #FFFFFF;
+      --text-dark: #1A1A1A;
+      --text-muted: #E0E0E0;
+      --text-muted-dark: #666666;
+      --font: 'Plus Jakarta Sans', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      font-family: var(--font);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-weight: 700; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 4vw, 3.2rem); text-align: center; margin-bottom: 24px; color: var(--text-light); }
+    h2 { font-size: clamp(1.75rem, 3.5vw, 2.2rem); margin-bottom: 16px; }
+    h3 { font-size: 1.1rem; margin-bottom: 12px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 100px 0; }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary { background: var(--primary); color: var(--bg-dark); }
+    .btn-primary:hover { background: #8cd6db; }
+    .btn-dark { background: var(--bg-dark); color: var(--text-light); }
+    .btn-dark:hover { background: #0f2d33; }
+
+    /* NAV */
+    nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      padding: 24px 0;
+      z-index: 100;
+    }
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 64px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--text-light);
+      text-decoration: none;
+    }
+    .logo span { color: var(--primary); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-links a.active { color: var(--primary); font-weight: 700; }
+
+    /* CONTACT HERO */
+    .contact-hero {
+      background: var(--bg-dark);
+      text-align: center;
+      color: var(--text-light);
+      padding-top: 180px;
+      padding-bottom: 120px;
+    }
+    .contact-hero h1 { margin-bottom: 16px; }
+    .contact-hero p {
+      max-width: 600px;
+      margin: 0 auto;
+      color: var(--text-light);
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    /* CONTACT MAIN */
+    .contact-main {
+      background: #FFFFFF;
+      padding: 100px 0;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      max-width: 1060px;
+      margin: 0 auto;
+      align-items: start;
+    }
+    
+    .contact-map {
+      width: 100%;
+      height: 600px;
+      background: #EAEAEA;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-group label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 14px 16px;
+      border: 1px solid #DDDDDD;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+      background: #FFFFFF;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--primary);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 140px;
+    }
+    
+    /* Select specific styling to hide default arrow and use custom styling if desired, but native is fine */
+    .form-group select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat, repeat;
+      background-position: right .7em top 50%, 0 0;
+      background-size: .65em auto, 100%;
+    }
+
+    .form-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      cursor: pointer;
+    }
+    .form-checkbox input {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    
+    .btn-submit {
+      background: var(--primary);
+      color: var(--bg-dark);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: background 0.2s;
+    }
+    .btn-submit:hover {
+      background: #8cd6db;
+    }
+
+    /* CTA SECTION */
+    .cta { background: #FFFFFF; padding: 80px 24px; }
+    .cta-inner {
+      max-width: 1128px;
+      margin: 0 auto;
+      background-color: var(--bg-dark);
+      background-image: url('case-studies/Group 1948754963.png');
+      background-size: cover;
+      background-position: center;
+      padding: 100px 24px;
+      text-align: center;
+      color: var(--text-light);
+      position: relative;
+    }
+    .cta span { font-size: 0.75rem; font-weight: 400; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; display: block; color: var(--text-muted); }
+    .cta h2 { font-size: 2.2rem; font-weight: 600; margin-bottom: 24px; }
+    .cta p { color: var(--text-muted); margin-bottom: 40px; font-size: 0.95rem; font-weight: 300; }
+    .cta-form { display: flex; max-width: 500px; margin: 0 auto; background: #FFFFFF; padding: 6px; border-radius: 4px; }
+    .cta-form input { flex: 1; border: none; padding: 0 16px; font-family: inherit; font-size: 0.95rem; outline: none; }
+    .cta-form .btn { font-size: 0.85rem; font-weight: 500; }
+
+    /* FOOTER */
+    footer { background: var(--bg-dark); color: var(--text-light); padding: 80px 0 40px; font-size: 0.9rem; text-align: left; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 64px; }
+    .footer-col h4 { font-size: 0.95rem; margin-bottom: 24px; color: #FFFFFF; font-weight: 600; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 16px; }
+    .footer-col a { color: #E0E0E0; text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--primary); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.2); }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; border: 1px solid #FFFFFF; color: #FFFFFF; text-decoration: none; transition: all 0.2s; }
+    .footer-social a:hover { background: #FFFFFF; color: var(--bg-dark); }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .contact-map { height: 400px; }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .footer-bottom { flex-direction: column; gap: 24px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .form-row { grid-template-columns: 1fr; gap: 24px; }
+      .cta-form { flex-direction: column; background: transparent; padding: 0; gap: 16px; }
+      .cta-form input { padding: 16px; border-radius: 4px; }
+      .cta-form .btn { width: 100%; padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        <img src="case-studies/Group 2.png" alt="Silveroak Logo" style="height: 48px;">
+      </a>
+      <ul class="nav-links">
+        <li><a href="case-studies/case-study-5.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="practice.html">Practice</a></li>
+        <li><a href="blog.html">Blogs</a></li>
+        <li><a href="contact.html" class="active">Contact Us</a></li>
+      </ul>
+      <a href="consultation.html" class="btn btn-primary">Book a Consultation</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="contact-hero">
+    <div class="container">
+      <h1>Get in Touch with Our Legal Team</h1>
+      <p>Have a question or need legal guidance? Our experienced team is ready to assist you. Reach out today for a confidential consultation.</p>
+    </div>
+  </header>
+
+  <!-- CONTACT SECTION -->
+  <div class="contact-main">
+    <div class="container">
+      <div class="contact-grid">
+        
+        <!-- MAP -->
+        <div class="contact-map">
+          <img src="case-studies/5.png" alt="Location Map" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+
+        <!-- FORM -->
+        <form class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First name</label>
+              <input type="text" id="fname" name="fname">
+            </div>
+            <div class="form-group">
+              <label for="lname">Last name</label>
+              <input type="text" id="lname" name="lname">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone number</label>
+              <input type="tel" id="phone" name="phone">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="topic">Legal consultation topic</label>
+            <select id="topic" name="topic">
+              <option value="" disabled selected>Select service</option>
+              <option value="corporate">Corporate Law</option>
+              <option value="family">Family Law</option>
+              <option value="criminal">Criminal Defense</option>
+              <option value="property">Property Law</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message"></textarea>
+          </div>
+          
+          <label class="form-checkbox">
+            <input type="checkbox" name="terms" required>
+            I accept the terms of consultation
+          </label>
+          
+          <button type="submit" class="btn-submit">Submit</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container cta-inner">
+      <span>HOW CAN WE HELP?</span>
+      <h2>Get a Free Consultation</h2>
+      <p>Contact our legal team today for a confidential consultation.</p>
+      
+      <div class="cta-form">
+        <input type="email" placeholder="Email address">
+        <button type="button" class="btn btn-dark">Get Started</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="margin-bottom: 24px; display: flex; align-items: center; gap: 8px;">
+            <img src="case-studies/Group 2.png" alt="Silveroak Logo" style="height: 48px;">
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="case-studies/case-study-5.html">Case Study</a></li>
+            <li><a href="#">Leagal</a></li>
+            <li><a href="case-studies/case-study-5.html">Case Study</a></li>
+            <li><a href="blog.html">Blog</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">Customer Support</a></li>
+            <li><a href="#">Terms & Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Connect With Us</h4>
+          <ul>
+            <li style="color: #E0E0E0;">2 Saint, New York,<br>NY 10142, USA</li>
+            <li style="color: #E0E0E0; margin-top: 24px;">+123 324 2653</li>
+            <li style="color: #E0E0E0;">AMD12@mail.com</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p style="color: #E0E0E0;">&copy; 2026 All Right Reserved by Deborah.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-google"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

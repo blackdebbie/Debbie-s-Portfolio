@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Life - Pet Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Irish+Grover&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  <style>
+    :root {
+      --bg: #FEF8F0; /* Warmer beige to match image */
+      --text: #111111;
+      --text-muted: #555555;
+      --primary: #EAB308; /* Closer to the yellow in the image */
+      --secondary: #D95926; /* Darker orange for the cat shape */
+      --blue: #3B82F6;
+      --green: #22C55E;
+      --white: #FFFFFF;
+      --black: #000000;
+      --font: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem 1.8rem;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      gap: 0.5rem;
+    }
+    .btn-black { background: var(--black); color: var(--white); }
+    .btn-black:hover { background: #333; }
+    .btn-ghost { background: transparent; color: var(--black); border: none; font-weight: 700; padding: 0.8rem 1rem; }
+    .btn-ghost:hover { opacity: 0.7; }
+
+    /* Nav */
+    .nav-pill {
+      background: var(--white);
+      border-radius: 100px;
+      padding: 0.5rem 1.5rem; /* Reduced height */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4rem;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+    }
+    .nav-left { 
+      display: flex; 
+      align-items: center; 
+      gap: 0.6rem; 
+      font-family: 'Irish Grover', cursive; /* Apply Irish Grover font */
+      font-size: 1.6rem; 
+      color: var(--black);
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { color: #777777; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a.active { color: var(--black); }
+
+    /* Hero */
+    @keyframes rotateIn {
+      from { transform: scale(0.3) rotate(-15deg); opacity: 0; }
+      to { transform: scale(1) rotate(0); opacity: 1; }
+    }
+    
+    .hero {
+      padding: 2rem 1rem 6rem max(2rem, calc((100% - 1200px) / 2 + 2rem));
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      overflow-x: hidden;
+    }
+    .hero-text {
+      flex: 1;
+      max-width: 550px;
+    }
+    .hero-text h1 {
+      font-size: clamp(2.5rem, 4vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.02em;
+    }
+    .hero-text p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+      font-weight: 500;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 1.5rem; align-items: center; }
+    .hero-visual {
+      position: relative;
+      flex: 1;
+      height: 500px;
+      perspective: 1000px;
+    }
+    .slide {
+      position: absolute;
+      top: 50%;
+      width: 320px; 
+      height: 480px;
+      border-radius: 160px; /* Full pill shape */
+      background: var(--bg-color);
+      overflow: hidden;
+      transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+      right: -150px;
+      transform: translateY(-50%) scale(0.5);
+      opacity: 0;
+      z-index: 1;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+    .slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .slide.active {
+      z-index: 3;
+      right: 320px; /* Pushed left to create a gap */
+      transform: translateY(-50%) scale(1);
+      opacity: 1;
+    }
+    .slide.next {
+      z-index: 2;
+      right: -40px; /* Pushed right to create a gap */
+      transform: translateY(-68%) scale(0.75); /* Shifted up so it sits higher */
+      opacity: 1;
+    }
+    .slide.prev {
+      z-index: 4;
+      right: 550px; /* Slides further out to the left */
+      transform: translateY(-50%) scale(1.1);
+      opacity: 0;
+    }
+
+    /* Strip */
+    .strip {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 2rem 0;
+      flex-wrap: wrap;
+      overflow: hidden;
+    }
+    .strip-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      background: var(--white);
+      padding: 0.6rem 1.2rem;
+      border-radius: 100px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* Service Cards */
+    .services {
+      padding: 6rem 0;
+      text-align: center;
+    }
+    .section-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.2; }
+    .section-subtitle { color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; display: block; }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+      margin-top: 3rem;
+    }
+    .service-card {
+      background: var(--white);
+      padding: 3rem 2rem;
+      border-radius: 24px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.02);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+    }
+    .s-icon {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.8rem;
+      color: var(--white);
+    }
+    .service-card h3 { font-size: 1.25rem; margin-bottom: 1rem; }
+    .service-card p { 
+      color: var(--text-muted); 
+      font-size: 0.95rem; 
+      line-height: 1.6;
+      margin-bottom: 2rem; 
+      flex-grow: 1; /* Pushes the button to the bottom uniformly */
+    }
+    .service-card .btn {
+      width: 100%;
+      max-width: 180px; /* Makes all buttons identically sized */
+      text-align: center;
+      padding: 0.9rem 0; /* Uniform padding */
+    }
+
+    /* Features */
+    .features {
+      padding: 6rem 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .f-img {
+      position: relative;
+    }
+    .f-img img {
+      width: 100%;
+      max-width: 400px;
+      display: block;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    .blob {
+      position: absolute;
+      background: #FDF3E3;
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .f-content h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 2.5rem; line-height: 1.2; }
+    .f-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+    }
+    .f-item { display: flex; align-items: center; gap: 1rem; font-weight: 600; }
+    .f-icon {
+      width: 40px; height: 40px; background: var(--black); color: var(--white);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Pets Grid */
+    .pets { padding: 6rem 0; text-align: center; }
+    .pets-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+      margin-top: 3rem; margin-bottom: 3rem;
+    }
+    .pet-card {
+      aspect-ratio: 1;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+    }
+    .pet-tag {
+      position: absolute;
+      bottom: 1.5rem; left: 1.5rem;
+      background: rgba(255,255,255,0.9);
+      padding: 0.5rem 0;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      width: 140px; /* Makes all name buttons exactly the same wider width */
+      text-align: center;
+    }
+
+    /* Shop */
+    .shop { padding: 6rem 0; }
+    .shop-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+    .shop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+    .shop-card {
+      background: var(--white);
+      padding: 3rem 2rem 3rem 2rem;
+      border-radius: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    }
+    .shop-img {
+      background: #F8F8F8;
+      height: 250px;
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 4rem;
+    }
+    .shop-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; display: block; }
+    .shop-card .btn { width: 65%; margin: 0 auto; display: block; padding: 0.9rem 2rem; border-radius: 100px; font-weight: 500; font-size: 0.95rem; text-align: center; }
+
+    /* Vets */
+    .vets { padding: 6rem 0; text-align: center; }
+    .vets-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .vet-card {
+      aspect-ratio: 1;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+    }
+    .vet-tag {
+      position: absolute;
+      bottom: 1.5rem; left: 1.5rem; right: 1.5rem;
+      background: var(--white);
+      padding: 0.6rem 0.8rem 0.6rem 1.2rem;
+      border-radius: 16px;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .vet-info { display: flex; flex-direction: column; text-align: left; }
+    .vet-name { font-weight: 700; font-size: 1.05rem; color: var(--black); }
+    .vet-title { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.1rem; font-weight: 500; }
+    .vet-arrow {
+      width: 36px; height: 36px;
+      background: var(--black);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white);
+      font-size: 1.1rem;
+    }
+
+    /* Testimonials */
+    .testimonials { padding: 6rem 0; text-align: center; overflow: hidden; }
+    .t-slider-container {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      padding: 3rem 0; /* Space for overlapping quote icons */
+      overflow: hidden;
+    }
+    .t-track {
+      display: flex;
+      gap: 2rem;
+      width: max-content;
+      animation: slide-scroll 25s linear infinite;
+    }
+    @keyframes slide-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-50% - 1rem)); }
+    }
+    .t-track:hover {
+      animation-play-state: paused;
+    }
+    .t-card {
+      width: 380px;
+      flex-shrink: 0;
+      background: var(--white);
+      padding: 3rem 2rem 2rem 2rem;
+      border-radius: 8px;
+      text-align: left;
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+    .quote-icon {
+      position: absolute;
+      top: -24px;
+      left: 32px;
+      width: 48px;
+      height: 48px;
+      background: var(--black);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .stars { color: #FDBF7E; margin-bottom: 1rem; font-size: 1.2rem; }
+    .t-card p { color: var(--text-muted); line-height: 1.7; margin-bottom: 2rem; font-size: 0.95rem; }
+    .t-user { display: flex; align-items: center; gap: 1rem; }
+    .t-user img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+    .t-user h4 { margin: 0; font-size: 1rem; font-weight: 600; color: var(--black); }
+
+    /* Footer */
+    footer {
+      background: var(--black);
+      color: var(--white);
+      border-radius: 24px;
+      padding: 4rem 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem;
+      margin-bottom: 4rem;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: bold; font-size: 2.2rem; margin-bottom: 1rem; font-family: 'Irish Grover', cursive; }
+    .footer-desc { color: #A1A1AA; font-size: 0.9rem; margin-bottom: 2rem; max-width: 320px; line-height: 1.7; }
+    .socials { display: flex; gap: 1rem; }
+    .social { width: 36px; height: 36px; background: var(--white); color: #F97316; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: opacity 0.2s; font-size: 1.1rem; }
+    .social:hover { opacity: 0.8; }
+    .f-title { font-weight: 600; margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .f-links { list-style: none; }
+    .f-links li { margin-bottom: 0.8rem; }
+    .f-links a { color: #A1A1AA; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; display: flex; align-items: center; }
+    .f-links a:hover { color: var(--white); }
+    .f-contact li { display: flex; align-items: center; gap: 1rem; color: #A1A1AA; font-size: 0.95rem; margin-bottom: 1.2rem; }
+    .f-contact iconify-icon { color: #F97316; font-size: 1.3rem; }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero, .features, .services-grid, .pets-grid, .shop-grid, .vets-grid, .t-grid, .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .pill-shape { right: 0; }
+      .circle-shape { right: -50px; }
+      .nav-links { display: none; }
+      .shop-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+  </style>
+  <style>
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      will-change: opacity, transform;
+    }
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" style="padding-top: 2rem;">
+    <nav class="nav-pill">
+      <div class="nav-left">
+        <img src="pet hub logo.png" alt="Pet Hub Logo" style="height: 56px; width: auto;">
+        Pet Hub
+      </div>
+      <ul class="nav-links">
+        <li><a href="case-study-6.html" class="active">Home</a></li>
+        <li><a href="service.html">Service</a></li>
+        <li><a href="adopt.html">Adopt</a></li>
+        <li><a href="grooming.html">Grooming</a></li>
+        <li><a href="store.html">Store</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <a href="signup.html" class="btn btn-black" style="padding: 0.6rem 3rem;">Sign Up</a>
+    </nav>
+  </div>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Find Your Perfect<br>Companion.</h1>
+      <p>Browse trusted listings, shop essentials with confidence,<br>and book expert care whenever you need it all designed<br>to make every decision easier and safer.</p>
+      <div class="hero-actions">
+        <a href="book.html" class="btn btn-black" style="box-shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 1.1rem 2.2rem;">Book an Appointment</a>
+        <a href="contact.html" class="btn btn-ghost" style="padding: 1.1rem 2.2rem;"><iconify-icon icon="ph:phone-fill" style="font-size: 1.2rem; margin-right: 0.3rem;"></iconify-icon> Contact Us</a>
+      </div>
+    </div>
+    <div class="hero-visual" id="hero-slider">
+      <div class="slide active" style="--bg-color: var(--primary);">
+        <img src="https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?auto=format&fit=crop&q=80&w=800" alt="Pug">
+      </div>
+      <div class="slide next" style="--bg-color: var(--secondary);">
+        <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=400" alt="Cat">
+      </div>
+      <div class="slide hidden" style="--bg-color: var(--blue);">
+        <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=400" alt="Dog">
+      </div>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div class="strip-pill"><iconify-icon icon="ph:syringe-fill" style="color: var(--secondary); font-size: 1.1rem;"></iconify-icon> Vaccination</div>
+    <div class="strip-pill"><iconify-icon icon="ph:pill-fill" style="color: var(--green); font-size: 1.1rem;"></iconify-icon> prescription</div>
+    <div class="strip-pill"><iconify-icon icon="ph:first-aid-kit-fill" style="color: #EF4444; font-size: 1.1rem;"></iconify-icon> Emergency care</div>
+    <div class="strip-pill"><iconify-icon icon="ph:scissors-fill" style="color: var(--blue); font-size: 1.1rem;"></iconify-icon> Surgery</div>
+    <div class="strip-pill"><iconify-icon icon="ph:tooth-fill" style="color: var(--primary); font-size: 1.1rem;"></iconify-icon> Dental cleaning</div>
+    <div class="strip-pill"><iconify-icon icon="ph:bug-fill" style="color: #1E3A8A; font-size: 1.1rem;"></iconify-icon> Flea and tick treatment</div>
+    <div class="strip-pill"><iconify-icon icon="ph:test-tube-fill" style="color: #14B8A6; font-size: 1.1rem;"></iconify-icon> Diagnostic tests</div>
+    <div class="strip-pill"><iconify-icon icon="ph:bathtub-fill" style="color: #D946EF; font-size: 1.1rem;"></iconify-icon> Bathing</div>
+  </div>
+
+  <div class="container">
+    <section class="services">
+      <span class="section-subtitle">Services We Provide</span>
+      <h2 class="section-title">We bring trusted pet services<br>right to your doorstep.</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="s-icon" style="background: var(--blue);"><iconify-icon icon="ph:paw-print"></iconify-icon></div>
+          <h3>Find a Pet</h3>
+          <p>Looking for a furry friend? Browse our listings of pets waiting for a loving home.</p>
+          <a href="#" class="btn btn-black">Adopt a Pet</a>
+        </div>
+        <div class="service-card">
+          <div class="s-icon" style="background: var(--green);"><iconify-icon icon="ph:stethoscope"></iconify-icon></div>
+          <h3>Health Care</h3>
+          <p>Connect with expert veterinarians for regular checkups, vaccinations, and emergencies.</p>
+          <a href="book.html" class="btn btn-black">Book a Vet</a>
+        </div>
+        <div class="service-card">
+          <div class="s-icon" style="background: var(--secondary);"><iconify-icon icon="ph:bone"></iconify-icon></div>
+          <h3>Quality Food</h3>
+          <p>Shop premium pet food, accessories, and daily essentials delivered to your door.</p>
+          <a href="#" class="btn btn-black">Shop Essentials</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="f-img">
+        <img src="Group 1948754952.png" alt="Why Choose Us" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+      </div>
+      <div class="f-content">
+        <span class="section-subtitle">Why Choose Us</span>
+        <h2>Premium care for pets, simplified for you</h2>
+        <div class="f-grid">
+          <div class="f-item"><div class="f-icon"><iconify-icon icon="ph:check"></iconify-icon></div> Fast Checkout</div>
+          <div class="f-item"><div class="f-icon"><iconify-icon icon="ph:headphones"></iconify-icon></div> 24/7 Support</div>
+          <div class="f-item"><div class="f-icon"><iconify-icon icon="ph:shield-check"></iconify-icon></div> Safe Delivery</div>
+          <div class="f-item"><div class="f-icon"><iconify-icon icon="ph:arrow-u-up-left"></iconify-icon></div> Guaranteed Returns</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pets">
+      <span class="section-subtitle">Meet Our Pets</span>
+      <h2 class="section-title">Adopt a loving pet and give them<br>a forever home</h2>
+      <div class="pets-grid">
+        <div class="pet-card" style="background-image: url('https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600');">
+          <span class="pet-tag">Milo</span>
+        </div>
+        <div class="pet-card" style="background-image: url('https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600');">
+          <span class="pet-tag">Bella</span>
+        </div>
+        <div class="pet-card" style="background-image: url('https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&q=80&w=600');">
+          <span class="pet-tag">Charlie</span>
+        </div>
+        <div class="pet-card" style="background-image: url('https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&q=80&w=600');">
+          <span class="pet-tag">Leo</span>
+        </div>
+        <div class="pet-card" style="background-image: url('https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&q=80&w=600');">
+          <span class="pet-tag">Luna</span>
+        </div>
+        <div class="pet-card" style="background-image: url('https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=600');">
+          <span class="pet-tag">Max</span>
+        </div>
+      </div>
+      <a href="#" class="btn btn-black" style="padding: 0.6rem 3rem;">Adopt me</a>
+    </section>
+
+    <section class="shop">
+      <div class="shop-header">
+        <div>
+          <span class="section-subtitle">Premium Products</span>
+          <h2 class="section-title" style="margin-bottom:0;">Shop food, accessories, and<br>daily essentials.</h2>
+        </div>
+        <a href="#" class="btn btn-black">View All</a>
+      </div>
+      <div class="shop-grid">
+        <div class="shop-card">
+          <div class="shop-img">
+            <img src="Frame 2147224721.png" alt="Premium Product">
+          </div>
+          <button class="btn btn-black">Buy now</button>
+        </div>
+        <div class="shop-card">
+          <div class="shop-img">
+            <img src="Frame 2147224721 (1).png" alt="Premium Product">
+          </div>
+          <button class="btn btn-black">Buy now</button>
+        </div>
+        <div class="shop-card">
+          <div class="shop-img">
+            <img src="Frame 2147224721 (2).png" alt="Premium Product">
+          </div>
+          <button class="btn btn-black">Buy now</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="vets">
+      <span class="section-subtitle">Our Experts</span>
+      <h2 class="section-title">Meet Our Expert Vets</h2>
+      <div class="vets-grid">
+        <div class="vet-card" style="background-image: url('Frame 2147224708 (1).png');">
+          <div class="vet-tag">
+            <div class="vet-info">
+              <div class="vet-name">Dr. Sarah</div>
+              <div class="vet-title">Vet</div>
+            </div>
+            <div class="vet-arrow"><iconify-icon icon="ph:arrow-right"></iconify-icon></div>
+          </div>
+        </div>
+        <div class="vet-card" style="background-image: url('Frame 2147224708 (2).png');">
+          <div class="vet-tag">
+            <div class="vet-info">
+              <div class="vet-name">Dr. Mark</div>
+              <div class="vet-title">Vet</div>
+            </div>
+            <div class="vet-arrow"><iconify-icon icon="ph:arrow-right"></iconify-icon></div>
+          </div>
+        </div>
+        <div class="vet-card" style="background-image: url('Frame 2147224709.png');">
+          <div class="vet-tag">
+            <div class="vet-info">
+              <div class="vet-name">Dr. Emily</div>
+              <div class="vet-title">Vet</div>
+            </div>
+            <div class="vet-arrow"><iconify-icon icon="ph:arrow-right"></iconify-icon></div>
+          </div>
+        </div>
+        <div class="vet-card" style="background-image: url('Frame 2147224709 (1).png');">
+          <div class="vet-tag">
+            <div class="vet-info">
+              <div class="vet-name">Dr. James</div>
+              <div class="vet-title">Vet</div>
+            </div>
+            <div class="vet-arrow"><iconify-icon icon="ph:arrow-right"></iconify-icon></div>
+          </div>
+        </div>
+        <div class="vet-card" style="background-image: url('Frame 2147224710.png');">
+          <div class="vet-tag">
+            <div class="vet-info">
+              <div class="vet-name">Dr. Lisa</div>
+              <div class="vet-title">Vet</div>
+            </div>
+            <div class="vet-arrow"><iconify-icon icon="ph:arrow-right"></iconify-icon></div>
+          </div>
+        </div>
+        <div class="vet-card" style="background-image: url('Frame 2147224710 (1).png');">
+          <div class="vet-tag">
+            <div class="vet-info">
+              <div class="vet-name">Dr. David</div>
+              <div class="vet-title">Vet</div>
+            </div>
+            <div class="vet-arrow"><iconify-icon icon="ph:arrow-right"></iconify-icon></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials">
+      <span class="section-subtitle">Testimonials</span>
+      <h2 class="section-title">Why Pet Owners Choose Us</h2>
+      
+      <div class="t-slider-container">
+        <div class="t-track">
+          <!-- Card 1 -->
+          <div class="t-card">
+            <div class="quote-icon"><iconify-icon icon="ph:quotes-fill"></iconify-icon></div>
+            <div class="stars">★★★★★</div>
+            <p>"Pet Hub is absolutely fantastic! The veterinary team is highly skilled, and the premium pet food has completely transformed my dog's energy levels."</p>
+            <div class="t-user">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&crop=faces&q=80&w=100&h=100" alt="Serhiy">
+              <h4>Serhiy Hipskyy</h4>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="t-card">
+            <div class="quote-icon"><iconify-icon icon="ph:quotes-fill"></iconify-icon></div>
+            <div class="stars">★★★★★</div>
+            <p>"I wouldn't trust my furry friends with anyone else. Their facility is state-of-the-art, and the staff treats every single pet like their own family."</p>
+            <div class="t-user">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&crop=faces&q=80&w=100&h=100" alt="Justus">
+              <h4>Justus Menke</h4>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="t-card">
+            <div class="quote-icon"><iconify-icon icon="ph:quotes-fill"></iconify-icon></div>
+            <div class="stars">★★★★★</div>
+            <p>"From routine checkups to finding the perfect accessories, they provide top-tier service. It’s incredibly convenient having everything under one roof."</p>
+            <div class="t-user">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&crop=faces&q=80&w=100&h=100" alt="Britain">
+              <h4>Britain Eriksen</h4>
+            </div>
+          </div>
+          
+          <!-- Duplicated for infinite scroll -->
+          <!-- Card 1 -->
+          <div class="t-card">
+            <div class="quote-icon"><iconify-icon icon="ph:quotes-fill"></iconify-icon></div>
+            <div class="stars">★★★★★</div>
+            <p>"Pet Hub is absolutely fantastic! The veterinary team is highly skilled, and the premium pet food has completely transformed my dog's energy levels."</p>
+            <div class="t-user">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&crop=faces&q=80&w=100&h=100" alt="Serhiy">
+              <h4>Serhiy Hipskyy</h4>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="t-card">
+            <div class="quote-icon"><iconify-icon icon="ph:quotes-fill"></iconify-icon></div>
+            <div class="stars">★★★★★</div>
+            <p>"I wouldn't trust my furry friends with anyone else. Their facility is state-of-the-art, and the staff treats every single pet like their own family."</p>
+            <div class="t-user">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&crop=faces&q=80&w=100&h=100" alt="Justus">
+              <h4>Justus Menke</h4>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="t-card">
+            <div class="quote-icon"><iconify-icon icon="ph:quotes-fill"></iconify-icon></div>
+            <div class="stars">★★★★★</div>
+            <p>"From routine checkups to finding the perfect accessories, they provide top-tier service. It’s incredibly convenient having everything under one roof."</p>
+            <div class="t-user">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&crop=faces&q=80&w=100&h=100" alt="Britain">
+              <h4>Britain Eriksen</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="container" style="padding-bottom: 0;">
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-logo" style="font-family: 'Irish Grover', cursive; font-size: 1.8rem; font-weight: normal; margin-bottom: 1rem;">
+              <img src="pet hub logo.png" alt="Pet Hub Logo" style="height: 56px; filter: brightness(0) invert(1);" onerror="this.src='https://ui-avatars.com/api/?name=PH&background=000&color=F97316&rounded=true'">
+              Pet Hub
+            </div>
+            <p class="footer-desc">The proper Footer on proper time can preserve you protection. We assist you make sureeverybody forward.</p>
+            <div class="socials">
+              <a href="#" class="social"><iconify-icon icon="ph:facebook-logo-fill"></iconify-icon></a>
+              <a href="#" class="social"><iconify-icon icon="ph:twitter-logo-fill"></iconify-icon></a>
+              <a href="#" class="social"><iconify-icon icon="ph:instagram-logo-fill"></iconify-icon></a>
+              <a href="#" class="social"><iconify-icon icon="ph:youtube-logo-fill"></iconify-icon></a>
+            </div>
+          </div>
+          <div>
+            <h4 class="f-title">Quick Link</h4>
+            <div style="margin-bottom: 1.5rem;">
+              <img src="data:image/svg+xml,%3Csvg width='30' height='4' viewBox='0 0 30 4' fill='none' stroke='%23F97316' stroke-width='1.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 2 L 3 0 L 9 4 L 15 0 L 21 4 L 27 0 L 30 2'/%3E%3C/svg%3E">
+            </div>
+            <ul class="f-links">
+              <li><a href="case-study-6.html"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>Home</a></li>
+              <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>About Us</a></li>
+              <li><a href="service.html"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>Services</a></li>
+              <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="f-title">Contact</h4>
+            <div style="margin-bottom: 1.5rem;">
+              <img src="data:image/svg+xml,%3Csvg width='30' height='4' viewBox='0 0 30 4' fill='none' stroke='%23F97316' stroke-width='1.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 2 L 3 0 L 9 4 L 15 0 L 21 4 L 27 0 L 30 2'/%3E%3C/svg%3E">
+            </div>
+            <ul class="f-contact">
+              <li><iconify-icon icon="ph:map-pin-fill"></iconify-icon> 44 Danwers, NY City, USA, 70-102</li>
+              <li><iconify-icon icon="ph:envelope-simple-fill"></iconify-icon> Lamaro@Lamaroyc.Us</li>
+              <li><iconify-icon icon="ph:phone-call-fill"></iconify-icon> 91+585-656-658</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const slides = document.querySelectorAll('#hero-slider .slide');
+      let currentIndex = 0;
+      let interval;
+
+      function updateSlider() {
+        slides.forEach((slide, index) => {
+          slide.className = 'slide'; // reset all classes
+          if (index === currentIndex) {
+            slide.classList.add('active');
+          } else if (index === (currentIndex + 1) % slides.length) {
+            slide.classList.add('next');
+          } else if (index === (currentIndex - 1 + slides.length) % slides.length) {
+            slide.classList.add('prev');
+          } else {
+            slide.classList.add('hidden');
+          }
+        });
+      }
+
+      updateSlider();
+
+      interval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateSlider();
+      }, 3000);
+    });
+  </script>
+  <script>
+    if(localStorage.getItem('petHubLoggedIn') === 'true') {
+      document.querySelectorAll('a[href="signup.html"]').forEach(btn => {
+        btn.href = 'book.html';
+        btn.innerText = 'Book an Appointment';
+        btn.style.padding = '0.6rem 1.5rem';
+      });
+    }
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      const elementsToAnimate = document.querySelectorAll('h1, h2, .section-subtitle, .hero-text p, .hero-visual, .service-card, .process-step, .s-card, .pet-card, .g-card, .st-card, .srv-card, .c-form, .c-map, .b-form-container, .auth-card, .f-brand, .f-links-col, .f-contact-col');
+      elementsToAnimate.forEach(el => {
+        el.classList.add('animate-on-scroll');
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>

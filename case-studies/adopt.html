@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Hub - Adopt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    :root {
+      --bg-color: #FDF9F1;
+      --primary: #F97316;
+      --black: #000000;
+      --white: #FFFFFF;
+      --text: #1F2937;
+      --text-muted: #6B7280;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    
+    /* Typography */
+    .section-subtitle {
+      color: var(--text-muted); font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; font-size: 0.8rem; display: block; margin-bottom: 1rem;
+    }
+    .section-title { font-size: 2.5rem; font-weight: 800; color: var(--black); line-height: 1.2; margin-bottom: 1.5rem; }
+    
+    /* Hero Section */
+    .a-hero {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 2rem 0 4rem; background: var(--bg-color); gap: 4rem;
+    }
+    
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.8rem 1.8rem; border-radius: 100px; font-weight: 600; font-size: 0.95rem;
+      text-decoration: none; transition: all 0.2s; border: none; cursor: pointer;
+    }
+    .btn-black { background: var(--black); color: var(--white); }
+    .btn-black:hover { opacity: 0.8; }
+    
+    /* Navbar */
+    .nav-pill {
+      background: var(--white); border-radius: 100px; padding: 0.8rem 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 2rem;
+    }
+    .nav-left { display: flex; align-items: center; gap: 0.8rem; font-weight: normal; font-size: 1.2rem; color: var(--black); font-family: 'Irish Grover', cursive; }
+    .nav-links { display: flex; list-style: none; gap: 2rem; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--black); font-weight: 700; }
+    
+    /* Adopt Hero */
+    .a-hero-text { flex: 1; max-width: 50%; }
+    .a-hero-text h1 { font-size: 3rem; font-weight: 800; color: var(--black); line-height: 1.2; margin-bottom: 1.5rem; }
+    .a-hero-text p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; max-width: 90%; }
+    .a-hero-img { flex: 1; position: relative; display: flex; justify-content: center; align-items: center; }
+    .a-hero-img img { position: relative; z-index: 2; width: 100%; max-width: 800px; height: auto; }
+    
+    /* Background Blobs for Hero */
+    .blob { position: absolute; background: #FFEDD5; border-radius: 50%; z-index: 1; }
+    .blob-1 { width: 150px; height: 180px; top: 0; right: 20%; transform: rotate(-20deg); }
+    .blob-2 { width: 100px; height: 100px; bottom: 20%; right: 10%; }
+    .blob-3 { width: 120px; height: 120px; bottom: 10%; left: 15%; }
+    
+    /* Adoption Journey Section */
+    .journey {
+      padding: 2rem 0 4rem; text-align: center; background: var(--bg-color);
+    }
+    .journey .section-title { font-size: 2rem; margin-bottom: 0.5rem; }
+    .journey p.j-sub { color: var(--text-muted); max-width: 600px; margin: 0 auto 4rem; font-size: 1.05rem; }
+    
+    .j-timeline {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      position: relative; max-width: 1000px; margin: 0 auto;
+    }
+    .j-timeline::before {
+      content: ''; position: absolute; top: 35px; left: 5%; right: 5%; height: 2px;
+      background: #FDBA74; z-index: 0;
+    }
+    .j-step { position: relative; z-index: 1; width: 18%; background: var(--bg-color); padding: 0 10px; }
+    .j-icon {
+      width: 70px; height: 70px; background: var(--bg-color); border: 2px solid #F97316;
+      color: #F97316; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem; font-size: 1.8rem; box-shadow: 0 0 0 10px var(--bg-color);
+    }
+    .j-step h4 { font-size: 0.95rem; font-weight: 700; color: var(--black); margin-bottom: 0.5rem; }
+    .j-step p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+    
+    /* Adopt Grid Header */
+    .adopt-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+    .filter-pills { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+    .pill {
+      padding: 0.6rem 1.5rem; border-radius: 100px; font-weight: 600; font-size: 0.85rem;
+      background: #E5E7EB; color: var(--text-muted); cursor: pointer; border: none; transition: all 0.2s;
+    }
+    .pill.active { background: var(--primary); color: var(--white); }
+    
+    /* Adopt Grid */
+    .adopt-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 6rem; }
+    .a-card {
+      background: var(--white); border-radius: 20px; border: 1px solid #FDE68A;
+      overflow: hidden; padding: 0.8rem; padding-bottom: 1.5rem;
+      transition: transform 0.2s;
+    }
+    .a-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    .a-img { position: relative; height: 220px; border-radius: 14px; overflow: hidden; margin-bottom: 1rem; }
+    .a-img img { width: 100%; height: 100%; object-fit: cover; }
+    .badge {
+      position: absolute; top: 0; left: 1rem; background: #4F46E5; color: var(--white);
+      padding: 0.5rem 0.5rem 1rem; border-radius: 0 0 100px 100px; font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; text-align: center;
+    }
+    
+    .a-info { padding: 0 0.5rem; }
+    .a-name-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.2rem; }
+    .a-name { font-size: 1.2rem; font-weight: 700; color: var(--black); }
+    .a-heart { color: var(--text-muted); font-size: 1.2rem; cursor: pointer; }
+    .a-location { display: flex; align-items: center; gap: 0.3rem; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1rem; font-weight: 500; }
+    .a-location iconify-icon { color: #10B981; }
+    
+    .a-details { border-top: 1px dashed #E5E7EB; padding-top: 1rem; margin-bottom: 1.5rem; }
+    .a-row { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .a-label { color: var(--text-muted); font-weight: 600; }
+    .a-val { color: var(--black); font-weight: 600; }
+    
+    .a-card .btn { width: 100%; padding: 0.8rem; }
+    
+    /* Footer */
+    footer { background: var(--black); color: var(--white); border-radius: 24px; padding: 4rem 3rem; margin-bottom: 3rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; text-align: left; }
+    .footer-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: bold; font-size: 2.2rem; margin-bottom: 1rem; font-family: 'Irish Grover', cursive; }
+    .footer-desc { color: #A1A1AA; font-size: 0.9rem; margin-bottom: 2rem; max-width: 320px; line-height: 1.7; }
+    .socials { display: flex; gap: 1rem; }
+    .social { width: 36px; height: 36px; background: var(--white); color: #F97316; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: opacity 0.2s; font-size: 1.1rem; text-decoration: none; }
+    .f-title { font-weight: 600; margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .f-links { list-style: none; }
+    .f-links li { margin-bottom: 0.8rem; }
+    .f-links a { color: #A1A1AA; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; display: flex; align-items: center; }
+    .f-links a:hover { color: var(--white); }
+    .f-contact li { display: flex; align-items: center; gap: 1rem; color: #A1A1AA; font-size: 0.95rem; margin-bottom: 1.2rem; }
+    
+    @media (max-width: 992px) {
+      .a-hero, .adopt-grid, .footer-grid { grid-template-columns: 1fr; }
+      .adopt-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .j-timeline { flex-direction: column; gap: 2rem; }
+      .j-step { width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; }
+      .j-timeline::before { display: none; }
+      .adopt-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    }
+    @media (max-width: 600px) {
+      .adopt-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+  <style>
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      will-change: opacity, transform;
+    }
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" style="padding-top: 2rem;">
+    <!-- Navbar -->
+    <nav class="nav-pill">
+      <div class="nav-left">
+        <img src="pet hub logo.png" alt="Pet Hub Logo" style="height: 56px; width: auto;" onerror="this.src='https://ui-avatars.com/api/?name=PH&background=fff&color=F97316&rounded=true'">
+        Pet Hub
+      </div>
+      <ul class="nav-links">
+        <li><a href="case-study-6.html">Home</a></li>
+        <li><a href="service.html">Service</a></li>
+        <li><a href="adopt.html" class="active">Adopt</a></li>
+        <li><a href="grooming.html">Grooming</a></li>
+        <li><a href="store.html">Store</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <a href="signup.html" class="btn btn-black" style="padding: 0.6rem 2.5rem;">Sign Up</a>
+    </nav>
+    
+    <!-- Hero -->
+    <section class="a-hero">
+      <div class="a-hero-text">
+        <span class="section-subtitle">Adoption Centre</span>
+        <h1>Find your forever friend.</h1>
+        <p>Every dog here has been rescued, vaccinated, dewormed, and fully assessed by our vets. They are healthy, loved, and waiting for a home just like yours.</p>
+      </div>
+      <div class="a-hero-img">
+        <img src="Group 1948754952.png" alt="Happy Corgi">
+      </div>
+    </section>
+
+    <!-- Journey Section -->
+    <section class="journey">
+      <h2 class="section-title">The Adoption Journey</h2>
+      <p class="j-sub">We've designed a simple, caring process to match every dog with the right family and support you every step of the way.</p>
+      
+      <div class="j-timeline">
+        <div class="j-step">
+          <div class="j-icon"><iconify-icon icon="ph:magnifying-glass-duotone"></iconify-icon></div>
+          <h4>1. Browse Dogs</h4>
+          <p>Explore available dogs below. Filter by breed, size, or age to find your ideal match.</p>
+        </div>
+        <div class="j-step">
+          <div class="j-icon"><iconify-icon icon="ph:pencil-simple-line-duotone"></iconify-icon></div>
+          <h4>2. Apply Online</h4>
+          <p>Submit a short application telling us about your home, lifestyle, and experience with dogs.</p>
+        </div>
+        <div class="j-step">
+          <div class="j-icon"><iconify-icon icon="ph:users-three-duotone"></iconify-icon></div>
+          <h4>3. Meet & Greet</h4>
+          <p>We schedule an in-person visit so you and the dog can spend time together before committing.</p>
+        </div>
+        <div class="j-step">
+          <div class="j-icon"><iconify-icon icon="ph:house-line-duotone"></iconify-icon></div>
+          <h4>4. Home Check</h4>
+          <p>A brief home assessment (virtual or in-person) to ensure the environment is safe and suitable.</p>
+        </div>
+        <div class="j-step">
+          <div class="j-icon"><iconify-icon icon="ph:handshake-duotone"></iconify-icon></div>
+          <h4>5. Welcome Home!</h4>
+          <p>Sign the adoption agreement, pay the adoption fee, and take your new family member home.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Available Dogs -->
+    <section class="available">
+      <div class="adopt-header">
+        <div>
+          <span class="section-subtitle">Available Dogs</span>
+          <h2 class="section-title" style="margin-bottom: 0;">Meet your new best friend</h2>
+        </div>
+        <div class="filter-pills">
+          <button class="pill active">All</button>
+          <button class="pill">Puppies</button>
+          <button class="pill">Adults</button>
+          <button class="pill">Small Breeds</button>
+          <button class="pill">Large Breeds</button>
+        </div>
+      </div>
+
+      <div class="adopt-grid">
+        <!-- Card 1 -->
+        <div class="a-card" data-category="puppy small">
+          <div class="a-img">
+            <div class="badge">New<br><iconify-icon icon="ph:star-fill"></iconify-icon></div>
+            <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&q=80&w=500" alt="Dog">
+          </div>
+          <div class="a-info">
+            <div class="a-name-row"><span class="a-name">Bella</span><iconify-icon icon="ph:heart" class="a-heart"></iconify-icon></div>
+            <div class="a-location"><iconify-icon icon="ph:map-pin-fill"></iconify-icon> California, USA</div>
+            <div class="a-details">
+              <div class="a-row"><span class="a-label">Breed:</span> <span class="a-val">Cavapoo</span></div>
+              <div class="a-row"><span class="a-label">Age:</span> <span class="a-val">8 months</span></div>
+            </div>
+            <button class="btn btn-black">Adopt Me</button>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="a-card" data-category="adult small">
+          <div class="a-img"><img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=500" alt="Dog"></div>
+          <div class="a-info">
+            <div class="a-name-row"><span class="a-name">Max</span><iconify-icon icon="ph:heart" class="a-heart"></iconify-icon></div>
+            <div class="a-location"><iconify-icon icon="ph:map-pin-fill"></iconify-icon> California, USA</div>
+            <div class="a-details">
+              <div class="a-row"><span class="a-label">Breed:</span> <span class="a-val">Jack Russell</span></div>
+              <div class="a-row"><span class="a-label">Age:</span> <span class="a-val">4 years</span></div>
+            </div>
+            <button class="btn btn-black">Adopt Me</button>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="a-card" data-category="adult small">
+          <div class="a-img"><img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=500" alt="Cat"></div>
+          <div class="a-info">
+            <div class="a-name-row"><span class="a-name">Luna</span><iconify-icon icon="ph:heart" class="a-heart"></iconify-icon></div>
+            <div class="a-location"><iconify-icon icon="ph:map-pin-fill"></iconify-icon> California, USA</div>
+            <div class="a-details">
+              <div class="a-row"><span class="a-label">Breed:</span> <span class="a-val">Tuxedo Cat</span></div>
+              <div class="a-row"><span class="a-label">Age:</span> <span class="a-val">1 year</span></div>
+            </div>
+            <button class="btn btn-black">Adopt Me</button>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="a-card" data-category="adult large">
+          <div class="a-img"><img src="https://images.unsplash.com/photo-1495360010541-f48722b34f7d?auto=format&fit=crop&q=80&w=500" alt="Cat"></div>
+          <div class="a-info">
+            <div class="a-name-row"><span class="a-name">Milo</span><iconify-icon icon="ph:heart" class="a-heart"></iconify-icon></div>
+            <div class="a-location"><iconify-icon icon="ph:map-pin-fill"></iconify-icon> California, USA</div>
+            <div class="a-details">
+              <div class="a-row"><span class="a-label">Breed:</span> <span class="a-val">Ragdoll Cat</span></div>
+              <div class="a-row"><span class="a-label">Age:</span> <span class="a-val">3 years</span></div>
+            </div>
+            <button class="btn btn-black">Adopt Me</button>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="a-card" data-category="adult small">
+          <div class="a-img"><img src="https://images.unsplash.com/photo-1541364983171-a8ba01e95cfc?auto=format&fit=crop&q=80&w=500" alt="Dog"></div>
+          <div class="a-info">
+            <div class="a-name-row"><span class="a-name">Charlie</span><iconify-icon icon="ph:heart" class="a-heart"></iconify-icon></div>
+            <div class="a-location"><iconify-icon icon="ph:map-pin-fill"></iconify-icon> California, USA</div>
+            <div class="a-details">
+              <div class="a-row"><span class="a-label">Breed:</span> <span class="a-val">Bichon Frise</span></div>
+              <div class="a-row"><span class="a-label">Age:</span> <span class="a-val">6 years</span></div>
+            </div>
+            <button class="btn btn-black">Adopt Me</button>
+          </div>
+        </div>
+        <!-- Card 6 -->
+        <div class="a-card" data-category="puppy small">
+          <div class="a-img"><img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?auto=format&fit=crop&q=80&w=500" alt="Cat"></div>
+          <div class="a-info">
+            <div class="a-name-row"><span class="a-name">Daisy</span><iconify-icon icon="ph:heart" class="a-heart"></iconify-icon></div>
+            <div class="a-location"><iconify-icon icon="ph:map-pin-fill"></iconify-icon> California, USA</div>
+            <div class="a-details">
+              <div class="a-row"><span class="a-label">Breed:</span> <span class="a-val">Tabby Cat</span></div>
+              <div class="a-row"><span class="a-label">Age:</span> <span class="a-val">4 months</span></div>
+            </div>
+            <button class="btn btn-black">Adopt Me</button>
+          </div>
+        </div>
+        <!-- Card 7 -->
+        <div class="a-card" data-category="puppy large">
+          <div class="a-img"><img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&q=80&w=500" alt="Dog"></div>
+          <div class="a-info">
+            <div class="a-name-row"><span class="a-name">Cooper</span><iconify-icon icon="ph:heart" class="a-heart"></iconify-icon></div>
+            <div class="a-location"><iconify-icon icon="ph:map-pin-fill"></iconify-icon> California, USA</div>
+            <div class="a-details">
+              <div class="a-row"><span class="a-label">Breed:</span> <span class="a-val">Beagle</span></div>
+              <div class="a-row"><span class="a-label">Age:</span> <span class="a-val">10 months</span></div>
+            </div>
+            <button class="btn btn-black">Adopt Me</button>
+          </div>
+        </div>
+        <!-- Card 8 -->
+        <div class="a-card" data-category="adult large">
+          <div class="a-img"><img src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=500" alt="Dog"></div>
+          <div class="a-info">
+            <div class="a-name-row"><span class="a-name">Rocky</span><iconify-icon icon="ph:heart" class="a-heart"></iconify-icon></div>
+            <div class="a-location"><iconify-icon icon="ph:map-pin-fill"></iconify-icon> California, USA</div>
+            <div class="a-details">
+              <div class="a-row"><span class="a-label">Breed:</span> <span class="a-val">Husky</span></div>
+              <div class="a-row"><span class="a-label">Age:</span> <span class="a-val">3 years</span></div>
+            </div>
+            <button class="btn btn-black">Adopt Me</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="container" style="padding-bottom: 0;">
+    <footer>
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <img src="pet hub logo.png" alt="Pet Hub Logo" style="height: 56px; filter: brightness(0) invert(1);" onerror="this.src='https://ui-avatars.com/api/?name=PH&background=000&color=F97316&rounded=true'">
+            Pet Hub
+          </div>
+          <p class="footer-desc">The proper Footer on proper time can preserve you protection. We assist you make sureeverybody forward.</p>
+          <div class="socials">
+            <a href="#" class="social"><iconify-icon icon="ph:facebook-logo-fill"></iconify-icon></a>
+            <a href="#" class="social"><iconify-icon icon="ph:twitter-logo-fill"></iconify-icon></a>
+            <a href="#" class="social"><iconify-icon icon="ph:instagram-logo-fill"></iconify-icon></a>
+            <a href="#" class="social"><iconify-icon icon="ph:youtube-logo-fill"></iconify-icon></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="f-title">Quick Link</h4>
+          <div style="margin-bottom: 1.5rem;">
+            <img src="data:image/svg+xml,%3Csvg width='30' height='4' viewBox='0 0 30 4' fill='none' stroke='%23F97316' stroke-width='1.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 2 L 3 0 L 9 4 L 15 0 L 21 4 L 27 0 L 30 2'/%3E%3C/svg%3E" alt="Divider">
+          </div>
+          <ul class="f-links">
+            <li><a href="case-study-6.html"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>Home</a></li>
+            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>About Us</a></li>
+            <li><a href="service.html"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>Services</a></li>
+            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon>Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="f-title">Contact</h4>
+          <div style="margin-bottom: 1.5rem;">
+            <img src="data:image/svg+xml,%3Csvg width='30' height='4' viewBox='0 0 30 4' fill='none' stroke='%23F97316' stroke-width='1.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 2 L 3 0 L 9 4 L 15 0 L 21 4 L 27 0 L 30 2'/%3E%3C/svg%3E" alt="Divider">
+          </div>
+          <ul class="f-contact">
+            <li><iconify-icon icon="ph:map-pin-fill" style="color:#F97316; font-size:1.3rem;"></iconify-icon> 44 Danwers, NY City, USA, 70-102</li>
+            <li><iconify-icon icon="ph:envelope-simple-fill" style="color:#F97316; font-size:1.3rem;"></iconify-icon> Lamaro@Lamaroyc.Us</li>
+            <li><iconify-icon icon="ph:phone-call-fill" style="color:#F97316; font-size:1.3rem;"></iconify-icon> 91+585-656-658</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const pills = document.querySelectorAll('.filter-pills .pill');
+      const cards = document.querySelectorAll('.a-card');
+
+      pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          // Update active state
+          pills.forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+
+          // Determine category to filter
+          const filterText = pill.textContent.trim().toLowerCase();
+          let filterClass = 'all';
+          if (filterText === 'puppies') filterClass = 'puppy';
+          if (filterText === 'adults') filterClass = 'adult';
+          if (filterText === 'small breeds') filterClass = 'small';
+          if (filterText === 'large breeds') filterClass = 'large';
+
+          // Show/Hide cards
+          cards.forEach(card => {
+            const categories = card.getAttribute('data-category');
+            if (filterClass === 'all' || categories.includes(filterClass)) {
+              card.style.display = ''; // restore default
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+  <script>
+    if(localStorage.getItem('petHubLoggedIn') === 'true') {
+      document.querySelectorAll('a[href="signup.html"]').forEach(btn => {
+        btn.href = 'book.html';
+        btn.innerText = 'Book an Appointment';
+        btn.style.padding = '0.6rem 1.5rem';
+      });
+    }
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      const elementsToAnimate = document.querySelectorAll('h1, h2, .section-subtitle, .hero-text p, .hero-visual, .service-card, .process-step, .s-card, .pet-card, .g-card, .st-card, .srv-card, .c-form, .c-map, .b-form-container, .auth-card, .f-brand, .f-links-col, .f-contact-col');
+      elementsToAnimate.forEach(el => {
+        el.classList.add('animate-on-scroll');
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>

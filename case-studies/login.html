@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MailNova AI - Log In</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #050301;
+      --bg-surface: #110A05;
+      --border: rgba(255, 255, 255, 0.2);
+      --primary: #FF6B00;
+      --primary-hover: #FF8533;
+      --text: #F4F0EB;
+      --muted: #A09A95;
+      --font: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background-color: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; overflow: hidden; }
+
+    .split-layout {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .left-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding: 40px;
+    }
+
+    .right-panel {
+      flex: 1;
+      background: url('../media/image/mailnova_auth_bg.png') center/cover no-repeat;
+      display: none;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #fff;
+      text-decoration: none;
+      position: absolute;
+      top: 40px;
+      left: 60px;
+    }
+    .logo img { height: 24px; }
+    .logo i { color: var(--primary); }
+
+    .form-container {
+      margin: auto;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 32px;
+      color: #fff;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-icon-left {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 1rem;
+    }
+    .input-icon-right {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    input[type="email"], input[type="password"] {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px 14px 44px;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    input:focus {
+      border-color: var(--primary);
+    }
+    
+    .forgot-password {
+      text-align: right;
+      margin-top: -8px;
+      margin-bottom: 32px;
+      font-size: 0.85rem;
+    }
+    .forgot-password a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      font-family: var(--font);
+      cursor: pointer;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: #fff;
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.05);
+    }
+    .btn-outline img {
+      width: 20px;
+    }
+
+    .auth-switch {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .auth-switch a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    @media (min-width: 900px) {
+      .right-panel { display: block; }
+    }
+    @media (max-width: 768px) {
+      .logo { left: 24px; top: 24px; }
+      body { overflow: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="split-layout">
+    <div class="left-panel">
+      <a href="case-study-3.html" class="logo">
+        <i class="fa-solid fa-envelope-open-text"></i> MailNova AI
+      </a>
+      
+      <div class="form-container">
+        <h2>Welcome Back</h2>
+        
+        <form onsubmit="event.preventDefault(); window.location.href='case-study-3.html';">
+          <div class="input-group">
+            <i class="fa-solid fa-at input-icon-left"></i>
+            <input type="email" placeholder="Email" required>
+          </div>
+          
+          <div class="input-group" style="margin-bottom: 16px;">
+            <i class="fa-solid fa-lock input-icon-left"></i>
+            <input type="password" placeholder="Password" required>
+            <i class="fa-regular fa-eye-slash input-icon-right"></i>
+          </div>
+          
+          <div class="forgot-password">
+            <a href="#">Forgot password?</a>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Log In</button>
+          
+          <button type="button" class="btn btn-outline">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+            Log In with Google
+          </button>
+          
+          <div class="auth-switch">
+            Don't have an account? <a href="signup.html">Sign Up</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <div class="right-panel"></div>
+  </div>
+
+</body>
+</html>

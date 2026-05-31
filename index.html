@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chidozie Deborah — UI/UX & Product Designer</title>
+  <meta name="description" content="UI/UX and Product Designer based in Nigeria. Specializing in Figma, SaaS UI, Mobile App Design, Design Systems, and User Research." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-close" id="mobileClose">✕</button>
+    <a href="#about" onclick="closeMobileNav()">About</a>
+    <a href="#services" onclick="closeMobileNav()">Services</a>
+    <a href="#projects" onclick="closeMobileNav()">Projects</a>
+    <a href="#experience" onclick="closeMobileNav()">Experience</a>
+    <a href="https://www.behance.net/adachidozie" target="_blank" onclick="closeMobileNav()">Behance</a>
+    <a href="#contact" onclick="closeMobileNav()">Contact</a>
+  </div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo" style="display: flex; align-items: center;">
+      <img src="./media/image/logo.svg" alt="UI DEBBIE" style="height: 60px; width: auto; border-radius: 4px;">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="https://www.behance.net/adachidozie" target="_blank">Behance</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="https://www.upwork.com/freelancers/~01ea83173bd60bd566?mp_source=share" class="nav-cta">Hire Me on upwork</a>
+    <button class="nav-mobile-btn" id="mobileBtn">☰</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Designing<br/>experiences that<br/><em>matter.</em></h1>
+    <p class="hero-sub">
+      I am a UI/UX Designer & Vibe Coder based in Nigeria. I craft intuitive interfaces, scalable design systems, and human-centered digital products from Web3 to SaaS to real estate.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View My Work →</a>
+      <a href="#contact" class="btn-secondary">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">3<span>+</span></div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">8<span>+</span></div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3<span>+</span></div>
+        <div class="stat-label">Industries Served</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100<span>%</span></div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">UI/UX Design</span>
+      <span class="marquee-item">Figma Expert</span>
+      <span class="marquee-item">Product Design</span>
+      <span class="marquee-item">Design Systems</span>
+      <span class="marquee-item">Mobile App Design</span>
+      <span class="marquee-item">SaaS UI</span>
+      <span class="marquee-item">Web3 Design</span>
+      <span class="marquee-item">Usability Testing</span>
+      <span class="marquee-item">User Research</span>
+      <span class="marquee-item">Prototyping</span>
+      <span class="marquee-item">Wireframing</span>
+      <span class="marquee-item">Dashboard Design</span>
+      <span class="marquee-item">UI/UX Design</span>
+      <span class="marquee-item">Figma Expert</span>
+      <span class="marquee-item">Product Design</span>
+      <span class="marquee-item">Design Systems</span>
+      <span class="marquee-item">Mobile App Design</span>
+      <span class="marquee-item">SaaS UI</span>
+      <span class="marquee-item">Web3 Design</span>
+      <span class="marquee-item">Usability Testing</span>
+      <span class="marquee-item">User Research</span>
+      <span class="marquee-item">Prototyping</span>
+      <span class="marquee-item">Wireframing</span>
+      <span class="marquee-item">Dashboard Design</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-img-wrap reveal">
+          <div class="about-img-placeholder"> 
+            <img src="./media/image/WhatsApp Image 2026-03-05 at 1.16.03 AM.jpeg" alt="Chidozie Deborah — UI/UX Designer">
+          </div>
+          <div class="about-img-badge">
+            <span class="dot"></span>
+            <span>Open to opportunities</span>
+          </div>
+        </div>
+        <div class="about-content reveal reveal-delay-1">
+          <div class="section-label">About Me</div>
+          <h2 class="section-title">Turning ideas into<br/><span>visual stories.</span></h2>
+          <p class="about-bio">
+            I'm Chidozie Deborah, a UI/UX Designer and a Vibe Coder based in Nigeria with a passion for crafting digital experiences that are both beautiful and functional. I believe great design is invisible it just works.
+          </p>
+          <p class="about-bio">
+            From leading UX research for Web3 marketplaces to designing trust-driven landing pages and solar energy platforms, I bring strategic thinking and pixel-perfect execution to every project.
+          </p>
+          <div class="about-skills">
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">UI Design</span>
+            <span class="skill-tag">UX Research</span>
+            <span class="skill-tag">Prototyping</span>
+            <span class="skill-tag">Wireframing</span>
+            <span class="skill-tag">Design Systems</span>
+            <span class="skill-tag">Design Thinking</span>
+            <span class="skill-tag">Usability Testing</span>
+            <span class="skill-tag">Responsive Design</span>
+            <span class="skill-tag">Html</span>
+            <span class="skill-tag">CSS</span>
+          </div>
+          <div class="about-stats-row">
+            <div class="about-stat">
+              <div class="num">8+</div>
+              <div class="lbl">Projects</div>
+            </div>
+            <div class="about-stat">
+              <div class="num">3+</div>
+              <div class="lbl">Industries</div>
+            </div>
+            <div class="about-stat">
+              <div class="num">3+</div>
+              <div class="lbl">Years</div>
+            </div>
+          </div>
+        </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="services-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">What I Do</div>
+        <h2 class="section-title">Services I offer<span>.</span></h2>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-num">01</div>
+          <div class="service-icon"><img src="https://cdn.simpleicons.org/figma/d0ff71" width="28" height="28" alt="Figma" style="display:block;"></div>
+          <h3>UI/UX Design</h3>
+          <p>End-to-end user interface and experience design. From wireframes and user flows to high-fidelity prototypes that solve real user problems with clarity and elegance.</p>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-num">02</div>
+          <div class="service-icon"><img src="https://cdn.simpleicons.org/sketch/d0ff71" width="28" height="28" alt="Sketch" style="display:block;"></div>
+          <h3>Product Design</h3>
+          <p>Full product design process research, information architecture, interaction design, and handoff. Building products that users love and businesses grow with.</p>
+        </div>
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-num">03</div>
+          <div class="service-icon"><img src="https://cdn.simpleicons.org/storybook/d0ff71" width="28" height="28" alt="Storybook" style="display:block;"></div>
+          <h3>Design Systems</h3>
+          <p>Scalable, consistent design systems that accelerate development speed and maintain visual consistency across your entire product suite.</p>
+        </div>
+        <div class="service-card reveal reveal-delay-4">
+          <div class="service-num">04</div>
+          <div class="service-icon"><img src="https://cdn.simpleicons.org/hotjar/d0ff71" width="28" height="28" alt="Hotjar" style="display:block;"></div>
+          <h3>UX Research</h3>
+          <p>User interviews, usability testing, journey mapping, and research synthesis. Turning raw insights into design decisions that move the needle.</p>
+        </div>
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-num">05</div>
+          <div class="service-icon"><img src="https://cdn.simpleicons.org/webflow/d0ff71" width="28" height="28" alt="Webflow" style="display:block;"></div>
+          <h3>Web & Landing Page Design</h3>
+          <p>Conversion-focused marketing websites and landing pages. Combining trust signals, clear messaging, and beautiful visuals to turn visitors into customers.</p>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-num">06</div>
+          <div class="service-icon"><img src="https://cdn.simpleicons.org/dribbble/d0ff71" width="28" height="28" alt="Dribbble" style="display:block;"></div>
+          <h3>Brand & Graphic Design</h3>
+          <p>Visual identity systems, brand guidelines, poster design, and marketing collateral that communicates your brand's personality with impact and consistency.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="projects-header reveal">
+        <div>
+          <div class="section-label">Portfolio</div>
+          <h2 class="section-title">Selected work<span>.</span></h2>
+        </div>
+        <a href="#contact" class="btn-secondary">Start a Project →</a>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card proj-1 reveal reveal-delay-1">
+          <div class="project-img">
+            <div class="project-img-inner"><img src="./media/image/Frame 2147224674.png" alt="Signal AI Dashboard" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-cat">Web Design</div>
+            <h3>Signal AI</h3>
+            <p>A strategic Web Design of an AI marketing dashboard. By combining user research with clear information architecture, this project transformed a confusing, data-heavy interface into an actionable platform that drives activation and reduces churn.</p>
+            <div class="project-meta" >
+              <a href="case-studies/case-study-1.html" target="_blank" class="btn-secondary" style="display:inline-flex;">Case study</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card proj-2 reveal reveal-delay-2">
+          <div class="project-img">
+            <div class="project-img-inner"> <img src="./media/image/Frame 2147224574.png" alt="CareSync Dashboard" style="width:100%; height:100%; object-fit:cover;"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-cat">Healthcare Dashboard</div>
+            <h3>CareSync</h3>
+            <p>A comprehensive functional dashboard for patient management, designed to streamline tasks, manage appointments efficiently, and offer an intuitive experience for healthcare professionals.</p>
+            <div class="project-meta" >
+              <a href="case-studies/case-study-2.html" target="_blank" class="btn-secondary" style="display:inline-flex;">Case study</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card proj-3 reveal reveal-delay-2">
+          <div class="project-img">
+            <div class="project-img-inner"> <img src=".//media/image/MacBook Air (2022) (2).png" alt="portfolio image" style="width:100%; height:100%; object-fit:cover;"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-cat">Web Design</div>
+            <h3>Web Design</h3>
+            <p>
+              This project explores the UX design of an AI-powered automation platform created to help businesses streamline operations, eliminate repetitive manual tasks, and improve efficiency through intelligent, reliable workflows.
+            </p>
+            <div class="project-meta" >
+              <a href="case-studies/case-study-3.html" target="_blank" class="btn-secondary" style="display:inline-flex;">View site</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card proj-4 reveal reveal-delay-2">
+          <div class="project-img">
+            <div class="project-img-inner"> <img src="./media/image/layer_project_image.jpg" alt="LAYER Onchain Actions platform" style="width:100%; height:100%; object-fit:cover;"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-cat">Web Design</div>
+            <h3>Web Design</h3>
+            <p>This project focuses on the UX design of an AI automation platform built to help businesses reduce manual work through intelligent, reliable automation.</p>
+            <div class="project-meta" >
+              <a href="case-studies/case-study-4.html" target="_blank" class="btn-secondary" style="display:inline-flex;">View site</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card proj-5 reveal reveal-delay-2">
+          <div class="project-img">
+            <div class="project-img-inner"> <img src="./media/image/Free MacBook Air 15_ mockup on dark textured rocks (Mockuuups Studio).png" alt="Silveroak Law Firm Mockup" style="width:100%; height:100%; object-fit:cover;"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-cat">Web Design</div>
+            <h3>Silveroak</h3>
+            <p>A professional, trustworthy web presence designed for a premier law firm, highlighting legal expertise and proven results through clear, confident UX.</p>
+            <div class="project-meta" >
+              <a href="case-studies/case-study-5.html" target="_blank" class="btn-secondary" style="display:inline-flex;">View site</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card proj-6 reveal reveal-delay-2">
+          <div class="project-img">
+            <div class="project-img-inner"> <img src="case-studies/Free MacBook Pro mockup on round table (Mockuuups Studio).png" alt="portfolio image" style="width:100%; height:100%; object-fit:cover;"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-cat">Web Design</div>
+            <h3>Web Design</h3>
+            <p>This project focuses on the UX design of an AI automation platform built to help businesses reduce manual work through intelligent, reliable automation.</p>
+            <div class="project-meta" >
+              <a href="case-studies/case-study-6.html" target="_blank" class="btn-secondary" style="display:inline-flex;">View site</a>
+            </div>
+          </div>
+        </div>
+        
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="experience-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Work History</div>
+        <h2 class="section-title">Experience<span>.</span></h2>
+      </div>
+      <div class="exp-timeline">
+
+        <div class="exp-item reveal">
+          <div class="exp-year">Jan 2024 — Present</div>
+          <div class="exp-content">
+            <h3>UI/UX Designer</h3>
+            <div class="exp-company">Hypertek — NFE Web3 Marketplace (Remote)</div>
+            <p class="exp-desc">Led UX research for the NFE marketplace, mapping user journeys for creators and collectors. Designed the end-to-end marketplace flow for buying, selling, and minting digital experiences. Built a scalable design system that improved development speed and visual consistency. Designed creator dashboards, admin tools, fee management panels, and analytics pages. Conducted usability tests and translated insights into clear design improvements.</p>
+            <div class="exp-tags">
+              <span class="exp-tag">Figma</span>
+              <span class="exp-tag">Design Systems</span>
+              <span class="exp-tag">UX Research</span>
+              <span class="exp-tag">Web3</span>
+              <span class="exp-tag">Dashboard Design</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item reveal reveal-delay-1">
+          <div class="exp-year">Oct 2025</div>
+          <div class="exp-content">
+            <h3>UI/UX Designer</h3>
+            <div class="exp-company">Privacy VPN — Marketing Website & Landing Page</div>
+            <p class="exp-desc">Designed a modern, trust-driven landing page for a secure VPN service. Translated complex VPN and security concepts into simple, user-friendly content sections. Created a clean dark theme with green accents to visually communicate security and trust. Designed responsive layouts and interactive prototypes for usability validation across devices.</p>
+            <div class="exp-tags">
+              <span class="exp-tag">Landing Page</span>
+              <span class="exp-tag">Figma</span>
+              <span class="exp-tag">Responsive Design</span>
+              <span class="exp-tag">Prototyping</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item reveal reveal-delay-2">
+          <div class="exp-year">Nov 2025</div>
+          <div class="exp-content">
+            <h3>Product Designer</h3>
+            <div class="exp-company">VOTEK — Solar Energy Platform</div>
+            <p class="exp-desc">Led end-to-end design for a digital platform helping homeowners and businesses explore solar energy. Designed interactive savings calculators, real installation stories, and a guided step-by-step flow. Delivered core features including Instant Savings Calculator, Certified Installer Network, and Flexible Payment Plans. Built responsive, accessible interfaces with high-fidelity prototypes optimised for desktop and mobile.</p>
+            <div class="exp-tags">
+              <span class="exp-tag">Product Design</span>
+              <span class="exp-tag">Figma</span>
+              <span class="exp-tag">UX Research</span>
+              <span class="exp-tag">Wireframing</span>
+              <span class="exp-tag">Jitter</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section class="tools-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Tech Stack</div>
+        <h2 class="section-title">Tools I work with<span>.</span></h2>
+      </div>
+      <div class="tools-wrap">
+        <div class="tool-item reveal reveal-delay-1">
+          <span class="tool-icon"><img src="https://cdn.simpleicons.org/figma/f0ede8" width="28" height="28" alt="Figma"></span>
+          <span class="tool-name">Figma</span>
+        </div>
+        <div class="tool-item reveal reveal-delay-2">
+          <span class="tool-icon"><img src="https://www.google.com/s2/favicons?domain=wireframe.cc&sz=64" width="28" height="28" alt="Wireframe.cc" style="border-radius:4px;"></span>
+          <span class="tool-name">Wireframe.cc</span>
+        </div>
+        <div class="tool-item reveal reveal-delay-3">
+          <span class="tool-icon"><img src="https://www.google.com/s2/favicons?domain=jitter.video&sz=64" width="28" height="28" alt="Jitter" style="border-radius:4px;"></span>
+          <span class="tool-name">Jitter</span>
+        </div>
+        <div class="tool-item reveal reveal-delay-1">
+          <span class="tool-icon"><img src="https://www.google.com/s2/favicons?domain=chatgpt.com&sz=64" width="28" height="28" alt="ChatGPT" style="border-radius:4px;"></span>
+          <span class="tool-name">ChatGPT</span>
+        </div>
+        <div class="tool-item reveal reveal-delay-2">
+          <span class="tool-icon"><img src="https://cdn.simpleicons.org/perplexity/f0ede8" width="28" height="28" alt="Perplexity"></span>
+          <span class="tool-name">Perplexity</span>
+        </div>
+        <div class="tool-item reveal reveal-delay-3">
+          <span class="tool-icon"><img src="https://cdn.simpleicons.org/behance/f0ede8" width="28" height="28" alt="Behance"></span>
+          <span class="tool-name">Behance</span>
+        </div>
+        <div class="tool-item reveal reveal-delay-1">
+          <span class="tool-icon"><img src="https://cdn.simpleicons.org/anthropic/f0ede8" width="28" height="28" alt="Claude"></span>
+          <span class="tool-name">Claude</span>
+        </div>
+        <div class="tool-item reveal reveal-delay-2">
+          <span class="tool-icon"><img src="https://cdn.simpleicons.org/googlegemini/f0ede8" width="28" height="28" alt="Antigravity"></span>
+          <span class="tool-name">Antigravity</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="reveal" style="text-align:center; max-width: 600px; margin: 0 auto 0;">
+        <div class="section-label" style="justify-content:center;">FAQ</div>
+        <h2 class="section-title">Frequently asked<br/><span>questions.</span></h2>
+      </div>
+      <div class="faq-wrap">
+        <div class="faq-item reveal">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            What design tools do you use?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>I primarily work in Figma for all UI/UX design, wireframing, prototyping, and design systems. I also use Wireframe.cc for rapid low-fidelity work, Jitter for micro-animations, and ChatGPT/Perplexity to assist research and content strategy.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-1">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            What's your design process like?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>I follow a research-first, user-centered process: Discover → Define → Ideate → Design → Test → Iterate. I start with understanding your users' pain points, then move through structured wireframes to high-fidelity designs and interactive prototypes.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-2">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Do you work with international clients?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Absolutely. I work remotely with clients worldwide. Time zone differences are manageable — I maintain clear communication through scheduled check-ins and detailed async updates, ensuring projects run smoothly regardless of location.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-3">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How long does a typical project take?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Project timelines vary based on scope. A landing page typically takes 1–2 weeks, a mobile app design 3–6 weeks, and a full product redesign with research can take 6–12 weeks. I always provide a detailed timeline estimate before starting.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-1">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Can you work within an existing design system?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Yes — I'm comfortable working within established design systems and brand guidelines, or building one from scratch. I treat existing systems as foundations to enhance, not replace, always prioritising consistency and scalability.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-2">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            What industries have you worked in?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>I've worked across Web3/blockchain, SaaS, energy tech (solar), real estate, e-commerce, event marketing, and fintech. I adapt quickly to new domains through thorough discovery and user research at the start of every engagement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <div class="reveal" style="max-width:560px;">
+        <div class="section-label">Get In Touch</div>
+        <h2 class="section-title">Let's build something<br/><span>great together.</span></h2>
+      </div>
+      <div class="contact-inner">
+        <div class="contact-left reveal">
+          <p>Have a project in mind? I'd love to hear about it. Whether you need a full product design, a landing page, or just a conversation about UX — reach out and let's talk.</p>
+          <div class="contact-links">
+            <a href="mailto:adachidozie1@gmail.com" class="contact-link">
+              <div class="contact-link-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div class="contact-link-info">
+                <div class="contact-link-label">Email</div>
+                <div class="contact-link-val">adachidozie1@gmail.com</div>
+              </div>
+            </a>
+            <a href="tel:+2348100892273" class="contact-link">
+              <div class="contact-link-icon"><i class="fa-solid fa-phone"></i></div>
+              <div class="contact-link-info">
+                <div class="contact-link-label">Phone</div>
+                <div class="contact-link-val">+234 810 089 2273</div>
+              </div>
+            </a>
+            <a href="https://www.tiktok.com/@ui_debbie" target="_blank" class="contact-link">
+              <div class="contact-link-icon"><i class="fa-brands fa-tiktok"></i></div>
+              <div class="contact-link-info">
+                <div class="contact-link-label">TikTok</div>
+                <div class="contact-link-val">@ui_debbie</div>
+              </div>
+            </a>
+            <a href="https://linkedin.com/in/deborah-chidozie-product-designer-a8039b189" target="_blank" class="contact-link">
+              <div class="contact-link-icon"><i class="fa-brands fa-linkedin"></i></div>
+              <div class="contact-link-info">
+                <div class="contact-link-label">LinkedIn</div>
+                <div class="contact-link-val">Deborah Chidozie</div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <form class="contact-form reveal reveal-delay-1" id="portfolioContactForm">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" name="name" placeholder="John Doe" required />
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="john@example.com" required />
+          </div>
+          <div class="form-group">
+            <label>Project Type</label>
+            <input type="text" name="project_type" placeholder="UI/UX Design, Branding, etc." required />
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea name="message" placeholder="Tell me about your project..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <a href="#" class="footer-logo" style="display: flex; align-items: center; margin-bottom: 20px;">
+        <img src="./media/image/logo.svg" alt="UI DEBBIE" style="height: 70px; width: auto; border-radius: 4px;">
+      </a>
+      <p class="footer-copy">© 2025 Chidozie Deborah. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="https://x.com/UI_DEBBIE" target="_blank" class="social-link">𝕏</a>
+        <a href="https://www.tiktok.com/@ui_debbie" target="_blank" class="social-link"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="https://linkedin.com/in/deborah-chidozie-product-designer-a8039b189" target="_blank" class="social-link">in</a>
+        <a href="https://www.behance.net/adachidozie" target="_blank" class="social-link"><i class="fa-brands fa-behance"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // CURSOR
+    const cursor = document.getElementById('cursor');
+    const follower = document.getElementById('cursorFollower');
+    let mx = 0, my = 0, fx = 0, fy = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
+    });
+    function animateFollower() {
+      fx += (mx - fx) * 0.12;
+      fy += (my - fy) * 0.12;
+      follower.style.transform = `translate(${fx - 18}px, ${fy - 18}px)`;
+      requestAnimationFrame(animateFollower);
+    }
+    animateFollower();
+
+    // NAV SCROLL
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // MOBILE NAV
+    document.getElementById('mobileBtn').addEventListener('click', () => {
+      document.getElementById('mobileNav').classList.add('open');
+    });
+    document.getElementById('mobileClose').addEventListener('click', () => {
+      document.getElementById('mobileNav').classList.remove('open');
+    });
+    function closeMobileNav() {
+      document.getElementById('mobileNav').classList.remove('open');
+    }
+
+    // SCROLL REVEAL
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // FAQ
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // CURSOR HOVER EFFECTS
+    document.querySelectorAll('a, button, .project-card, .blog-card, .tool-item').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.transform += ' scale(2)';
+        follower.style.width = '56px';
+        follower.style.height = '56px';
+      });
+      el.addEventListener('mouseleave', () => {
+        follower.style.width = '36px';
+        follower.style.height = '36px';
+      });
+    });
+
+    // COUNTER ANIMATION
+    function animateCounter(el, target, suffix = '') {
+      let count = 0;
+      const step = target / 40;
+      const timer = setInterval(() => {
+        count = Math.min(count + step, target);
+        el.textContent = Math.floor(count) + suffix;
+        if (count >= target) clearInterval(timer);
+      }, 40);
+    }
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const nums = e.target.querySelectorAll('.stat-num');
+          const targets = [3, 8, 3, 100];
+          const suffixes = ['+', '+', '+', '%'];
+          nums.forEach((n, i) => {
+            const span = n.querySelector('span');
+            const suf = span ? span.textContent : '';
+            animateCounter(n, targets[i], suf);
+          });
+          statsObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    const heroStats = document.querySelector('.hero-stats');
+    if (heroStats) statsObserver.observe(heroStats);
+
+    // CONTACT FORM TO WHATSAPP
+    const contactForm = document.getElementById('portfolioContactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = this.querySelector('[name="name"]').value.trim();
+        const email = this.querySelector('[name="email"]').value.trim();
+        const projectType = this.querySelector('[name="project_type"]').value.trim();
+        const message = this.querySelector('[name="message"]').value.trim();
+        
+        const text = `Hello Deborah! 🌟\n\nI just sent a message from your portfolio website. Here are my details:\n\n👤 *Name:* ${name}\n📧 *Email:* ${email}\n💼 *Project:* ${projectType}\n💬 *Message:* ${message}`;
+        const encodedText = encodeURIComponent(text);
+        const whatsappUrl = `https://wa.me/2348100892273?text=${encodedText}`;
+        
+        window.open(whatsappUrl, '_blank');
+        this.reset();
+      });
+    }
+  </script>
+</body>
+</html>
+

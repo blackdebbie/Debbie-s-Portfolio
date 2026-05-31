@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Hub - Sign Up</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    :root {
+      --bg-color: #FDF9F1;
+      --primary: #F97316;
+      --black: #000000;
+      --white: #FFFFFF;
+      --text: #1F2937;
+      --text-muted: #6B7280;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text);
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .auth-card {
+      background: var(--white);
+      padding: 3rem;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+
+    .brand-logo { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-family: 'Irish Grover', cursive; font-size: 2rem; color: var(--black); margin-bottom: 2rem; }
+    .brand-logo img { height: 40px; }
+
+    .auth-title { font-size: 1.5rem; font-weight: 800; color: var(--black); margin-bottom: 0.5rem; }
+    .auth-desc { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2rem; }
+
+    .auth-form { display: flex; flex-direction: column; gap: 1rem; text-align: left; }
+    .auth-input {
+      width: 100%; padding: 1rem 1.2rem; border-radius: 12px;
+      border: 1.5px solid #E5E7EB; background: #FAFAFA;
+      font-family: inherit; font-size: 0.95rem; color: var(--text);
+      transition: all 0.2s;
+    }
+    .auth-input:focus { outline: none; border-color: var(--primary); background: var(--white); }
+
+    .btn-auth {
+      background: var(--primary); color: var(--white); border: none;
+      padding: 1rem; border-radius: 12px; font-weight: 700; font-size: 1rem;
+      cursor: pointer; transition: all 0.2s; margin-top: 1rem;
+    }
+    .btn-auth:hover { background: #ea580c; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(249, 115, 22, 0.2); }
+
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.5rem;
+      color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--black); }
+  </style>
+  <style>
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      will-change: opacity, transform;
+    }
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-card">
+    <div class="brand-logo">
+      <img src="pet hub logo.png" alt="Pet Hub Logo" onerror="this.src='https://ui-avatars.com/api/?name=PH&background=fff&color=F97316&rounded=true'">
+      Pet Hub
+    </div>
+    
+    <h1 class="auth-title">Welcome Back</h1>
+    <p class="auth-desc">Sign in or sign up to manage your pet's care and book appointments instantly.</p>
+
+    <form class="auth-form" id="auth-form">
+      <input type="email" class="auth-input" placeholder="Email Address" required>
+      <input type="password" class="auth-input" placeholder="Password" required>
+      <button type="submit" class="btn-auth">Sign In / Sign Up</button>
+    </form>
+
+    <a href="case-study-6.html" class="back-link"><iconify-icon icon="ph:arrow-left-bold"></iconify-icon> Back to Home</a>
+  </div>
+
+  <script>
+    document.getElementById('auth-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Set the "logged in" state in localStorage
+      localStorage.setItem('petHubLoggedIn', 'true');
+      // Redirect back to the home page
+      window.location.href = 'case-study-6.html';
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      const elementsToAnimate = document.querySelectorAll('h1, h2, .section-subtitle, .hero-text p, .hero-visual, .service-card, .process-step, .s-card, .pet-card, .g-card, .st-card, .srv-card, .c-form, .c-map, .b-form-container, .auth-card, .f-brand, .f-links-col, .f-contact-col');
+      elementsToAnimate.forEach(el => {
+        el.classList.add('animate-on-scroll');
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<svg width="100%" height="100%" viewBox="70 45 300 110" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <!-- Background -->
+  <rect x="-50" y="-50" width="600" height="300" fill="black"/>
+
+  <!-- Hexagon -->
+  <polygon points="120,60 150,80 150,120 120,140 90,120 90,80" fill="white"/>
+
+  <!-- Arrow inside hex -->
+  <path d="M102 85 L120 100 L102 115" stroke="black" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M115 85 L133 100 L115 115" stroke="black" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+  <!-- Text -->
+  <text x="170" y="95" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="bold" letter-spacing="2">
+    UI
+  </text>
+  <text x="170" y="138" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="bold" letter-spacing="2">
+    DEBBIE
+  </text>
+</svg>

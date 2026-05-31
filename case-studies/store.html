@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Hub - Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    :root {
+      --bg-color: #FDF9F1;
+      --primary: #F97316;
+      --black: #000000;
+      --white: #FFFFFF;
+      --text: #1F2937;
+      --text-muted: #6B7280;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    
+    /* Typography */
+    .section-subtitle {
+      color: var(--text-muted); font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; font-size: 0.8rem; display: block; margin-bottom: 1rem;
+    }
+    .section-title { font-size: 2.5rem; font-weight: 800; color: var(--black); line-height: 1.2; margin-bottom: 1.5rem; }
+    
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.8rem 1.8rem; border-radius: 10px; font-weight: 600; font-size: 0.95rem;
+      text-decoration: none; transition: all 0.2s; border: none; cursor: pointer;
+    }
+    .btn-black { background: var(--black); color: var(--white); }
+    .btn-black:hover { opacity: 0.8; }
+    
+    /* Navbar */
+    .nav-pill {
+      background: var(--white); border-radius: 100px; padding: 0.8rem 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 4rem;
+    }
+    .nav-left { display: flex; align-items: center; gap: 0.8rem; font-weight: normal; font-size: 1.2rem; color: var(--black); font-family: 'Irish Grover', cursive; }
+    .nav-links { display: flex; list-style: none; gap: 2rem; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--black); font-weight: 700; }
+    
+    /* Store Hero */
+    .st-hero { padding: 2rem 0 3rem; max-width: 600px; }
+    .st-hero h1 { font-size: 2.8rem; font-weight: 800; color: var(--black); line-height: 1.2; margin-bottom: 1.5rem; }
+    .st-hero p { font-size: 1.05rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem; font-weight: 500; }
+    
+    /* Filter Pills */
+    .filter-pills { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .pill {
+      padding: 0.6rem 1.5rem; border-radius: 100px; font-weight: 600; font-size: 0.85rem;
+      background: #E5E7EB; color: var(--text-muted); cursor: pointer; border: none; transition: all 0.2s;
+    }
+    .pill.active { background: var(--primary); color: var(--white); }
+    
+    /* Store Grid */
+    .store-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 6rem; }
+    .st-card {
+      background: var(--white); border-radius: 16px; padding: 1rem;
+      display: flex; flex-direction: column; transition: transform 0.2s;
+    }
+    .st-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    
+    .st-img {
+      width: 100%; height: 200px; border-radius: 12px; overflow: hidden; margin-bottom: 1rem;
+      background: #F3F4F6; display: flex; align-items: center; justify-content: center;
+    }
+    .st-img img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .st-title { font-size: 1.05rem; font-weight: 700; color: var(--black); margin-bottom: 0.3rem; }
+    .st-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 1rem; flex-grow: 1; }
+    .st-price { font-size: 1.1rem; font-weight: 800; color: var(--black); margin-bottom: 1rem; }
+    .st-card .btn { width: 100%; padding: 0.7rem; font-size: 0.85rem; border-radius: 8px; }
+    
+    /* Footer */
+    footer { background: var(--black); color: var(--white); border-radius: 24px; padding: 4rem 3rem; margin-bottom: 3rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; text-align: left; }
+    .footer-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: bold; font-size: 2.2rem; margin-bottom: 1rem; font-family: 'Irish Grover', cursive; }
+    .footer-desc { color: #A1A1AA; font-size: 0.9rem; margin-bottom: 2rem; max-width: 320px; line-height: 1.7; }
+    .socials { display: flex; gap: 1rem; }
+    .social { width: 36px; height: 36px; background: var(--white); color: #F97316; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: opacity 0.2s; font-size: 1.1rem; text-decoration: none; }
+    .f-title { font-weight: 600; margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .f-links { list-style: none; }
+    .f-links li { margin-bottom: 0.8rem; }
+    .f-links a { color: #A1A1AA; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; display: flex; align-items: center; }
+    .f-links a:hover { color: var(--white); }
+    .f-contact li { display: flex; align-items: center; gap: 1rem; color: #A1A1AA; font-size: 0.95rem; margin-bottom: 1.2rem; }
+    
+    @media (max-width: 992px) {
+      .store-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .store-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+  <style>
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      will-change: opacity, transform;
+    }
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" style="padding-top: 2rem;">
+    <!-- Navbar -->
+    <nav class="nav-pill">
+      <div class="nav-left">
+        <img src="pet hub logo.png" alt="Pet Hub Logo" style="height: 56px; width: auto;" onerror="this.src='https://ui-avatars.com/api/?name=PH&background=fff&color=F97316&rounded=true'">
+        Pet Hub
+      </div>
+      <ul class="nav-links">
+        <li><a href="case-study-6.html">Home</a></li>
+        <li><a href="service.html">Service</a></li>
+        <li><a href="adopt.html">Adopt</a></li>
+        <li><a href="grooming.html">Grooming</a></li>
+        <li><a href="store.html" class="active">Store</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <a href="signup.html" class="btn btn-black" style="padding: 0.6rem 2.5rem; border-radius: 100px;">Sign Up</a>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="st-hero">
+      <span class="section-subtitle">Everything your pet needs.</span>
+      <h1>The best for your best friend.</h1>
+      <p>Vet-curated toys, nutrition and grooming essentials. Free delivery on orders over $200</p>
+      
+      <div class="filter-pills">
+        <button class="pill active">All</button>
+        <button class="pill">Toys</button>
+        <button class="pill">Food</button>
+        <button class="pill">Grooming</button>
+      </div>
+    </section>
+
+    <!-- Store Grid -->
+    <section class="store-grid">
+      <!-- Card 1 -->
+      <div class="st-card">
+        <div class="st-img"><img src="Frame 2147224721.png" alt="Kong Toy"></div>
+        <h3 class="st-title">Kong Classic Toy</h3>
+        <p class="st-desc">Durable rubber chew toy designed for aggressive chewers and interactive play.</p>
+        <div class="st-price">$15</div>
+        <button class="btn btn-black">Add to Cart</button>
+      </div>
+      <!-- Card 2 -->
+      <div class="st-card">
+        <div class="st-img"><img src="Frame 2147224721 (1).png" alt="Dog Treats"></div>
+        <h3 class="st-title">Fresh Kisses Dental</h3>
+        <p class="st-desc">Delicious dental treats that clean teeth and freshen breath with every bite.</p>
+        <div class="st-price">$25</div>
+        <button class="btn btn-black">Add to Cart</button>
+      </div>
+      <!-- Card 3 -->
+      <div class="st-card">
+        <div class="st-img"><img src="Frame 2147224721 (2).png" alt="Tennis Balls"></div>
+        <h3 class="st-title">Squeaky Ball Set</h3>
+        <p class="st-desc">A 3-pack of bouncy, squeaking tennis balls perfect for games of fetch.</p>
+        <div class="st-price">$12</div>
+        <button class="btn btn-black">Add to Cart</button>
+      </div>
+      <!-- Card 4 -->
+      <div class="st-card">
+        <div class="st-img"><img src="Frame 2147224721 (3).png" alt="Wet Food"></div>
+        <h3 class="st-title">Jazzy Canned Food</h3>
+        <p class="st-desc">Premium wet food made with real chicken and wholesome vegetables.</p>
+        <div class="st-price">$30</div>
+        <button class="btn btn-black">Add to Cart</button>
+      </div>
+      
+      <!-- Card 5 -->
+      <div class="st-card">
+        <div class="st-img"><img src="Frame 2147224721 (4).png" alt="Spiky Ball"></div>
+        <h3 class="st-title">Spiky Dental Chew</h3>
+        <p class="st-desc">Helps massage gums and clean your dog's teeth during active playtime.</p>
+        <div class="st-price">$10</div>
+        <button class="btn btn-black">Add to Cart</button>
+      </div>
+      <!-- Card 6 -->
+      <div class="st-card">
+        <div class="st-img"><img src="Frame 2147224721 (5).png" alt="Dry Food"></div>
+        <h3 class="st-title">DeliDog Kibble</h3>
+        <p class="st-desc">High-protein dry dog food formulated specifically for highly active dogs.</p>
+        <div class="st-price">$65</div>
+        <button class="btn btn-black">Add to Cart</button>
+      </div>
+      <!-- Card 7 -->
+      <div class="st-card">
+        <div class="st-img"><img src="Frame 2147224721 (6).png" alt="Pedigree"></div>
+        <h3 class="st-title">Pedigree Adult Nutrition</h3>
+        <p class="st-desc">Complete and balanced dry dog food supporting daily health and vitality.</p>
+        <div class="st-price">$45</div>
+        <button class="btn btn-black">Add to Cart</button>
+      </div>
+      <!-- Card 8 -->
+      <div class="st-card">
+        <div class="st-img"><img src="Frame 2147224721 (7).png" alt="Plush Toy"></div>
+        <h3 class="st-title">Long Dachshund Plush</h3>
+        <p class="st-desc">Soft, squeaky plush toy that is perfect for cuddling and gentle play.</p>
+        <div class="st-price">$18</div>
+        <button class="btn btn-black">Add to Cart</button>
+      </div>
+
+      <!-- Card 9 -->
+      <div class="st-card">
+        <div class="st-img"><img src="Frame 2147224721 (8).png" alt="Rope Toy"></div>
+        <h3 class="st-title">Colorful Rope Tug</h3>
+        <p class="st-desc">Heavy-duty twisted cotton rope built for interactive games of tug-of-war.</p>
+        <div class="st-price">$20</div>
+        <button class="btn btn-black">Add to Cart</button>
+      </div>
+      <!-- Card 10 -->
+      <div class="st-card">
+        <div class="st-img"><img src="Frame 2147224721 (9).png" alt="Toy Pack"></div>
+        <h3 class="st-title">Puppy Chew Pack</h3>
+        <p class="st-desc">A 5-piece assortment of rubber and rope toys tailored for teething puppies.</p>
+        <div class="st-price">$35</div>
+        <button class="btn btn-black">Add to Cart</button>
+      </div>
+      <!-- Card 11 -->
+      <div class="st-card">
+        <div class="st-img"><img src="images (3).jpg" alt="Pastel Rope"></div>
+        <h3 class="st-title">Pastel Rope Toy</h3>
+        <p class="st-desc">Stylish and durable twisted cotton rope for gentle chewers and fetchers.</p>
+        <div class="st-price">$16</div>
+        <button class="btn btn-black">Add to Cart</button>
+      </div>
+      <!-- Card 12 -->
+      <div class="st-card">
+        <div class="st-img"><img src="download (5).jpg" alt="Baker's Food"></div>
+        <h3 class="st-title">Baker's Complete Beef</h3>
+        <p class="st-desc">Tasty, crunchy kibble mixed with tender meaty chunks for a fulfilling meal.</p>
+        <div class="st-price">$50</div>
+        <button class="btn btn-black">Add to Cart</button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-grid">
+        <div class="f-brand">
+          <div class="footer-logo">
+            <img src="pet hub logo.png" alt="Pet Hub Logo" style="height: 56px; filter: brightness(0) invert(1);" onerror="this.src='https://ui-avatars.com/api/?name=PH&background=000&color=F97316&rounded=true'">
+            Pet Hub
+          </div>
+          <p class="footer-desc">The proper footer on proper time can preserve you protection. We assist you make sure everybody forward.</p>
+          <div class="socials">
+            <a href="#" class="social"><iconify-icon icon="ph:facebook-logo-fill"></iconify-icon></a>
+            <a href="#" class="social"><iconify-icon icon="ph:twitter-logo-fill"></iconify-icon></a>
+            <a href="#" class="social"><iconify-icon icon="ph:instagram-logo-fill"></iconify-icon></a>
+            <a href="#" class="social"><iconify-icon icon="ph:youtube-logo-fill"></iconify-icon></a>
+          </div>
+        </div>
+        <div class="f-links-col">
+          <h4 class="f-title">Quick Link</h4>
+          <div style="width: 30px; height: 2px; background: #F97316; margin-bottom: 1.5rem;"></div>
+          <ul class="f-links">
+            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Home</a></li>
+            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> About Us</a></li>
+            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Services</a></li>
+            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Contact</a></li>
+          </ul>
+        </div>
+        <div class="f-contact-col">
+          <h4 class="f-title">Contact</h4>
+          <div style="width: 30px; height: 2px; background: #F97316; margin-bottom: 1.5rem;"></div>
+          <ul class="f-contact">
+            <li><iconify-icon icon="ph:map-pin-fill" style="color: #F97316; font-size: 1.2rem;"></iconify-icon> 44 Danwers, NY City, USA, 70-102</li>
+            <li><iconify-icon icon="ph:envelope-simple-fill" style="color: #F97316; font-size: 1.2rem;"></iconify-icon> Lamaro@Lamaroyc.Us</li>
+            <li><iconify-icon icon="ph:phone-call-fill" style="color: #F97316; font-size: 1.2rem;"></iconify-icon> 91+585-656-658</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script>
+    if(localStorage.getItem('petHubLoggedIn') === 'true') {
+      document.querySelectorAll('a[href="signup.html"]').forEach(btn => {
+        btn.href = 'book.html';
+        btn.innerText = 'Book an Appointment';
+        btn.style.padding = '0.6rem 1.5rem';
+      });
+    }
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      const elementsToAnimate = document.querySelectorAll('h1, h2, .section-subtitle, .hero-text p, .hero-visual, .service-card, .process-step, .s-card, .pet-card, .g-card, .st-card, .srv-card, .c-form, .c-map, .b-form-container, .auth-card, .f-brand, .f-links-col, .f-contact-col');
+      elementsToAnimate.forEach(el => {
+        el.classList.add('animate-on-scroll');
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>

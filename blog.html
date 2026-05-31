@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Silveroak Law Firm - Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #123940;
+      --bg-light: #F8F9FA;
+      --primary: #A1EDF2;
+      --text-light: #FFFFFF;
+      --text-dark: #1A1A1A;
+      --text-muted: #E0E0E0;
+      --text-muted-dark: #666666;
+      --font: 'Plus Jakarta Sans', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      font-family: var(--font);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-weight: 700; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 4vw, 3.2rem); text-align: center; margin-bottom: 24px; color: var(--text-light); }
+    h2 { font-size: clamp(1.75rem, 3.5vw, 2.2rem); margin-bottom: 16px; }
+    h3 { font-size: 1.1rem; margin-bottom: 12px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 100px 0; }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary { background: var(--primary); color: var(--bg-dark); }
+    .btn-primary:hover { background: #8cd6db; }
+    .btn-dark { background: var(--bg-dark); color: var(--text-light); }
+    .btn-dark:hover { background: #0f2d33; }
+
+    /* NAV */
+    nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      padding: 24px 0;
+      z-index: 100;
+    }
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 64px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--text-light);
+      text-decoration: none;
+    }
+    .logo span { color: var(--primary); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-links a.active { color: var(--primary); font-weight: 700; }
+
+    /* BLOG HERO */
+    .blog-hero {
+      background: var(--bg-dark);
+      text-align: center;
+      color: var(--text-light);
+      padding-top: 200px;
+      padding-bottom: 200px;
+    }
+    .blog-hero h1 { margin-bottom: 16px; }
+    .blog-hero p {
+      max-width: 600px;
+      margin: 0 auto;
+      color: var(--text-light);
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    /* BLOG CONTENT */
+    .blog-content {
+      background-color: #FDFDFD;
+      background-image: repeating-linear-gradient(135deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 2px, transparent 2px, transparent 12px);
+      padding-bottom: 100px;
+      position: relative;
+    }
+
+    /* FEATURED POST */
+    .featured-post {
+      background: #FFFFFF;
+      display: flex;
+      align-items: stretch;
+      padding: 32px;
+      border-radius: 4px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+      max-width: 1060px;
+      margin: -100px auto 100px; /* Pulls it up over the hero */
+      position: relative;
+      z-index: 10;
+      gap: 40px;
+    }
+    .featured-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .featured-badge {
+      background: rgba(161, 237, 242, 0.3);
+      color: var(--bg-dark);
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      display: inline-block;
+      align-self: flex-start;
+      margin-bottom: 24px;
+    }
+    .featured-post h2 {
+      font-size: 2rem;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      color: var(--text-dark);
+    }
+    .featured-post p {
+      color: var(--text-muted-dark);
+      margin-bottom: 32px;
+      font-size: 1rem;
+    }
+    .author-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .author-meta img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top;
+    }
+    .author-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+    }
+    .author-divider {
+      width: 1px;
+      height: 16px;
+      background: #DDD;
+    }
+    .author-date {
+      font-size: 0.85rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .featured-image-wrapper {
+      flex: 1;
+    }
+    .featured-image {
+      width: 100%;
+      height: 100%;
+      min-height: 340px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    /* BLOG GRID */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px 40px;
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+    .blog-card {
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card-img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 24px;
+    }
+    .blog-card-badge {
+      background: rgba(161, 237, 242, 0.3);
+      color: var(--bg-dark);
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      display: inline-block;
+      align-self: flex-start;
+      margin-bottom: 16px;
+    }
+    .blog-card h3 {
+      font-size: 1.35rem;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .blog-card p {
+      color: var(--text-muted-dark);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .learn-more {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+      margin-top: auto;
+    }
+    .learn-more:hover { color: var(--primary); }
+
+    /* CTA SECTION */
+    .cta { background: #FFFFFF; padding: 80px 24px; }
+    .cta-inner {
+      max-width: 1128px;
+      margin: 0 auto;
+      background-color: var(--bg-dark);
+      background-image: url('case-studies/Group 1948754963.png');
+      background-size: cover;
+      background-position: center;
+      padding: 100px 24px;
+      text-align: center;
+      color: var(--text-light);
+      position: relative;
+    }
+    .cta span { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; display: block; color: var(--text-muted); }
+    .cta h2 { font-size: 2.5rem; margin-bottom: 24px; }
+    .cta p { color: var(--text-muted); margin-bottom: 40px; font-size: 1rem; }
+    .cta-form { display: flex; max-width: 500px; margin: 0 auto; background: #FFFFFF; padding: 6px; border-radius: 4px; }
+    .cta-form input { flex: 1; border: none; padding: 0 16px; font-family: inherit; font-size: 0.95rem; outline: none; }
+    .cta-bg { display: none; }
+
+    /* FOOTER */
+    footer { background: var(--bg-dark); color: var(--text-light); padding: 80px 0 40px; font-size: 0.9rem; text-align: left; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 64px; }
+    .footer-col h4 { font-size: 0.95rem; margin-bottom: 24px; color: #FFFFFF; font-weight: 600; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 16px; }
+    .footer-col a { color: #E0E0E0; text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--primary); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.2); }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; border: 1px solid #FFFFFF; color: #FFFFFF; text-decoration: none; transition: all 0.2s; }
+    .footer-social a:hover { background: #FFFFFF; color: var(--bg-dark); }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+      .featured-post { flex-direction: column; padding: 24px; margin-top: -60px; }
+      .featured-image { min-height: 250px; }
+      .blog-grid { grid-template-columns: 1fr; gap: 48px; }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .footer-bottom { flex-direction: column; gap: 24px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .cta-form { flex-direction: column; background: transparent; padding: 0; gap: 16px; }
+      .cta-form input { padding: 16px; border-radius: 4px; }
+      .cta-form .btn { width: 100%; padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        <img src="case-studies/Group 2.png" alt="Silveroak Logo" style="height: 48px;">
+      </a>
+      <ul class="nav-links">
+        <li><a href="case-studies/case-study-5.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="practice.html">Practice</a></li>
+        <li><a href="blog.html" class="active">Blogs</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <a href="consultation.html" class="btn btn-primary">Book a Consultation</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="blog-hero">
+    <div class="container">
+      <h1>Legal Insights & Updates</h1>
+      <p>Stay informed with expert advice, legal news, and practical guidance for individuals and businesses navigating complex legal matters.</p>
+    </div>
+  </header>
+
+  <!-- BLOG CONTENT CONTAINER -->
+  <div class="blog-content">
+    <div class="container">
+      
+      <!-- FEATURED POST -->
+      <div class="featured-post">
+        <div class="featured-text">
+          <span class="featured-badge">FINANCE</span>
+          <h2>Protecting Your Business from Financial Fraud</h2>
+          <p>Financial fraud poses serious risks to businesses, from unauthorized transactions to embezzlement. Learn how to prevent fraud and take legal action if it occurs.</p>
+          
+          <div class="author-meta">
+            <img src="case-studies/Link (2).png" alt="Vivian Kensington">
+            <span class="author-name">Vivian Kensington</span>
+            <div class="author-divider"></div>
+            <span class="author-date">FEB 19, 2026</span>
+          </div>
+        </div>
+        <div class="featured-image-wrapper">
+          <img src="case-studies/15.png" alt="Pen and Document" class="featured-image">
+        </div>
+      </div>
+
+      <!-- BLOG GRID -->
+      <div class="blog-grid">
+        
+        <!-- Post 1 -->
+        <div class="blog-card">
+          <img src="case-studies/11.png" alt="Laptop Dashboard" class="blog-card-img">
+          <span class="blog-card-badge">10.15.2023</span>
+          <h3>Understanding Commercial Contract Disputes: What Businesses Need to Know</h3>
+          <p>Commercial contract disputes are among the most common legal issues faced by businesses. Understanding your rights and options is the first step toward protecting your company.</p>
+          <a href="#" class="learn-more">Learn More <i class="fa-solid fa-angle-right"></i></a>
+        </div>
+
+        <!-- Post 2 -->
+        <div class="blog-card">
+          <img src="case-studies/12.png" alt="Office Desk" class="blog-card-img">
+          <span class="blog-card-badge">10.15.2023</span>
+          <h3>Protecting Your Business from Financial Fraud: What You Need to Know</h3>
+          <p>Financial fraud poses a serious threat to businesses, from unauthorized transactions to embezzlement, putting both finances and reputation at risk. Knowing how to prevent it and take legal action is essential.</p>
+          <a href="#" class="learn-more">Learn More <i class="fa-solid fa-angle-right"></i></a>
+        </div>
+
+        <!-- Post 3 -->
+        <div class="blog-card">
+          <img src="case-studies/13.png" alt="Working on Laptop" class="blog-card-img">
+          <span class="blog-card-badge">10.15.2023</span>
+          <h3>Understanding Commercial Contract Disputes: What Businesses Need to Know</h3>
+          <p>Commercial contract disputes are among the most common legal issues faced by businesses. Understanding your rights and options is the first step toward protecting your company.</p>
+          <a href="#" class="learn-more">Learn More <i class="fa-solid fa-angle-right"></i></a>
+        </div>
+
+        <!-- Post 4 -->
+        <div class="blog-card">
+          <img src="case-studies/14.png" alt="Library Books" class="blog-card-img">
+          <span class="blog-card-badge">10.15.2023</span>
+          <h3>Protecting Your Business from Financial Fraud: What You Need to Know</h3>
+          <p>Financial fraud poses a serious threat to businesses, from unauthorized transactions to embezzlement, putting both finances and reputation at risk. Knowing how to prevent it and take legal action is essential.</p>
+          <a href="#" class="learn-more">Learn More <i class="fa-solid fa-angle-right"></i></a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container cta-inner">
+      <span>HOW CAN WE HELP?</span>
+      <h2>Get a Free Consultation</h2>
+      <p>Contact our legal team today for a confidential consultation.</p>
+      
+      <div class="cta-form">
+        <input type="email" placeholder="Email address">
+        <button type="button" class="btn btn-dark">Get Started</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="margin-bottom: 24px; display: flex; align-items: center; gap: 8px;">
+            <img src="case-studies/Group 2.png" alt="Silveroak Logo" style="height: 48px;">
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Case Study</a></li>
+            <li><a href="#">Leagal</a></li>
+            <li><a href="#">Case Study</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">Customer Support</a></li>
+            <li><a href="#">Terms & Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Connect With Us</h4>
+          <ul>
+            <li style="color: #E0E0E0;">2 Saint, New York,<br>NY 10142, USA</li>
+            <li style="color: #E0E0E0; margin-top: 24px;">+123 324 2653</li>
+            <li style="color: #E0E0E0;">AMD12@mail.com</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p style="color: #E0E0E0;">&copy; 2026 All Right Reserved by Deborah.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-google"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

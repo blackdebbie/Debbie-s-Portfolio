@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Hub - Grooming</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    :root {
+      --bg-color: #FDF9F1;
+      --primary: #F97316;
+      --black: #000000;
+      --white: #FFFFFF;
+      --text: #1F2937;
+      --text-muted: #6B7280;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    
+    /* Typography */
+    .section-subtitle {
+      color: var(--text-muted); font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; font-size: 0.8rem; display: block; margin-bottom: 1rem;
+    }
+    .section-title { font-size: 2.5rem; font-weight: 800; color: var(--black); line-height: 1.2; margin-bottom: 1.5rem; }
+    
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.8rem 1.8rem; border-radius: 100px; font-weight: 600; font-size: 0.95rem;
+      text-decoration: none; transition: all 0.2s; border: none; cursor: pointer;
+    }
+    .btn-black { background: var(--black); color: var(--white); }
+    .btn-black:hover { opacity: 0.8; }
+    .btn-primary { background: var(--primary); color: var(--white); }
+    .btn-primary:hover { opacity: 0.9; }
+    
+    /* Navbar */
+    .nav-pill {
+      background: var(--white); border-radius: 100px; padding: 0.8rem 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 4rem;
+    }
+    .nav-left { display: flex; align-items: center; gap: 0.8rem; font-weight: normal; font-size: 1.2rem; color: var(--black); font-family: 'Irish Grover', cursive; }
+    .nav-links { display: flex; list-style: none; gap: 2rem; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--black); font-weight: 700; }
+    
+    /* Hero Section */
+    .g-hero { padding: 2rem 0 4rem; max-width: 800px; }
+    .g-hero h1 { font-size: 3rem; font-weight: 800; color: var(--black); line-height: 1.2; margin-bottom: 1.5rem; }
+    .g-hero p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; max-width: 600px; margin-bottom: 2.5rem; }
+    .hero-tags { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .h-tag { padding: 0.6rem 1.2rem; border-radius: 100px; font-size: 0.85rem; font-weight: 600; }
+    .h-tag.orange { background: var(--primary); color: var(--white); }
+    .h-tag.grey { background: #E5E7EB; color: var(--text-muted); }
+    
+    /* Main Layout */
+    .grooming-main { padding: 2rem 0 6rem; }
+    .g-header { margin-bottom: 4rem; }
+    .g-header h2 { font-size: 1.8rem; font-weight: 800; color: var(--black); }
+    
+    .g-content { display: grid; grid-template-columns: 1fr 400px; gap: 6rem; align-items: start; }
+    
+    /* Timeline */
+    .timeline { position: relative; padding-left: 3rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 19px; top: 0; bottom: 0;
+      width: 2px; background: #E5E7EB; z-index: 0;
+    }
+    .t-step { position: relative; margin-bottom: 4rem; z-index: 1; }
+    .t-step:last-child { margin-bottom: 0; }
+    .t-number {
+      position: absolute; left: -3rem; top: 0; width: 40px; height: 40px;
+      background: var(--black); color: var(--white); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1.1rem; transform: translateX(-50%);
+    }
+    .t-time { color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+    .t-step h3 { font-size: 1.3rem; font-weight: 700; color: var(--black); margin-bottom: 0.8rem; }
+    .t-step p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.2rem; max-width: 500px; }
+    
+    .t-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .t-tag { background: #E5E7EB; color: var(--text-muted); font-size: 0.75rem; font-weight: 600; padding: 0.4rem 0.8rem; border-radius: 100px; }
+    
+    /* Pricing Cards */
+    .pricing-cards { display: flex; flex-direction: column; gap: 2rem; position: sticky; top: 2rem; }
+    .p-card { border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    .p-header { padding: 2rem; }
+    .p-header h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .p-header p { font-size: 0.9rem; opacity: 0.9; margin-bottom: 1.5rem; }
+    .p-price { font-size: 2.5rem; font-weight: 800; display: flex; align-items: baseline; gap: 0.5rem; }
+    .p-price span { font-size: 0.9rem; font-weight: 500; opacity: 0.9; }
+    
+    .p-body { background: var(--white); padding: 2rem; }
+    .p-list { list-style: none; margin-bottom: 2rem; }
+    .p-list li { display: flex; align-items: flex-start; gap: 0.8rem; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .p-list li:last-child { margin-bottom: 0; }
+    .p-list iconify-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .p-card .btn { width: 100%; padding: 1rem; }
+    
+    .p-card.orange .p-header { background: var(--primary); color: var(--white); }
+    .p-card.orange .p-list iconify-icon { color: var(--primary); }
+    
+    .p-card.black .p-header { background: var(--black); color: var(--white); }
+    .p-card.black .p-list iconify-icon { color: var(--black); }
+    
+    /* Footer */
+    footer { background: var(--black); color: var(--white); border-radius: 24px; padding: 4rem 3rem; margin-bottom: 3rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; text-align: left; }
+    .footer-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: bold; font-size: 2.2rem; margin-bottom: 1rem; font-family: 'Irish Grover', cursive; }
+    .footer-desc { color: #A1A1AA; font-size: 0.9rem; margin-bottom: 2rem; max-width: 320px; line-height: 1.7; }
+    .socials { display: flex; gap: 1rem; }
+    .social { width: 36px; height: 36px; background: var(--white); color: #F97316; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: opacity 0.2s; font-size: 1.1rem; text-decoration: none; }
+    .f-title { font-weight: 600; margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .f-links { list-style: none; }
+    .f-links li { margin-bottom: 0.8rem; }
+    .f-links a { color: #A1A1AA; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; display: flex; align-items: center; }
+    .f-links a:hover { color: var(--white); }
+    .f-contact li { display: flex; align-items: center; gap: 1rem; color: #A1A1AA; font-size: 0.95rem; margin-bottom: 1.2rem; }
+    
+    @media (max-width: 992px) {
+      .g-content { grid-template-columns: 1fr; gap: 4rem; }
+      .pricing-cards { position: static; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+  <style>
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      will-change: opacity, transform;
+    }
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" style="padding-top: 2rem;">
+    <!-- Navbar -->
+    <nav class="nav-pill">
+      <div class="nav-left">
+        <img src="pet hub logo.png" alt="Pet Hub Logo" style="height: 56px; width: auto;" onerror="this.src='https://ui-avatars.com/api/?name=PH&background=fff&color=F97316&rounded=true'">
+        Pet Hub
+      </div>
+      <ul class="nav-links">
+        <li><a href="case-study-6.html">Home</a></li>
+        <li><a href="service.html">Service</a></li>
+        <li><a href="adopt.html">Adopt</a></li>
+        <li><a href="grooming.html" class="active">Grooming</a></li>
+        <li><a href="store.html">Store</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <a href="signup.html" class="btn btn-black" style="padding: 0.6rem 2.5rem;">Sign Up</a>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="g-hero">
+      <span class="section-subtitle">Grooming Studio</span>
+      <h1>A spa day, every day.</h1>
+      <p>Our grooming process is calm, thorough, and personalised to your dog's breed and coat type. Walk in any day no appointment needed.</p>
+      <div class="hero-tags">
+        <span class="h-tag orange">Walk-ins Welcome</span>
+        <span class="h-tag grey">All Breeds & Sizes</span>
+        <span class="h-tag grey">Mon-Sun, 8am-7pm</span>
+        <span class="h-tag grey">Natural Products Only</span>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="grooming-main">
+      <div class="g-header">
+        <h2>Walk-in Grooming Journey</h2>
+      </div>
+      
+      <div class="g-content">
+        <!-- Left: Timeline -->
+        <div class="timeline">
+          
+          <div class="t-step">
+            <div class="t-number">1</div>
+            <div class="t-time">On Arrival, 5 min</div>
+            <h3>Check-in & Assessment</h3>
+            <p>Our front desk team welcomes your dog, checks vaccination records, and our groomer performs a quick health and coat assessment to personalise the session.</p>
+            <div class="t-tags">
+              <span class="t-tag">Vaccination Check</span>
+              <span class="t-tag">Breed Assessment</span>
+              <span class="t-tag">Coat Type Notice</span>
+            </div>
+          </div>
+          
+          <div class="t-step">
+            <div class="t-number">2</div>
+            <div class="t-time">Step 2 — 15 min</div>
+            <h3>Pre-bath Brush & Detangle</h3>
+            <p>We thoroughly brush your dog's coat to remove mats, tangles, and loose fur before bathing — this makes the bath more effective and comfortable.</p>
+            <div class="t-tags">
+              <span class="t-tag">Detangling</span>
+              <span class="t-tag">Deshedding</span>
+              <span class="t-tag">Ear Check</span>
+            </div>
+          </div>
+          
+          <div class="t-step">
+            <div class="t-number">3</div>
+            <div class="t-time">Step 3 — 20 min</div>
+            <h3>Aromatherapy Bath</h3>
+            <p>Using premium, breed-appropriate shampoos and conditioners. We offer soothing, hypoallergenic, or medicated options depending on your dog's skin and coat needs.</p>
+            <div class="t-tags">
+              <span class="t-tag">Hypoallergenic</span>
+              <span class="t-tag">Deep Cleanse</span>
+              <span class="t-tag">Conditioning</span>
+            </div>
+          </div>
+          
+          <div class="t-step">
+            <div class="t-number">4</div>
+            <div class="t-time">Step 4 — 15 min</div>
+            <h3>Blow-dry & Finishing Brush</h3>
+            <p>A professional blow-dry using a pet-safe velocity dryer, followed by a finishing brush to leave the coat fluffy, shiny, and perfectly smooth.</p>
+            <div class="t-tags">
+              <span class="t-tag">Fluff Dry</span>
+              <span class="t-tag">Line Brush</span>
+              <span class="t-tag">Shine Finish</span>
+            </div>
+          </div>
+          
+          <div class="t-step">
+            <div class="t-number">5</div>
+            <div class="t-time">Step 5 — 20 min</div>
+            <h3>Trim, Style & Nail Care</h3>
+            <p>Breed-specific haircut, scissor finishing, nail clipping and filing, ear cleaning, and optional bandana or bow your dog leaves looking immaculate.</p>
+            <div class="t-tags">
+              <span class="t-tag">Breed Cut</span>
+              <span class="t-tag">Nail Clip</span>
+              <span class="t-tag">Ear Clean</span>
+              <span class="t-tag">Optional Bow</span>
+            </div>
+          </div>
+          
+          <div class="t-step">
+            <div class="t-number">6</div>
+            <div class="t-time">Final Step — 5 min</div>
+            <h3>Checkout & Aftercare Advice</h3>
+            <p>We review everything done during the session, give you a brief aftercare report, and recommend a home maintenance routine between visits.</p>
+            <div class="t-tags">
+              <span class="t-tag">Grooming Report</span>
+              <span class="t-tag">Home Care Tips</span>
+              <span class="t-tag">Next Appointment</span>
+            </div>
+          </div>
+
+        </div>
+        
+        <!-- Right: Pricing Cards -->
+        <div class="pricing-cards">
+          
+          <!-- Orange Card -->
+          <div class="p-card orange">
+            <div class="p-header">
+              <h3>Full Grooming Package</h3>
+              <p>Bath, Cut & Blow Dry</p>
+              <div class="p-price">$100 <span>per session</span></div>
+            </div>
+            <div class="p-body">
+              <ul class="p-list">
+                <li><iconify-icon icon="ph:check-circle-fill"></iconify-icon> Bath with premium shampoo & conditioner</li>
+                <li><iconify-icon icon="ph:check-circle-fill"></iconify-icon> Full blow-dry & finish brush</li>
+                <li><iconify-icon icon="ph:check-circle-fill"></iconify-icon> Breed-specific haircut & styling</li>
+                <li><iconify-icon icon="ph:check-circle-fill"></iconify-icon> Nail clip, file & paw balm</li>
+                <li><iconify-icon icon="ph:check-circle-fill"></iconify-icon> Ear cleaning & dental freshen</li>
+                <li><iconify-icon icon="ph:check-circle-fill"></iconify-icon> Bandana or bow of your choice</li>
+                <li><iconify-icon icon="ph:check-circle-fill"></iconify-icon> Post-groom care report</li>
+              </ul>
+              <a href="book.html" class="btn btn-primary" style="text-decoration: none; display: block; text-align: center;">Book An Appointment</a>
+            </div>
+          </div>
+          
+          <!-- Black Card -->
+          <div class="p-card black">
+            <div class="p-header">
+              <h3>Quick Clean Package</h3>
+              <p>Bath, dry & nail trim only</p>
+              <div class="p-price">$50 <span>per session</span></div>
+            </div>
+            <div class="p-body">
+              <ul class="p-list">
+                <li><iconify-icon icon="ph:check-circle-fill"></iconify-icon> Bath with standard shampoo</li>
+                <li><iconify-icon icon="ph:check-circle-fill"></iconify-icon> Towel dry + quick blow-dry</li>
+                <li><iconify-icon icon="ph:check-circle-fill"></iconify-icon> Nail clip only</li>
+                <li><iconify-icon icon="ph:check-circle-fill"></iconify-icon> ~45 min total time</li>
+              </ul>
+              <a href="book.html" class="btn btn-black" style="text-decoration: none; display: block; text-align: center;">Book An Appointment</a>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-grid">
+        <div class="f-brand">
+          <div class="footer-logo">
+            <img src="pet hub logo.png" alt="Pet Hub Logo" style="height: 56px; filter: brightness(0) invert(1);" onerror="this.src='https://ui-avatars.com/api/?name=PH&background=000&color=F97316&rounded=true'">
+            Pet Hub
+          </div>
+          <p class="footer-desc">The proper footer on proper time can preserve you protection. We assist you make sure everybody forward.</p>
+          <div class="socials">
+            <a href="#" class="social"><iconify-icon icon="ph:facebook-logo-fill"></iconify-icon></a>
+            <a href="#" class="social"><iconify-icon icon="ph:twitter-logo-fill"></iconify-icon></a>
+            <a href="#" class="social"><iconify-icon icon="ph:instagram-logo-fill"></iconify-icon></a>
+            <a href="#" class="social"><iconify-icon icon="ph:youtube-logo-fill"></iconify-icon></a>
+          </div>
+        </div>
+        <div class="f-links-col">
+          <h4 class="f-title">Quick Link</h4>
+          <div style="width: 30px; height: 2px; background: #F97316; margin-bottom: 1.5rem;"></div>
+          <ul class="f-links">
+            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Home</a></li>
+            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> About Us</a></li>
+            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Services</a></li>
+            <li><a href="#"><iconify-icon icon="ph:caret-right-bold" style="color: #F97316; margin-right: 0.5rem;"></iconify-icon> Contact</a></li>
+          </ul>
+        </div>
+        <div class="f-contact-col">
+          <h4 class="f-title">Contact</h4>
+          <div style="width: 30px; height: 2px; background: #F97316; margin-bottom: 1.5rem;"></div>
+          <ul class="f-contact">
+            <li><iconify-icon icon="ph:map-pin-fill" style="color: #F97316; font-size: 1.2rem;"></iconify-icon> 44 Danwers, NY City, USA, 70-102</li>
+            <li><iconify-icon icon="ph:envelope-simple-fill" style="color: #F97316; font-size: 1.2rem;"></iconify-icon> Lamaro@Lamaroyc.Us</li>
+            <li><iconify-icon icon="ph:phone-call-fill" style="color: #F97316; font-size: 1.2rem;"></iconify-icon> 91+585-656-658</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script>
+    if(localStorage.getItem('petHubLoggedIn') === 'true') {
+      document.querySelectorAll('a[href="signup.html"]').forEach(btn => {
+        btn.href = 'book.html';
+        btn.innerText = 'Book an Appointment';
+        btn.style.padding = '0.6rem 1.5rem';
+      });
+    }
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      const elementsToAnimate = document.querySelectorAll('h1, h2, .section-subtitle, .hero-text p, .hero-visual, .service-card, .process-step, .s-card, .pet-card, .g-card, .st-card, .srv-card, .c-form, .c-map, .b-form-container, .auth-card, .f-brand, .f-links-col, .f-contact-col');
+      elementsToAnimate.forEach(el => {
+        el.classList.add('animate-on-scroll');
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>

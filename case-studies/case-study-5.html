@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Silveroak Law Firm</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #123940; /* Dark Teal */
+      --bg-light: #F8F9FA; /* Off-White */
+      --primary: #A1EDF2; /* Light Cyan */
+      --text-light: #FFFFFF;
+      --text-dark: #1A1A1A;
+      --text-muted: #E0E0E0;
+      --text-muted-dark: #666666;
+      --font: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      font-family: var(--font);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* TYPOGRAPHY */
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    h1 { font-size: clamp(2rem, 4vw, 3.2rem); text-align: center; margin-bottom: 24px; color: var(--text-light); }
+    h2 { font-size: clamp(1.75rem, 3.5vw, 2.2rem); margin-bottom: 16px; }
+    h3 { font-size: 1.1rem; margin-bottom: 12px; }
+
+    /* LAYOUT */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 100px 0;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--bg-dark);
+    }
+    .btn-primary:hover {
+      background: #8cd6db;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-light);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .btn-outline:hover {
+      border-color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-dark {
+      background: var(--bg-dark);
+      color: var(--text-light);
+    }
+
+    /* NAV */
+    nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      padding: 24px 0;
+      z-index: 100;
+    }
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 64px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--text-light);
+      text-decoration: none;
+    }
+    .logo span {
+      color: var(--primary);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-links a.active { color: var(--primary); font-weight: 700; }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      padding-top: 220px;
+      padding-bottom: 160px;
+      background-color: var(--bg-dark);
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url('hero (4).png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    /* PRACTICE AREAS */
+    .practice-areas {
+      background: #FFFFFF;
+      text-align: center;
+    }
+    .practice-header {
+      margin-bottom: 64px;
+    }
+    .practice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      text-align: left;
+    }
+    .p-card {
+      padding: 40px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-height: 280px;
+    }
+    .p-dark {
+      background: var(--bg-dark);
+      color: var(--text-light);
+    }
+    .p-dark p { color: var(--text-muted); }
+    
+    .p-light {
+      background: var(--primary);
+      color: var(--bg-dark);
+    }
+    .p-light p { color: rgba(18, 57, 64, 0.8); }
+
+    .p-num {
+      font-size: 2rem;
+      font-weight: 300;
+      margin-bottom: 48px;
+      opacity: 0.8;
+    }
+    .p-img {
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .p-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ABOUT US */
+    .about-section {
+      background: var(--bg-dark);
+      color: var(--text-light);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-text p {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      font-size: 1.1rem;
+    }
+    .about-img img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    /* HOW WE WORK */
+    .process-section {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      padding-top: 0;
+    }
+    .process-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .process-header span {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .process-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .process-img {
+      position: relative;
+    }
+    .process-img img {
+      width: 100%;
+      border-radius: 8px;
+      opacity: 0.6;
+    }
+    .process-img-text {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      right: 40px;
+    }
+    .process-img-text h3 {
+      font-size: 1.8rem;
+      margin: 0;
+    }
+    
+    .accordion {
+      display: flex;
+      flex-direction: column;
+    }
+    .acc-item {
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    .acc-item:hover { color: var(--primary); }
+
+    /* CASE STUDIES */
+    .cases-section {
+      background: #FFFFFF;
+    }
+    .cases-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 64px;
+    }
+    .cases-left span {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted-dark);
+      display: block;
+      margin-bottom: 16px;
+    }
+    .cases-left h2 {
+      font-size: 1.8rem;
+    }
+    .cases-left hr {
+      margin-top: 40px;
+      margin-bottom: 40px;
+      border: none;
+      height: 1px;
+      background: #000;
+      width: 100%;
+    }
+    
+    .case-card {
+      display: block;
+      background: transparent;
+    }
+    .case-card-img img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      margin-bottom: 24px;
+    }
+    .case-card-content {
+      padding: 0;
+    }
+    .case-card-content h3 { font-size: 1.25rem; margin-bottom: 16px; }
+    .case-card-content p { color: var(--text-muted-dark); margin-bottom: 24px; }
+    .read-more { color: var(--text-dark); font-weight: 600; text-decoration: none; }
+    .read-more:hover { text-decoration: underline; }
+
+    /* BLOG */
+    .blog-section {
+      background: #FFFFFF;
+      text-align: center;
+      padding-top: 0;
+    }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      text-align: left;
+      margin-top: 40px;
+    }
+    .blog-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+    .blog-tag {
+      font-size: 0.8rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .blog-card h3 { font-size: 1.25rem; margin-bottom: 16px; }
+    .blog-card p { color: var(--text-muted-dark); margin-bottom: 24px; }
+
+    /* TESTIMONIALS */
+    .testimonials {
+      background: var(--bg-dark);
+      text-align: center;
+      color: var(--text-light);
+    }
+    .slider-container {
+      overflow: hidden;
+      max-width: 800px;
+      margin: 48px auto 0;
+      position: relative;
+    }
+    .slider-track {
+      display: flex;
+      animation: slide 15s infinite;
+    }
+    .testimonial-card {
+      background: #FFFFFF;
+      color: var(--text-dark);
+      min-width: 100%;
+      box-sizing: border-box;
+      padding: 48px 64px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      text-align: left;
+    }
+    .test-img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .test-content h4 { font-size: 1.5rem; margin-bottom: 12px; font-weight: 600; }
+    .test-content p { color: #333333; margin-bottom: 24px; line-height: 1.6; font-size: 0.95rem; }
+    .test-date { font-size: 0.8rem; color: #888888; display: block; margin-top: 16px; }
+    
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 32px;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; border: 1px solid #FFFFFF; background: transparent; }
+    .dot:nth-child(1) { animation: dot1 15s infinite; }
+    .dot:nth-child(2) { animation: dot2 15s infinite; }
+    .dot:nth-child(3) { animation: dot3 15s infinite; }
+
+    @keyframes slide {
+      0%, 25% { transform: translateX(0); }
+      33%, 58% { transform: translateX(-100%); }
+      66%, 91% { transform: translateX(-200%); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes dot1 {
+      0%, 25% { background: #FFFFFF; border-color: transparent; }
+      33%, 100% { background: transparent; border-color: #FFFFFF; }
+    }
+    @keyframes dot2 {
+      0%, 25% { background: transparent; border-color: #FFFFFF; }
+      33%, 58% { background: #FFFFFF; border-color: transparent; }
+      66%, 100% { background: transparent; border-color: #FFFFFF; }
+    }
+    @keyframes dot3 {
+      0%, 58% { background: transparent; border-color: #FFFFFF; }
+      66%, 91% { background: #FFFFFF; border-color: transparent; }
+      100% { background: transparent; border-color: #FFFFFF; }
+    }
+
+    /* CONTACT */
+    .contact-section {
+      background: #FFFFFF;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 80px;
+    }
+    .contact-info span { display: block; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted-dark); margin-bottom: 16px; letter-spacing: 2px;}
+    .contact-info h2 { font-size: 2.5rem; margin-bottom: 16px; }
+    .contact-info p { color: var(--text-muted-dark); margin-bottom: 40px; }
+    
+    .c-detail { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; font-weight: 500; }
+    .c-detail i { font-size: 1.2rem; }
+
+    .contact-form form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group.full { grid-column: span 2; }
+    .form-group label { font-size: 0.85rem; margin-bottom: 8px; font-weight: 600; color: var(--text-muted-dark); }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 16px;
+      border: 1px solid #E0E0E0;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 1rem;
+      background: var(--bg-light);
+    }
+
+    .form-group textarea { height: 120px; resize: none; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--bg-dark);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      padding: 80px 0 40px;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 64px;
+    }
+    .footer-col h4 {
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col ul li {
+      margin-bottom: 16px;
+    }
+    .footer-col a {
+      color: #E0E0E0;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover {
+      color: var(--primary);
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .footer-social {
+      display: flex;
+      gap: 16px;
+    }
+    .footer-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid #FFFFFF;
+      color: #FFFFFF;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .footer-social a:hover {
+      background: #FFFFFF;
+      color: var(--bg-dark);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+      .practice-grid, .about-grid, .process-grid, .cases-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .case-card { grid-template-columns: 1fr; }
+      .testimonial-card { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .contact-form form { grid-template-columns: 1fr; }
+      .form-group { grid-column: span 1 !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        <img src="Group 2.png" alt="Silveroak Logo" style="height: 48px;">
+      </a>
+      <ul class="nav-links">
+        <li><a href="case-study-5.html" class="active">Home</a></li>
+        <li><a href="../about.html">About Us</a></li>
+        <li><a href="../practice.html">Practice</a></li>
+        <li><a href="../blog.html">Blogs</a></li>
+        <li><a href="../contact.html">Contact Us</a></li>
+      </ul>
+      <a href="../consultation.html" class="btn btn-primary">Book a Consultation</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <p class="hero-sub" style="text-transform: none; letter-spacing: normal; color: #E0E0E0; font-weight: 500; margin-bottom: 24px; font-size: 1rem;">We help businesses and individuals resolve legal matters efficiently.</p>
+      <h1 style="margin-bottom: 48px;">Trusted Legal Expertise.<br>Proven Results.</h1>
+      <div class="hero-actions">
+        <a href="../about.html" class="btn btn-primary">Learn More</a>
+        <a href="../contact.html" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRACTICE AREAS -->
+  <section class="practice-areas">
+    <div class="container">
+      <div class="practice-header">
+        <h2>Our Practice Areas</h2>
+        <p style="color: var(--text-muted-dark);">Comprehensive legal solutions for your personal and business needs.</p>
+      </div>
+      
+      <div class="practice-grid">
+        <div class="p-card p-dark">
+          <div class="p-num">01</div>
+          <h3>Corporate Law</h3>
+          <p>Expert legal counsel for business formation, contracts, mergers, and corporate governance.</p>
+        </div>
+        
+        <div class="p-card p-dark">
+          <div class="p-num">02</div>
+          <h3>Family Law</h3>
+          <p>Compassionate representation for divorce, custody, and family legal matters.</p>
+        </div>
+        
+        <div class="p-img">
+          <img src="Mask group.png" alt="Scales of Justice">
+        </div>
+
+        <div class="p-card p-light">
+          <div class="p-num">03</div>
+          <h3>Criminal Defense</h3>
+          <p>Aggressive defense protecting your rights, freedom, and future.</p>
+        </div>
+        
+        <div class="p-img">
+          <img src="Mask group (1).png" alt="Courthouse">
+        </div>
+
+        <div class="p-card p-dark">
+          <div class="p-num">04</div>
+          <h3>Property Law</h3>
+          <p>Navigating real estate transactions, disputes, and property rights.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section">
+    <div class="container about-grid">
+      <div class="about-text">
+        <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted);">About Us</span>
+        <h2>Experienced Legal Representation You Can Trust</h2>
+        <p>With decades of combined experience, our legal team provides unparalleled dedication to defending your rights and securing your future. We believe in meticulous preparation and a relentless pursuit of justice.</p>
+        <a href="../about.html" class="btn btn-primary">Learn More</a>
+      </div>
+      <div class="about-img">
+        <img src="Frame 61.png" alt="About Silveroak">
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process-section">
+    <div class="container">
+      <div class="process-header" style="text-align: center; margin-bottom: 80px;">
+        <div style="position: relative; display: inline-block; margin-bottom: 16px;">
+          <span style="font-size: 0.85rem; color: #E0E0E0; position: relative; z-index: 1; padding: 0 16px; background: var(--bg-dark);">Legal Process</span>
+          <div style="position: absolute; top: 50%; left: -60px; right: -60px; border-top: 1px dashed #A1EDF2; z-index: 0;"></div>
+        </div>
+        <h2 style="font-size: 2rem; margin-top: 8px;">How We Work</h2>
+      </div>
+      
+      <div class="process-grid" style="align-items: start;">
+        <div class="process-img" style="position: relative;">
+          <img src="image 5.png" alt="Architecture" style="width: 100%; border-radius: 0; opacity: 1; display: block;">
+          <div style="margin-top: 32px;">
+            <h3 style="font-size: 1.8rem; line-height: 1.4; margin: 0; font-weight: 500;">Our Structured Legal Process<br>Designed To Deliver Clarity,<br>Confidence, And Results</h3>
+          </div>
+        </div>
+        
+        <div class="accordion" style="display: flex; flex-direction: column; justify-content: flex-start;">
+          <div class="acc-item" style="border-bottom: 1px solid rgba(255,255,255,0.4); padding: 24px 0; display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 500;">
+            Schedule a Consultation <span style="font-weight: 700;">&rarr;</span>
+          </div>
+          <div class="acc-item" style="border-bottom: 1px solid rgba(255,255,255,0.4); padding: 24px 0; display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 500;">
+            Case Evaluation <span style="font-weight: 700;">&rarr;</span>
+          </div>
+          <div class="acc-item" style="border-bottom: 1px solid rgba(255,255,255,0.4); padding: 24px 0; display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 500;">
+            Representation <span style="font-weight: 700;">&rarr;</span>
+          </div>
+          <div class="acc-item" style="border-bottom: 1px solid rgba(255,255,255,0.4); padding: 24px 0; display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 500;">
+            Short reassurance line: <span style="font-weight: 700;">&rarr;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section class="cases-section">
+    <div class="container cases-grid">
+      <div class="cases-left">
+        <span style="font-size: 0.85rem; font-weight: 700; color: #1A1A1A; text-transform: none; letter-spacing: normal; margin-bottom: 16px; display: block;">Cases</span>
+        <h2 style="font-size: 2.5rem; line-height: 1.3;">We Have Handled<br>Cases From Some Of<br>Our Clients</h2>
+        <hr>
+        <a href="#" class="read-more" style="font-size: 0.9rem; font-weight: 700; color: #1a4950;">Learn More &gt;</a>
+      </div>
+      
+      <div class="cases-right">
+        <div class="case-card">
+          <div class="case-card-img">
+            <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=800" alt="Books">
+          </div>
+          <div class="case-card-content">
+            <h3 style="font-size: 1.6rem; margin-bottom: 24px; line-height: 1.4;">Recovered ₦120 Million in<br>Commercial Contract Dispute</h3>
+            <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 32px; color: var(--text-dark);">Successfully represented a manufacturing company in a high-stakes financial litigation, securing full recovery and protecting long-term business interests.</p>
+            <a href="#" class="read-more" style="font-size: 0.9rem; font-weight: 700; color: #1a4950;">Learn More &gt;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section class="blog-section">
+    <div class="container">
+      <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted-dark);">Blog</span>
+      <h2>Blog & Articles</h2>
+      
+      <div class="blog-grid">
+        <div class="blog-card">
+          <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=800" alt="Contract writing">
+          <span class="blog-tag">Corporate</span>
+          <h3>Understanding Commercial Contract Disputes: What Businesses Need To Know</h3>
+          <p>Learn the fundamental elements of drafting ironclad contracts and how to mitigate risks before disputes arise.</p>
+          <a href="#" class="read-more">Read More &rarr;</a>
+        </div>
+        
+        <div class="blog-card">
+          <img src="https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?auto=format&fit=crop&q=80&w=800" alt="Notebook">
+          <span class="blog-tag">Business</span>
+          <h3>Protecting Your Business From Financial Fraud: What You Need To Know</h3>
+          <p>Proactive legal measures every small to medium enterprise should implement to safeguard their financial assets.</p>
+          <a href="#" class="read-more">Read More &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="container">
+      <h2>What Our Clients Say<br>About Us</h2>
+      
+      <div class="slider-container">
+        <div class="slider-track">
+          <!-- Slide 1 -->
+          <div class="testimonial-card">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200&h=200&crop=faces" alt="Hannah Schmitt" class="test-img">
+            <div class="test-content">
+              <h4>Hannah Schmitt</h4>
+              <p>The team provided incredible support during a very difficult time for my family. Their compassionate approach combined with fierce advocacy gave me the peace of mind I needed to move forward.</p>
+              <span class="test-date">Feb 18, 2026</span>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="testimonial-card">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=200&h=200&crop=faces" alt="Sarah Jenkins" class="test-img">
+            <div class="test-content">
+              <h4>Sarah Jenkins</h4>
+              <p>Outstanding service from start to finish. They broke down complex legal jargon into plain language and kept me informed at every stage of the process. I highly recommend Silveroak.</p>
+              <span class="test-date">Mar 02, 2026</span>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="testimonial-card">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&h=200&q=80&crop=faces" alt="Michael Ross" class="test-img">
+            <div class="test-content">
+              <h4>Michael Ross</h4>
+              <p>They handled our commercial contract dispute with precision and expertise. Their strategic approach protected our business interests and resolved the matter efficiently. We couldn't have asked for better representation.</p>
+              <span class="test-date">Apr 14, 2026</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="slider-dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section">
+    <div class="container contact-grid">
+      <div class="contact-info">
+        <span>Contact</span>
+        <h2>Get a Free Consultation</h2>
+        <p>Contact our legal team today for a confidential consultation.</p>
+        
+        <div class="c-detail">
+          <i class="fa-solid fa-envelope"></i> info@silveroak.com
+        </div>
+        <div class="c-detail">
+          <i class="fa-solid fa-phone"></i> 1-800-LAW-FIRM
+        </div>
+        <div class="c-detail">
+          <i class="fa-solid fa-location-dot"></i> 123 Legal Avenue, Suite 100, NY
+        </div>
+      </div>
+      
+      <div class="contact-form">
+        <form>
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="John">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Doe">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="john@example.com">
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="(555) 000-0000">
+          </div>
+          <div class="form-group full">
+            <label>Legal Issue Type</label>
+            <select>
+              <option>Corporate Law</option>
+              <option>Family Law</option>
+              <option>Criminal Defense</option>
+              <option>Property Law</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Message</label>
+            <textarea placeholder="Briefly describe your situation..."></textarea>
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="margin-bottom: 24px; display: flex; align-items: center; gap: 8px;">
+            <img src="Group 2.png" alt="Silveroak Logo" style="height: 48px;">
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Case Study</a></li>
+            <li><a href="#">Leagal</a></li>
+            <li><a href="#">Case Study</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">Customer Support</a></li>
+            <li><a href="#">Terms & Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Connect With Us</h4>
+          <ul>
+            <li style="color: #E0E0E0;">2 Saint, New York,<br>NY 10142, USA</li>
+            <li style="color: #E0E0E0; margin-top: 24px;">+123 324 2653</li>
+            <li style="color: #E0E0E0;">AMD12@mail.com</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p style="color: #E0E0E0;">&copy; 2026 All Right Reserved by Deborah.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-google"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
