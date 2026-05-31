@@ -311,8 +311,10 @@
     .footer-col a:hover { color: var(--primary); }
     .footer-bottom {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
+      text-align: center;
+      gap: 20px;
       padding-top: 32px;
       border-top: 1px solid rgba(255, 255, 255, 0.2);
     }
@@ -326,7 +328,7 @@
       .contact-map { height: 400px; }
       .footer-grid { grid-template-columns: 1fr; }
       .footer-col { text-align: left !important; }
-      .footer-bottom { flex-direction: column; align-items: flex-start; text-align: left; gap: 24px; }
+      .footer-bottom { flex-direction: column; align-items: center; text-align: center; gap: 24px; }
     }
     @media (max-width: 768px) {
       nav { padding: 12px 0; }
