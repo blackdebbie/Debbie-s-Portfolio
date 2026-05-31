@@ -46,6 +46,67 @@
     .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 0.9rem; transition: color 0.2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--black); font-weight: 700; }
     
+    .nav-hamburger-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+    }
+    
+    /* Mobile Overlay Menu */
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(253, 249, 241, 0.98);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      transform: translateY(-100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-menu-overlay.open {
+      transform: translateY(0);
+    }
+    .mobile-menu-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mobile-menu-links {
+      list-style: none;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+    .mobile-menu-links a {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #777777;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-menu-links a:hover, .mobile-menu-links a.active {
+      color: var(--black);
+    }
+    
     /* Contact Header */
     .c-header { text-align: center; max-width: 650px; margin: 0 auto 5rem; }
     .section-subtitle {
@@ -98,6 +159,9 @@
       .c-section { grid-template-columns: 1fr; }
       .c-map iframe { min-height: 400px; }
       .footer-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .nav-links { display: none; }
+      .nav-hamburger-btn { display: flex; }
+      .nav-pill a.btn { display: none !important; }
     }
     @media (max-width: 480px) {
       .container { padding: 0 16px; }
@@ -108,6 +172,7 @@
       .c-header h1 { font-size: 1.8rem; }
       footer { padding: 3rem 1.5rem; }
       .footer-logo { font-size: 1.8rem; }
+      br { display: none; }
     }
   </style>
   <style>
@@ -124,6 +189,23 @@
   </style>
 </head>
 <body>
+
+  <!-- Mobile Navigation Overlay Menu -->
+  <div class="mobile-menu-overlay" id="mobileMenu">
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close Menu">
+      <iconify-icon icon="ph:x-bold"></iconify-icon>
+    </button>
+    <ul class="mobile-menu-links">
+      <li><a href="case-study-6.html">Home</a></li>
+      <li><a href="service.html">Service</a></li>
+      <li><a href="adopt.html">Adopt</a></li>
+      <li><a href="grooming.html">Grooming</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li><a href="contact.html" class="active">Contact Us</a></li>
+      <li style="margin-top: 1rem;"><a href="signup.html" class="btn btn-black" style="padding: 0.8rem 3rem; color: var(--white);">Sign Up</a></li>
+    </ul>
+  </div>
+
   <div class="container" style="padding-top: 2rem;">
     <!-- Navbar -->
     <nav class="nav-pill">
@@ -140,6 +222,9 @@
         <li><a href="contact.html" class="active">Contact Us</a></li>
       </ul>
       <a href="signup.html" class="btn btn-black" style="padding: 0.6rem 2.5rem;">Sign Up</a>
+      <button class="nav-hamburger-btn" id="mobileMenuBtn" aria-label="Open Menu">
+        <iconify-icon icon="ph:list-bold" style="font-size: 1.8rem; color: var(--black);"></iconify-icon>
+      </button>
     </nav>
 
     <!-- Header -->
@@ -206,6 +291,29 @@
       </div>
     </footer>
   </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Mobile Menu Toggle
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenuClose = document.getElementById('mobileMenuClose');
+      const mobileMenuLinks = document.querySelectorAll('.mobile-menu-links a');
+
+      if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
+        mobileMenuBtn.addEventListener('click', () => {
+          mobileMenu.classList.add('open');
+        });
+        mobileMenuClose.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+        });
+        mobileMenuLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+          });
+        });
+      }
+    });
+  </script>
   <script>
     if(localStorage.getItem('petHubLoggedIn') === 'true') {
       document.querySelectorAll('a[href="signup.html"]').forEach(btn => {
