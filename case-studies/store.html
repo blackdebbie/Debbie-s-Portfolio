@@ -49,8 +49,8 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 4rem;
     }
     .nav-pill .btn {
-      font-size: 0.85rem !important;
-      padding: 0.5rem 1.2rem !important;
+      font-size: 0.8rem !important;
+      padding: 0.4rem 1.0rem !important;
     }
     .nav-left { display: flex; align-items: center; gap: 0.8rem; font-weight: normal; font-size: 1.2rem; color: var(--black); font-family: 'Irish Grover', cursive; }
     .nav-links { display: flex; list-style: none; gap: 2rem; align-items: center; }
@@ -179,7 +179,7 @@
       .nav-pill { padding: 0.6rem 1rem; border-radius: 20px; margin-bottom: 2rem; }
       .nav-left { font-size: 1.05rem; }
       .nav-left img { height: 32px; }
-      .nav-pill .btn { padding: 0.5rem 1.2rem !important; font-size: 0.8rem !important; }
+      .nav-pill .btn { padding: 0.4rem 1.0rem !important; font-size: 0.8rem !important; }
       footer { padding: 3rem 1.5rem; }
       .footer-logo { font-size: 1.8rem; }
       br { display: none; }
@@ -237,7 +237,7 @@
       <li><a href="grooming.html">Grooming</a></li>
       <li><a href="store.html" class="active">Store</a></li>
       <li><a href="contact.html">Contact Us</a></li>
-      <li style="margin-top: 1rem;"><a href="signup.html" class="btn btn-black" style="padding: 0.8rem 3rem; color: var(--white);">Sign Up</a></li>
+      <li style="margin-top: 1rem;"><a href="signup.html" class="btn btn-black" style="padding: 0.6rem 2.0rem; color: var(--white);">Sign Up</a></li>
     </ul>
   </div>
 
@@ -256,7 +256,7 @@
         <li><a href="store.html" class="active">Store</a></li>
         <li><a href="contact.html">Contact Us</a></li>
       </ul>
-      <a href="signup.html" class="btn btn-black" style="padding: 0.6rem 2.5rem; border-radius: 100px;">Sign Up</a>
+      <a href="signup.html" class="btn btn-black" style="padding: 0.4rem 1.0rem; border-radius: 100px;">Sign Up</a>
       <button class="nav-hamburger-btn" id="mobileMenuBtn" aria-label="Open Menu">
         <iconify-icon icon="ph:list-bold" style="font-size: 1.8rem; color: var(--black);"></iconify-icon>
       </button>
@@ -476,8 +476,11 @@
         btn.href = 'book.html';
         btn.innerText = 'Book an Appointment';
         if (!btn.closest('.mobile-menu-overlay')) {
-          btn.style.padding = '0.5rem 1.2rem';
-          btn.style.fontSize = '0.85rem';
+          btn.style.padding = '0.4rem 1.0rem';
+          btn.style.fontSize = '0.8rem';
+        } else {
+          btn.style.padding = '0.6rem 2.0rem';
+          btn.style.fontSize = '0.95rem';
         }
       });
     }
