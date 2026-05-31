@@ -150,8 +150,12 @@
     .f-contact li { display: flex; align-items: center; gap: 1rem; color: #A1A1AA; font-size: 0.95rem; margin-bottom: 1.2rem; }
     
     @media (max-width: 992px) {
-      .a-hero, .adopt-grid, .footer-grid { grid-template-columns: 1fr; }
+      .a-hero { flex-direction: column; text-align: center; gap: 2rem; }
+      .a-hero-text { max-width: 100%; }
+      .a-hero-text p { margin: 0 auto; }
+      .blob { display: none; }
       .adopt-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
       .j-timeline { flex-direction: column; gap: 2rem; }
       .j-step { width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; }
@@ -160,6 +164,18 @@
     }
     @media (max-width: 600px) {
       .adopt-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .nav-pill { padding: 0.6rem 1rem; border-radius: 20px; margin-bottom: 2rem; }
+      .nav-left { font-size: 1.05rem; }
+      .nav-left img { height: 32px; }
+      .nav-pill .btn { padding: 0.5rem 1.2rem !important; font-size: 0.8rem !important; }
+      .a-hero-text h1 { font-size: 2.2rem; }
+      .journey .section-title { font-size: 1.8rem; }
+      .journey p.j-sub { margin-bottom: 2.5rem; font-size: 0.95rem; }
+      footer { padding: 3rem 1.5rem; }
+      .footer-logo { font-size: 1.8rem; }
     }
   </style>
   <style>

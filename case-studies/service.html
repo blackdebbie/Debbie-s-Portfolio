@@ -111,7 +111,21 @@
     
     @media (max-width: 992px) {
       .s-hero, .process, .s-grid, .footer-grid { grid-template-columns: 1fr; }
+      .s-hero-images { flex-direction: column; gap: 1.5rem; }
+      .s-img-main, .s-img-sub { width: 100%; max-width: 500px; margin: 0 auto; }
       .nav-links { display: none; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .nav-pill { padding: 0.6rem 1rem; border-radius: 20px; margin-bottom: 2rem; }
+      .nav-left { font-size: 1.05rem; }
+      .nav-left img { height: 32px; }
+      .nav-pill .btn { padding: 0.5rem 1.2rem !important; font-size: 0.8rem !important; }
+      .s-hero-text h1 { font-size: 2.2rem; }
+      .process .section-title { font-size: 1.8rem; }
+      .s-grid-section .section-title { font-size: 1.8rem; }
+      footer { padding: 3rem 1.5rem; }
+      .footer-logo { font-size: 1.8rem; }
     }
   </style>
   <style>
