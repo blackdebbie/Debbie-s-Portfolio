@@ -956,6 +956,7 @@
     }
 
     @media (max-width: 480px) {
+      .nav-logo img { height: 36px !important; }
       .hero h1 { font-size: clamp(2.2rem, 10vw, 3.4rem); line-height: 1.1; }
       .hero-sub { font-size: 0.95rem; margin-bottom: 32px; }
       .hero-stats { gap: 20px; justify-content: space-between; }

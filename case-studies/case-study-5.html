@@ -563,6 +563,20 @@
       .contact-form form { grid-template-columns: 1fr; }
       .form-group { grid-column: span 1 !important; }
     }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: clamp(2rem, 10vw, 2.5rem); }
+      .hero { padding-top: 140px; padding-bottom: 80px; }
+      section { padding: 60px 0; }
+      .container { padding: 0 16px; }
+      .hero-actions { flex-direction: column; gap: 12px; }
+      .btn { width: 100%; }
+      .stats-box { grid-template-columns: 1fr; gap: 32px; padding: 40px 0; }
+      .stat-item::after { display: none; }
+      .about-stats { margin-top: 20px; }
+      .about-stat-item h2 { font-size: 2.2rem; }
+      .contact-inner { gap: 32px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
   </style>
 </head>
 <body>
