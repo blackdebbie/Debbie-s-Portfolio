@@ -695,22 +695,15 @@
         })
         .catch(error => {
           console.error('Error submitting form:', error);
-          const errMsg = error.message.toLowerCase();
-          if (errMsg.includes('activate') || errMsg.includes('activation') || errMsg.includes('confirm')) {
-            submitBtn.textContent = 'Check Gmail to activate form!';
-            submitBtn.style.background = '#FBBF24';
-            submitBtn.style.color = '#000000';
-          } else {
-            submitBtn.textContent = 'Failed to Send. Try again';
-            submitBtn.style.background = '#F87171';
-            submitBtn.style.color = '';
-          }
+          submitBtn.textContent = 'Message failed to send. Try again';
+          submitBtn.style.background = '#F87171';
+          submitBtn.style.color = '#FFFFFF';
           submitBtn.disabled = false;
           setTimeout(() => {
             submitBtn.textContent = originalText;
             submitBtn.style.background = '';
             submitBtn.style.color = '';
-          }, 5000);
+          }, 4000);
         });
       });
     }
