@@ -26,12 +26,17 @@
       padding: 0;
     }
 
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+    }
+
     body {
       background-color: var(--bg);
       color: var(--text);
       font-family: var(--font);
       line-height: 1.6;
-      overflow-x: hidden;
     }
 
     /* TYPOGRAPHY */
@@ -57,6 +62,7 @@
     section {
       padding: 100px 0;
       position: relative;
+      overflow: hidden; /* Prevent horizontal stretch from background glow nodes */
     }
 
     /* BUTTONS */
@@ -600,11 +606,11 @@
 
     /* RESPONSIVE */
     @media (max-width: 992px) {
-      .deep-dive-row { grid-template-columns: 1fr; gap: 40px; }
+      .deep-dive-row { grid-template-columns: 1fr; gap: 40px; margin-bottom: 60px; }
       .deep-dive-row:nth-child(even) .dd-content,
       .deep-dive-row:nth-child(even) .dd-image { order: 0; }
-      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
-      .pricing-card.featured { transform: scale(1); }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; gap: 32px; }
+      .pricing-card.featured { transform: scale(1); margin: 12px auto; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
     }
     @media (max-width: 768px) {
@@ -613,10 +619,12 @@
       .nav-hamburger-btn { display: flex !important; }
       .nav-links { display: none; }
       h1 { font-size: 2.2rem; }
+      section { padding: 80px 0; }
       .benefits-grid { grid-template-columns: 1fr; }
       .bento-grid { grid-template-columns: 1fr; }
       .bento-card.bento-span-4, .bento-card.bento-span-6 { grid-column: span 1; }
       .bento-card { flex-direction: column; text-align: left; gap: 24px; align-items: flex-start; }
+      .bento-card-content { height: auto !important; gap: 16px !important; }
       .bento-arrow-icon { align-self: flex-end; }
       .bento-envelope-layout { flex-direction: column; text-align: center; }
       .bento-envelope-layout i.fa-arrow-right { display: none; }
@@ -632,8 +640,8 @@
       .hero-graphic img { border-radius: 12px; }
       .steps-grid { grid-template-columns: 1fr; }
       .step-card { padding: 24px; }
-      .deep-dive-row { margin-bottom: 60px; gap: 24px; }
-      .bento-card { padding: 24px 20px; }
+      .deep-dive-row { margin-bottom: 48px; gap: 24px; }
+      .bento-card { padding: 24px 16px; }
       .bento-card-content h3 { font-size: 1.15rem; }
       .bento-envelope-layout img { width: 100px; }
       .pricing-card { padding: 24px; }
