@@ -977,15 +977,15 @@
 
     /* Light Mode Variables Override */
     body.light-mode {
-      --bg: #ffffff;
-      --bg2: #f9fafb;
-      --bg3: #f3f4f6;
-      --border: rgba(0, 0, 0, 0.08);
-      --text: #1f2937;
+      --bg: #f5f5f7; /* Soft Smoke White */
+      --bg2: #ffffff; /* Crisp white for cards */
+      --bg3: #eaeaec; /* Soft gray UI buttons */
+      --border: rgba(0, 0, 0, 0.06);
+      --text: #111827;
       --muted: #4b5563;
-      --accent: #5e67e6; /* indigo blue */
-      --accent2: #4f46e5;
-      --white: #111827; /* inverts dark text in headings */
+      --accent: #d0ff71; /* Vibrant signature neon */
+      --accent2: #5e67e6;
+      --white: #111827; /* Inverts dark text in headings */
     }
 
     /* Light Mode Specific Overrides */
@@ -1013,10 +1013,10 @@
       background: #e5e7eb;
     }
     body.light-mode .nav-cta {
-      color: #ffffff; /* Contrast on indigo */
+      color: #0a0a0a; /* Dark text for contrast on neon accent */
     }
     body.light-mode .nav-cta:hover {
-      box-shadow: 0 8px 24px rgba(94, 103, 230, 0.3);
+      box-shadow: 0 8px 24px rgba(208, 255, 113, 0.3);
     }
     body.light-mode .btn-secondary:hover {
       background: rgba(0, 0, 0, 0.04);
