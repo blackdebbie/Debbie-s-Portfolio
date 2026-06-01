@@ -1,6 +1,5 @@
 <svg width="100%" height="100%" viewBox="70 45 300 110" xmlns="http://www.w3.org/2000/svg" fill="none">
-  <!-- Background -->
-  <rect x="-50" y="-50" width="600" height="300" fill="black"/>
+  <!-- Background (removed for transparency) -->
 
   <!-- Hexagon -->
   <polygon points="120,60 150,80 150,120 120,140 90,120 90,80" fill="white"/>
