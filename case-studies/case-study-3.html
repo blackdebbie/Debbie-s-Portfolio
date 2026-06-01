@@ -8,11 +8,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --bg: #050301; /* Very dark brown/black */
-      --bg-surface: #110A05;
-      --bg-card: #0B0704;
-      --border: rgba(255, 107, 0, 0.15);
-      --border-light: rgba(255, 255, 255, 0.05);
+      --bg: #000000; /* Pure black background */
+      --bg-surface: #080808; /* Deep charcoal surface */
+      --bg-card: #0F0F0F; /* Sleek charcoal card background */
+      --border: rgba(255, 107, 0, 0.2);
+      --border-light: rgba(255, 255, 255, 0.08);
       --primary: #FF6B00;
       --primary-hover: #FF8533;
       --text: #F4F0EB;
@@ -113,7 +113,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       padding: 20px 0;
-      background: rgba(5, 3, 1, 0.8);
+      background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(12px);
       z-index: 100;
       border-bottom: 1px solid var(--border-light);
@@ -147,6 +147,111 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--primary); }
+
+    /* MOBILE NAVIGATION */
+    .nav-hamburger-btn {
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 1.35rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .nav-hamburger-btn:hover {
+      color: var(--primary);
+    }
+    .nav-hamburger-btn:active {
+      transform: scale(0.9);
+    }
+
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-menu-overlay.open {
+      right: 0;
+    }
+    .mobile-menu-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 1.6rem;
+      cursor: pointer;
+      padding: 8px;
+      transition: color 0.2s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mobile-menu-close:hover {
+      color: var(--primary);
+    }
+    .mobile-menu-close:active {
+      transform: scale(0.9);
+    }
+    .mobile-menu-links {
+      list-style: none;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      width: 80%;
+      max-width: 320px;
+    }
+    .mobile-menu-links li {
+      width: 100%;
+    }
+    .mobile-menu-links a {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s, letter-spacing 0.2s;
+      display: block;
+      letter-spacing: -0.01em;
+    }
+    .mobile-menu-links a:hover,
+    .mobile-menu-links a.active {
+      color: var(--primary);
+      letter-spacing: 0.02em;
+    }
+    .mobile-menu-links .btn-primary {
+      font-size: 1rem !important;
+      font-weight: 600 !important;
+      color: #fff !important;
+      background: var(--primary) !important;
+      padding: 12px 32px !important;
+      border-radius: 8px !important;
+      display: inline-flex !important;
+      justify-content: center;
+      align-items: center;
+      transform: none !important;
+      width: 100% !important;
+      box-shadow: 0 4px 20px rgba(255, 107, 0, 0.2);
+    }
+    .mobile-menu-links .btn-primary:hover {
+      background: var(--primary-hover) !important;
+      box-shadow: 0 4px 25px rgba(255, 107, 0, 0.4);
+    }
 
     /* HERO */
     .hero {
@@ -377,7 +482,7 @@
     .pricing-card.featured {
       border-color: var(--primary);
       transform: scale(1.05);
-      background: #140A03;
+      background: #161616;
     }
     .pricing-badge {
       position: absolute;
@@ -503,6 +608,9 @@
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
     }
     @media (max-width: 768px) {
+      nav { padding: 12px 0; }
+      .nav-inner .btn { display: none !important; }
+      .nav-hamburger-btn { display: flex !important; }
       .nav-links { display: none; }
       h1 { font-size: 2.2rem; }
       .benefits-grid { grid-template-columns: 1fr; }
@@ -540,6 +648,20 @@
 </head>
 <body>
 
+  <!-- Mobile Navigation Overlay Menu -->
+  <div class="mobile-menu-overlay" id="mobileMenu">
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close Menu">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <ul class="mobile-menu-links">
+      <li><a href="case-study-3.html" class="active">Home</a></li>
+      <li><a href="feature.html">Feature</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li style="margin-top: 1.5rem;"><a href="signup.html" class="btn btn-primary">Get Started</a></li>
+    </ul>
+  </div>
+
   <!-- NAV -->
   <nav>
     <div class="container nav-inner">
@@ -553,6 +675,9 @@
         <li><a href="blog.html">Blog</a></li>
       </ul>
       <a href="signup.html" class="btn btn-primary">Get Started</a>
+      <button class="nav-hamburger-btn" id="mobileMenuBtn" aria-label="Open Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
     </div>
   </nav>
 
@@ -924,6 +1049,30 @@
       el.classList.add('animate-on-scroll');
       observer.observe(el);
     });
+
+    // Mobile Menu Toggle
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-links a');
+
+    if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.add('open');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      });
+
+      const closeMenu = () => {
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      };
+
+      mobileMenuClose.addEventListener('click', closeMenu);
+
+      mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
+      });
+    }
   </script>
 </body>
 </html>
