@@ -647,11 +647,12 @@
       .deep-dive-row { grid-template-columns: 1fr; gap: 40px; margin-bottom: 60px; }
       .deep-dive-row:nth-child(even) .dd-content,
       .deep-dive-row:nth-child(even) .dd-image { order: 0; }
-      .pricing-grid { grid-template-columns: 1fr; max-width: 320px !important; margin: 0 auto; gap: 32px !important; }
-      .pricing-card { width: 100% !important; margin: 0 !important; }
-      .pricing-card.featured { transform: scale(1) !important; margin: 12px 0 !important; width: 100% !important; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 100% !important; margin: 0 auto; gap: 32px !important; }
+      .pricing-card { width: 90% !important; max-width: 350px !important; margin: 12px auto !important; }
+      .pricing-card.featured { transform: scale(1) !important; width: 90% !important; max-width: 350px !important; margin: 12px auto !important; }
       .pricing-card.featured:hover { transform: translateY(-4px) !important; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 20px !important; }
     }
     @media (max-width: 768px) {
       nav { padding: 12px 0; }
@@ -676,6 +677,7 @@
       .bento-envelope-layout i.fa-arrow-right { display: none; }
       .pricing-card { min-height: 460px !important; padding: 40px 28px !important; }
       .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { font-size: 0.8rem !important; }
     }
     @media (max-width: 480px) {
       h1 { font-size: 1.9rem !important; line-height: 1.2 !important; }
@@ -1045,9 +1047,9 @@
         <div class="footer-col">
           <h4>Subscribe</h4>
           <p style="font-size: 0.85rem; margin-bottom: 16px;">Get the latest updates and tips on AI email management.</p>
-          <div style="display: flex; gap: 8px;">
-            <input type="email" placeholder="Email address" style="background: var(--bg-surface); border: 1px solid var(--border-light); padding: 10px 16px; border-radius: 8px; color: var(--text); width: 100%;">
-            <button class="btn btn-primary" style="padding: 10px 16px;"><i class="fa-solid fa-paper-plane"></i></button>
+          <div style="display: flex; gap: 8px; width: 100%;">
+            <input type="email" placeholder="Email address" style="background: var(--bg-surface); border: 1px solid var(--border-light); padding: 10px 16px; border-radius: 8px; color: var(--text); flex-grow: 1; min-width: 0;">
+            <button class="btn btn-primary" style="padding: 10px 16px; width: auto !important; flex-shrink: 0;"><i class="fa-solid fa-paper-plane"></i></button>
           </div>
         </div>
       </div>
