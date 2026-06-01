@@ -500,6 +500,8 @@
       gap: 24px;
     }
     .pricing-card {
+      display: flex;
+      flex-direction: column;
       background: linear-gradient(135deg, rgba(255, 107, 0, 0.03) 0%, rgba(15, 15, 15, 0.7) 100%) !important;
       border: 1px solid rgba(255, 107, 0, 0.18) !important;
       border-radius: 24px;
@@ -541,7 +543,7 @@
     }
     .pricing-name { font-size: 1.5rem; margin-bottom: 8px; }
     .pricing-price { font-size: 3rem; font-weight: 800; margin-bottom: 24px; }
-    .pricing-features { list-style: none; margin-top: 32px; }
+    .pricing-features { list-style: none; margin-top: 32px; margin-bottom: 32px; }
     .pricing-features li {
       display: flex;
       align-items: center;
@@ -935,19 +937,18 @@
         <div class="pricing-card">
           <h3 class="pricing-name">Free</h3>
           <div class="pricing-price">$0</div>
-          <a href="signup.html" class="btn btn-outline" style="width: 100%;">Get Started</a>
           <ul class="pricing-features">
             <li><i class="fa-solid fa-check"></i> 50 AI emails/month</li>
             <li><i class="fa-solid fa-check"></i> Basic tone adjustments</li>
             <li><i class="fa-solid fa-check"></i> Standard support</li>
           </ul>
+          <a href="signup.html" class="btn btn-outline" style="width: 100%; margin-top: auto !important;">Get Started</a>
         </div>
         <!-- Personal -->
         <div class="pricing-card featured">
           <div class="pricing-badge">Popular</div>
           <h3 class="pricing-name">Personal</h3>
           <div class="pricing-price">$150<span style="font-size: 1rem; color: var(--muted); font-weight: 400;">/yr</span></div>
-          <a href="signup.html" class="btn btn-primary" style="width: 100%;">Get Started</a>
           <ul class="pricing-features">
             <li><i class="fa-solid fa-check"></i> Unlimited AI emails</li>
             <li><i class="fa-solid fa-check"></i> Custom tone matching</li>
@@ -955,12 +956,12 @@
             <li><i class="fa-solid fa-check"></i> Email templates</li>
             <li><i class="fa-solid fa-check"></i> Priority support</li>
           </ul>
+          <a href="signup.html" class="btn btn-primary" style="width: 100%; margin-top: auto !important;">Get Started</a>
         </div>
         <!-- Business -->
         <div class="pricing-card">
           <h3 class="pricing-name">Business</h3>
           <div class="pricing-price">$250<span style="font-size: 1rem; color: var(--muted); font-weight: 400;">/mo</span></div>
-          <a href="signup.html" class="btn btn-outline" style="width: 100%;">Contact Sales</a>
           <ul class="pricing-features">
             <li><i class="fa-solid fa-check"></i> Everything in Personal</li>
             <li><i class="fa-solid fa-check"></i> Team collaboration</li>
@@ -969,6 +970,7 @@
             <li><i class="fa-solid fa-check"></i> API access</li>
             <li><i class="fa-solid fa-check"></i> 24/7 Phone support</li>
           </ul>
+          <a href="signup.html" class="btn btn-outline" style="width: 100%; margin-top: auto !important;">Contact Sales</a>
         </div>
       </div>
     </div>
