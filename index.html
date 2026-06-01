@@ -12,14 +12,6 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <script>
-    (function() {
-      const theme = localStorage.getItem('portfolio-theme');
-      if (theme === 'light') {
-        document.body.classList.add('light-mode');
-      }
-    })();
-  </script>
 
   <!-- CURSOR -->
   <div class="cursor" id="cursor"></div>
@@ -36,7 +28,6 @@
     <a href="#contact" onclick="closeMobileNav()">Contact</a>
   </div>
 
-  <!-- NAV -->
   <nav id="navbar">
     <a href="#" class="nav-logo" style="display: flex; align-items: center;">
       <img src="./media/image/logo.svg" alt="UI DEBBIE" style="height: 44px; width: auto; border-radius: 4px;">
@@ -49,26 +40,8 @@
       <li><a href="https://www.behance.net/adachidozie" target="_blank">Behance</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <div style="display: flex; align-items: center; gap: 16px;">
-      <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Theme">
-        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="4"></circle>
-          <path d="M12 2v2"></path>
-          <path d="M12 20v2"></path>
-          <path d="M4.93 4.93l1.41 1.41"></path>
-          <path d="M17.66 17.66l1.41 1.41"></path>
-          <path d="M2 12h2"></path>
-          <path d="M20 12h2"></path>
-          <path d="M6.34 17.66l-1.41 1.41"></path>
-          <path d="M19.07 4.93l-1.41 1.41"></path>
-        </svg>
-        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-        </svg>
-      </button>
-      <a href="https://www.upwork.com/freelancers/~01ea83173bd60bd566?mp_source=share" class="nav-cta">Hire Me on upwork</a>
-      <button class="nav-mobile-btn" id="mobileBtn">☰</button>
-    </div>
+    <a href="https://www.upwork.com/freelancers/~01ea83173bd60bd566?mp_source=share" class="nav-cta">Hire Me on upwork</a>
+    <button class="nav-mobile-btn" id="mobileBtn">☰</button>
   </nav>
 
   <!-- HERO -->
@@ -664,16 +637,6 @@
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 50);
     });
-
-    // THEME TOGGLE
-    const themeToggle = document.getElementById('themeToggle');
-    if (themeToggle) {
-      themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('light-mode');
-        const isLight = document.body.classList.contains('light-mode');
-        localStorage.setItem('portfolio-theme', isLight ? 'light' : 'dark');
-      });
-    }
 
     // MOBILE NAV
     document.getElementById('mobileBtn').addEventListener('click', () => {
