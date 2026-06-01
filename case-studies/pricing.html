@@ -8,11 +8,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --bg: #050301;
-      --bg-surface: #110A05;
-      --bg-card: #140C08;
-      --border: rgba(255, 107, 0, 0.15);
-      --border-light: rgba(255, 255, 255, 0.05);
+      --bg: #000000; /* Pure black background */
+      --bg-surface: #080808; /* Deep charcoal surface */
+      --bg-card: #0F0F0F; /* Sleek charcoal card background */
+      --border: rgba(255, 107, 0, 0.2);
+      --border-light: rgba(255, 255, 255, 0.08);
       --primary: #FF6B00;
       --primary-hover: #FF8533;
       --text: #F4F0EB;
@@ -38,10 +38,116 @@
     .btn-primary { background: var(--primary); color: #fff; }
     .btn-primary:hover { background: var(--primary-hover); box-shadow: 0 0 20px rgba(255, 107, 0, 0.4); }
 
+    /* MOBILE NAVIGATION */
+    .nav-hamburger-btn {
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 1.35rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .nav-hamburger-btn:hover {
+      color: var(--primary);
+    }
+    .nav-hamburger-btn:active {
+      transform: scale(0.9);
+    }
+
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transform: translateY(-100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-menu-overlay.open {
+      transform: translateY(0);
+    }
+    .mobile-menu-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 1.6rem;
+      cursor: pointer;
+      padding: 8px;
+      transition: color 0.2s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mobile-menu-close:hover {
+      color: var(--primary);
+    }
+    .mobile-menu-close:active {
+      transform: scale(0.9);
+    }
+    .mobile-menu-links {
+      list-style: none;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      width: 80%;
+      max-width: 320px;
+    }
+    .mobile-menu-links li {
+      width: 100%;
+    }
+    .mobile-menu-links a {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s, letter-spacing 0.2s;
+      display: block;
+      letter-spacing: -0.01em;
+    }
+    .mobile-menu-links a:hover,
+    .mobile-menu-links a.active {
+      color: var(--primary);
+      letter-spacing: 0.02em;
+    }
+    .mobile-menu-links .btn-primary {
+      font-size: 1rem !important;
+      font-weight: 600 !important;
+      color: #fff !important;
+      background: var(--primary) !important;
+      padding: 12px 32px !important;
+      border-radius: 8px !important;
+      display: inline-flex !important;
+      justify-content: center;
+      align-items: center;
+      transform: none !important;
+      width: 100% !important;
+      box-shadow: 0 4px 20px rgba(255, 107, 0, 0.2);
+    }
+    .mobile-menu-links .btn-primary:hover {
+      background: var(--primary-hover) !important;
+      box-shadow: 0 4px 25px rgba(255, 107, 0, 0.4);
+    }
+
     /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; padding: 20px 0;
-      background: rgba(5, 3, 1, 0.8); backdrop-filter: blur(12px); z-index: 100;
+      background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(12px); z-index: 100;
       border-bottom: 1px solid var(--border-light);
     }
     .nav-inner { display: flex; justify-content: space-between; align-items: center; }
@@ -59,23 +165,51 @@
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1000px; margin: 0 auto;
     }
     .pricing-card {
-      background: var(--bg-card); border-radius: 12px; padding: 48px 32px;
-      position: relative; border: 1px solid transparent; text-align: center;
-      display: flex; flex-direction: column;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(135deg, rgba(255, 107, 0, 0.03) 0%, rgba(15, 15, 15, 0.7) 100%) !important;
+      border: 1px solid rgba(255, 107, 0, 0.18) !important;
+      border-radius: 24px;
+      padding: 40px;
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pricing-card:hover {
+      border-color: rgba(255, 107, 0, 0.4) !important;
+      background: linear-gradient(135deg, rgba(255, 107, 0, 0.06) 0%, rgba(20, 20, 20, 0.8) 100%) !important;
+      box-shadow: 0 16px 40px rgba(255, 107, 0, 0.05);
+      transform: translateY(-4px);
     }
     .pricing-card.featured {
-      border-color: var(--primary);
+      border-color: var(--primary) !important;
+      background: linear-gradient(135deg, rgba(255, 107, 0, 0.08) 0%, rgba(22, 22, 22, 0.8) 100%) !important;
+      box-shadow: 0 20px 50px rgba(255, 107, 0, 0.1);
+    }
+    .pricing-card.featured:hover {
+      border-color: var(--primary-hover) !important;
+      background: linear-gradient(135deg, rgba(255, 107, 0, 0.12) 0%, rgba(28, 28, 28, 0.9) 100%) !important;
+      box-shadow: 0 20px 50px rgba(255, 107, 0, 0.18);
+      transform: translateY(-8px);
     }
     .pricing-badge {
-      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-      background: var(--primary); color: #fff; font-size: 0.8rem; font-weight: 600;
-      padding: 6px 16px; border-radius: 8px;
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     .pricing-name { font-size: 1.8rem; margin-bottom: 4px; }
     .pricing-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 24px; }
     .pricing-price { font-size: 3.5rem; font-weight: 700; margin-bottom: 32px; color: #fff; line-height: 1; }
     
-    .guarantee { font-size: 0.75rem; color: var(--muted); margin-top: 8px; display: block; }
+    .guarantee { font-size: 0.75rem; color: var(--muted); margin-top: 8px; display: block; text-align: center; }
     
     .pricing-features { list-style: none; margin-top: 40px; text-align: left; }
     .pricing-features li {
@@ -92,10 +226,11 @@
 
     /* CTA BLOCK */
     .cta-block {
-      background: linear-gradient(180deg, #180D07 0%, #0F0804 100%);
+      background: linear-gradient(135deg, rgba(255, 107, 0, 0.05) 0%, rgba(15, 15, 15, 0.7) 100%) !important;
+      border: 1px solid rgba(255, 107, 0, 0.2) !important;
       border-radius: 24px; padding: 80px 40px; text-align: center;
       max-width: 1000px; margin: 80px auto 0;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+      box-shadow: 0 20px 50px rgba(255, 107, 0, 0.05);
     }
     .cta-block h2 { font-size: 2.2rem; margin-bottom: 16px; }
     .cta-block p { max-width: 600px; margin: 0 auto 32px; font-size: 1rem; }
@@ -110,27 +245,47 @@
     .footer-links a:hover { color: var(--primary); }
     .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; border-top: 1px solid var(--border-light); color: var(--muted); font-size: 0.9rem; }
     .social-links { display: flex; gap: 16px; }
-    .social-links a { color: var(--primary); font-size: 1.1rem; transition: background 0.2s, color 0.2s; border: 1px solid var(--primary); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-    .social-links a:hover { background: var(--primary); color: #fff; }
+    .social-links a { color: var(--muted); font-size: 1.2rem; transition: color 0.2s; }
+    .social-links a:hover { color: var(--primary); }
     
     .contact-info { color: var(--muted); font-size: 0.9rem; line-height: 1.8; }
 
     @media (max-width: 992px) {
-      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 100% !important; margin: 0 auto; gap: 32px !important; }
+      .pricing-card { width: 90% !important; max-width: 350px !important; margin: 12px auto !important; }
+      .pricing-card.featured { transform: scale(1) !important; width: 90% !important; max-width: 350px !important; margin: 12px auto !important; }
+      .pricing-card.featured:hover { transform: translateY(-4px) !important; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 20px !important; }
     }
     @media (max-width: 768px) {
       nav { padding: 12px 0; }
-      .nav-inner { gap: 12px; justify-content: space-between; }
-      .logo { font-size: 1.1rem; }
-      .nav-inner .btn { padding: 8px 16px; font-size: 0.8rem; border-radius: 4px; }
+      .nav-inner .btn { display: none !important; }
+      .nav-hamburger-btn { display: flex !important; }
       .nav-links { display: none; }
-      .section-header h2 { font-size: 2rem; }
+      .btn { padding: 10px 20px !important; font-size: 0.9rem !important; border-radius: 6px !important; }
+      section { padding: 80px 0; }
+      .pricing-card { min-height: 460px !important; padding: 40px 28px !important; }
       .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { font-size: 0.8rem !important; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Mobile Navigation Overlay Menu -->
+  <div class="mobile-menu-overlay" id="mobileMenu">
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close Menu">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <ul class="mobile-menu-links">
+      <li><a href="case-study-3.html">Home</a></li>
+      <li><a href="feature.html">Feature</a></li>
+      <li><a href="pricing.html" class="active">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li style="margin-top: 1.5rem;"><a href="signup.html" class="btn btn-primary">Get Started</a></li>
+    </ul>
+  </div>
 
   <!-- NAV -->
   <nav>
@@ -145,6 +300,9 @@
         <li><a href="blog.html">Blog</a></li>
       </ul>
       <a href="signup.html" class="btn btn-primary">Get Started</a>
+      <button class="nav-hamburger-btn" id="mobileMenuBtn" aria-label="Open Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
     </div>
   </nav>
 
@@ -162,12 +320,12 @@
           <h3 class="pricing-name">Free</h3>
           <p class="pricing-desc">Free forever</p>
           <div class="pricing-price">$0</div>
-          <a href="signup.html" class="btn btn-primary" style="width: 100%;">Continue for free</a>
           
           <ul class="pricing-features">
             <li><div class="feature-icon"><i class="fa-solid fa-check"></i></div> Create 1 App for free</li>
             <li><div class="feature-icon"><i class="fa-solid fa-check"></i></div> Add 1 User</li>
           </ul>
+          <a href="signup.html" class="btn btn-primary" style="width: 100%; margin-top: auto !important;">Continue for free</a>
         </div>
 
         <!-- Personal Plan -->
@@ -176,10 +334,6 @@
           <h3 class="pricing-name">Personal</h3>
           <p class="pricing-desc">Perfect for starters</p>
           <div class="pricing-price">$150</div>
-          <div>
-            <a href="signup.html" class="btn btn-primary" style="width: 100%;">Start your jurney</a>
-            <span class="guarantee">*30-day money back guarantee</span>
-          </div>
           
           <ul class="pricing-features">
             <li><div class="feature-icon"><i class="fa-solid fa-check"></i></div> <strong>Unlimited</strong> Apps</li>
@@ -189,6 +343,10 @@
             <li><div class="feature-icon"><i class="fa-solid fa-check"></i></div> Premium templates</li>
             <li><div class="feature-icon disabled"><i class="fa-solid fa-xmark"></i></div> Priority support</li>
           </ul>
+          <div style="margin-top: auto !important; width: 100%;">
+            <a href="signup.html" class="btn btn-primary" style="width: 100%;">Start your jurney</a>
+            <span class="guarantee">*30-day money back guarantee</span>
+          </div>
         </div>
 
         <!-- Business Plan -->
@@ -196,10 +354,6 @@
           <h3 class="pricing-name">Business</h3>
           <p class="pricing-desc">Perfect for large teams</p>
           <div class="pricing-price">$250</div>
-          <div>
-            <a href="signup.html" class="btn btn-primary" style="width: 100%;">Bring the whole team</a>
-            <span class="guarantee">*30-day money back guarantee</span>
-          </div>
           
           <ul class="pricing-features">
             <li><div class="feature-icon"><i class="fa-solid fa-check"></i></div> <strong>Unlimited</strong> Apps</li>
@@ -209,6 +363,10 @@
             <li><div class="feature-icon"><i class="fa-solid fa-check"></i></div> Premium templates</li>
             <li><div class="feature-icon"><i class="fa-solid fa-check"></i></div> Priority support</li>
           </ul>
+          <div style="margin-top: auto !important; width: 100%;">
+            <a href="signup.html" class="btn btn-primary" style="width: 100%;">Bring the whole team</a>
+            <span class="guarantee">*30-day money back guarantee</span>
+          </div>
         </div>
       </div>
 
@@ -269,5 +427,30 @@
     </div>
   </footer>
 
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-links a');
+
+    if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.add('open');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      });
+
+      const closeMenu = () => {
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      };
+
+      mobileMenuClose.addEventListener('click', closeMenu);
+
+      mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
+      });
+    }
+  </script>
 </body>
 </html>
