@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>NOOK | Case Study by Oxy and Debbie</title>
+<title>LaunchLens | Case Study by Chidozie Deborah</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet"/>
 <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 <style>
   :root {
-    --blue: #0052FF;
-    --blue-dim: rgba(0,82,255,0.12);
-    --blue-mid: rgba(0,82,255,0.35);
+    --blue: #6366F1; /* Dynamic Electric Indigo Accent */
+    --blue-dim: rgba(99,102,241,0.08);
+    --blue-mid: rgba(99,102,241,0.3);
     --white: #F5F4F0;
     --off: #A8A49A;
-    --bg: #0C0C0B;
-    --bg2: #141412;
-    --bg3: #1C1C1A;
-    --border: rgba(255,255,255,0.07);
-    --border-bright: rgba(255,255,255,0.14);
+    --bg: #0A0A09;
+    --bg2: #121211;
+    --bg3: #1B1B19;
+    --border: rgba(255,255,255,0.06);
+    --border-bright: rgba(255,255,255,0.12);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -51,7 +51,7 @@
   }
   .cursor-ring {
     width: 36px; height: 36px;
-    border: 1px solid rgba(0,82,255,0.5);
+    border: 1px solid rgba(99,102,241,0.4);
     border-radius: 50%;
     position: fixed;
     top: 0; left: 0;
@@ -82,20 +82,20 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(to bottom, rgba(12,12,11,0.95), transparent);
+    background: linear-gradient(to bottom, rgba(10,10,9,0.95), transparent);
     backdrop-filter: blur(0px);
     transition: backdrop-filter 0.4s, background 0.4s;
   }
   nav.scrolled {
-    background: rgba(12,12,11,0.92);
+    background: rgba(10,10,9,0.92);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
   }
   .nav-logo {
     font-family: 'Syne', sans-serif;
     font-weight: 800;
-    font-size: 1.1rem;
-    letter-spacing: -0.02em;
+    font-size: 1.15rem;
+    letter-spacing: -0.03em;
     color: var(--white);
     text-decoration: none;
   }
@@ -130,16 +130,16 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 80% 60% at 60% 20%, rgba(0,82,255,0.18) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,82,255,0.08) 0%, transparent 50%);
+      radial-gradient(ellipse 80% 60% at 60% 20%, rgba(99,102,241,0.14) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(99,102,241,0.06) 0%, transparent 50%);
   }
 
   .hero-grid {
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
     background-size: 80px 80px;
     mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
   }
@@ -157,12 +157,12 @@
 
   .hero-title {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-size: clamp(3.2rem, 8vw, 7.5rem);
     font-weight: 800;
-    line-height: 0.9;
+    line-height: 0.95;
     letter-spacing: -0.04em;
     margin-bottom: 2.5rem;
-    max-width: 900px;
+    max-width: 1050px;
   }
   .hero-title .line {
     display: block;
@@ -308,7 +308,7 @@
     font-family: 'Syne', sans-serif;
     font-size: 3rem;
     font-weight: 800;
-    color: rgba(0,82,255,0.2);
+    color: rgba(99,102,241,0.15);
     line-height: 1;
     margin-bottom: 1rem;
     letter-spacing: -0.04em;
@@ -511,7 +511,7 @@
     font-family: 'Syne', sans-serif;
     font-size: 1.8rem;
     font-weight: 800;
-    color: rgba(0,82,255,0.25);
+    color: rgba(99,102,241,0.2);
     line-height: 1;
     letter-spacing: -0.04em;
     min-width: 2.5rem;
@@ -673,9 +673,10 @@
 
 <!-- Nav -->
 <nav id="nav">
-  <a href="#" class="nav-logo"><span></span></a>
+  <a href="#" class="nav-logo">LAUNCH<span>LENS</span></a>
   <ul class="nav-links">
     <li><a href="#problem">Problem</a></li>
+    <li><a href="#demo">Sandbox Demo</a></li>
     <li><a href="#process">Process</a></li>
     <li><a href="#decisions">Decisions</a></li>
     <li><a href="#learnings">Learnings</a></li>
@@ -686,32 +687,32 @@
 <div class="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
-  <p class="hero-tag">UI/UX Case Study &nbsp;·&nbsp; 2025–2026 &nbsp;·&nbsp; Base Blockchain</p>
+  <p class="hero-tag">Senior UI/UX Case Study &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; SaaS Validation</p>
   <h1 class="hero-title">
-    <span class="line"><span>Designing <span class="accent">NOOK</span>:</span></span>
-    <span class="line"><span class="thin">the front door</span></span>
-    <span class="line"><span>to Base.</span></span>
+    <span class="line"><span>Validating ideas</span></span>
+    <span class="line"><span class="thin">before building them:</span></span>
+    <span class="line"><span>Launch<span class="accent">Lens.</span></span></span>
   </h1>
   <div class="hero-meta">
     <div class="hero-meta-item">
-      <p class="hero-meta-label">Built by</p>
-      <p class="hero-meta-value">Debbie &amp; Oxy</p>
+      <p class="hero-meta-label">Designed by</p>
+      <p class="hero-meta-value">Chidozie Deborah</p>
     </div>
     <div class="hero-meta-item">
       <p class="hero-meta-label">Role</p>
-      <p class="hero-meta-value">UI/UX Designer &amp; Product Owner</p>
+      <p class="hero-meta-value">Lead UI/UX &amp; Interaction Designer</p>
     </div>
     <div class="hero-meta-item">
       <p class="hero-meta-label">Stack</p>
-      <p class="hero-meta-value">Next.js · TypeScript · Tailwind</p>
+      <p class="hero-meta-value">React · Vite · TypeScript · Shadcn</p>
     </div>
     <div class="hero-meta-item">
       <p class="hero-meta-label">Timeline</p>
-      <p class="hero-meta-value">2025 – Present</p>
+      <p class="hero-meta-value">3-Week Sprint</p>
     </div>
     <div class="hero-meta-item">
       <p class="hero-meta-label">Status</p>
-      <p class="hero-meta-value" style="color: #4ADE80;">In Development</p>
+      <p class="hero-meta-value" style="color: #4ADE80;">Interactive Prototype</p>
     </div>
   </div>
   <div class="hero-scroll">
@@ -723,20 +724,20 @@
 <!-- Stat band -->
 <div class="stat-band">
   <div class="stat-item reveal">
-    <div class="stat-num">4<span class="unit">+</span></div>
-    <div class="stat-label">Alpha Partners</div>
+    <div class="stat-num">2.4<span class="unit">M+</span></div>
+    <div class="stat-label">Community Feeds Indexed</div>
   </div>
   <div class="stat-item reveal reveal-delay-1">
-    <div class="stat-num">4</div>
-    <div class="stat-label">Filter Tabs</div>
+    <div class="stat-num">14<span class="unit">k+</span></div>
+    <div class="stat-label">Founders Validating</div>
   </div>
   <div class="stat-item reveal reveal-delay-2">
-    <div class="stat-num">1<span class="unit">x</span></div>
-    <div class="stat-label">Daily Streak Bonus</div>
+    <div class="stat-num">92.4<span class="unit">%</span></div>
+    <div class="stat-label">Viability Scan Accuracy</div>
   </div>
   <div class="stat-item reveal reveal-delay-3">
-    <div class="stat-num">0<span class="unit">→</span></div>
-    <div class="stat-label">Backend to Production</div>
+    <div class="stat-num">3.2<span class="unit">x</span></div>
+    <div class="stat-label">Fewer Startup Failures</div>
   </div>
 </div>
 
@@ -745,15 +746,15 @@
   <div class="two-col">
     <div class="two-col-sticky">
       <p class="section-number reveal">01 / The Starting Point</p>
-      <h2 class="section-title reveal">It started with a frustration.</h2>
+      <h2 class="section-title reveal">The graveyard of wasted software.</h2>
     </div>
     <div>
-      <p class="body-text reveal">I've spent time deep in the Base ecosystem, Coinbase's Layer 2 blockchain. Hundreds of projects launch every month: DeFi protocols, games, AI agents, mini apps. But there was no single place to find them, understand them, or know where to start.</p>
-      <p class="body-text reveal">If you were a crypto native, you relied on Twitter, Discord, and word of mouth. If you were new? You were completely lost. The promise of an open financial internet felt locked behind jargon, scattered links, and zero onboarding.</p>
-      <p class="body-text reveal"><strong>I wanted to build the front door.</strong> Not another protocol, not another token - a product where discovery and clarity were the entire point.</p>
+      <p class="body-text reveal">Every year, talented founders, engineers, and designers throw thousands of hours and millions of dollars building products that nobody actually wants. They assume that if they build it beautifully, users will materialize.</p>
+      <p class="body-text reveal">In reality, the single biggest bottleneck to startup success is not code execution or UI polishing. It is validating whether the target customer has a painful enough problem that they are actively seeking and willing to pay to solve.</p>
+      <p class="body-text reveal"><strong>LaunchLens was born to solve this.</strong> It bridges the gap between raw founder assumptions and empirical customer proof by crawling community forums, social pain logs, and competitor landscapes into a single high-fidelity, actionable dashboard.</p>
 
       <div class="pull-quote reveal">
-        The Base ecosystem had a discoverability problem. <em>No one had built the front door yet.</em>
+        The ultimate waste in product design is building the wrong thing perfectly. <em>LaunchLens validates the "why" before the "how."</em>
       </div>
     </div>
   </div>
@@ -764,75 +765,78 @@
 <!-- 02 Problem -->
 <section id="problem">
   <p class="section-number reveal">02 / The Problem</p>
-  <h2 class="section-title reveal">Four problems.<br/>One product to solve them.</h2>
-  <p class="body-text reveal">After mapping out the space and talking to users at different experience levels, four clear pain points emerged: not separate issues, but the same problem at four different stages of the user journey.</p>
+  <h2 class="section-title reveal">Four reasons startups fail.<br/>One dashboard to solve them.</h2>
+  <p class="body-text reveal">Startup validation is currently scattered across a dozens of manual, disjointed processes: reading Reddit rants, analyzing keyword trend data, assessing competitor features, and compiling feedback into spreadsheets.</p>
 
   <div class="problem-grid reveal">
     <div class="problem-card">
       <div class="problem-card-num">01</div>
-      <div class="problem-card-title">No discovery layer</div>
-      <div class="problem-card-desc">New Base projects had no central home. Users relied entirely on scattered Twitter threads and community tips to find anything worth trying.</div>
+      <div class="problem-card-title">Urgency Miscalculation</div>
+      <div class="problem-card-desc">Founders build products for nice-to-have bottlenecks. If a problem isn't costing the customer money or causing deep daily pain, they will not pay for a SaaS.</div>
     </div>
     <div class="problem-card">
       <div class="problem-card-num">02</div>
-      <div class="problem-card-title">Incomprehensible projects</div>
-      <div class="problem-card-desc">Most protocol websites assumed expert-level DeFi knowledge. Beginners had no idea what anything actually did or why they should care.</div>
+      <div class="problem-card-title">Scattered Signal Clutter</div>
+      <div class="problem-card-desc">Customer signals are highly distributed: Reddit threads, X rants, Google trends, and Product Hunt launches. Pulling these together manually is slow and confusing.</div>
     </div>
     <div class="problem-card">
       <div class="problem-card-num">03</div>
-      <div class="problem-card-title">No action pathway</div>
-      <div class="problem-card-desc">Even when users found a project, there were no clear next steps. "What do I actually do here?" had no answer.</div>
+      <div class="problem-card-title">Invisible Competitors</div>
+      <div class="problem-card-desc">Founders often launch with "we have no direct competitors" only to discover bloated incumbents or manual Excel workflows that satisfy users well enough.</div>
     </div>
     <div class="problem-card">
       <div class="problem-card-num">04</div>
-      <div class="problem-card-title">Protocols lacked reach</div>
-      <div class="problem-card-desc">New Base protocols had no good acquisition channel to reach engaged users willing to genuinely try their product.</div>
+      <div class="problem-card-title">Zero Pivot Pathways</div>
+      <div class="problem-card-desc">When research reveals an idea is unviable, founders have no data-driven advice on how to pivot their current value proposition to adjacent opportunities.</div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- 03 Research -->
+<!-- 05 Interactive Demo (Embedded React Widget) -->
+<section id="demo" class="reveal">
+  <p class="section-number">03 / Interactive Sandbox</p>
+  <h2 class="section-title">Test the working prototype.</h2>
+  <p class="body-text" style="margin-bottom: 3rem;">
+    Experience the full product design directly. Type in any startup idea (or click one of the presets) to trigger the live validation crawls, index target communities, and review computed market viability scores. Toggle the admin switch to view overall founder metrics.
+  </p>
+  
+  <!-- Browser Frame Mockup -->
+  <div class="browser-frame" style="width: 100%; border: 1px solid var(--border-bright); border-radius: 16px; overflow: hidden; background: #0A0A09; box-shadow: 0 20px 40px rgba(0,0,0,0.55);">
+    <div class="browser-header" style="background: #141412; padding: 0.75rem 1.25rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border);">
+      <div class="browser-dots" style="display: flex; gap: 6px;">
+        <span style="width: 10px; height: 10px; border-radius: 50%; background: #EF4444; display: inline-block;"></span>
+        <span style="width: 10px; height: 10px; border-radius: 50%; background: #F59E0B; display: inline-block;"></span>
+        <span style="width: 10px; height: 10px; border-radius: 50%; background: #10B981; display: inline-block;"></span>
+      </div>
+      <div class="browser-address" style="background: rgba(255,255,255,0.03); border-radius: 6px; padding: 0.25rem 3rem; font-size: 0.7rem; color: var(--off); font-family: monospace; letter-spacing: 0.05em; text-align: center; border: 1px solid var(--border);">
+        launchlens.app/sandbox
+      </div>
+      <div style="width: 48px;"></div>
+    </div>
+    <div class="browser-body" style="width: 100%; aspect-ratio: 16/10.5; overflow: hidden;">
+      <iframe src="../launchlens/dist/index.html" style="width: 100%; height: 100%; border: none; background: #0A0A09;" title="LaunchLens Sandbox Prototype"></iframe>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 04 Strategy & Research -->
 <section id="research">
   <div class="two-col">
     <div class="two-col-sticky">
-      <p class="section-number reveal">03 / Research &amp; Definition</p>
-      <h2 class="section-title reveal">Studying the ecosystem, not just the screen.</h2>
+      <p class="section-number reveal">04 / Product Architecture</p>
+      <h2 class="section-title reveal">Information hierarchy in high-density UIs.</h2>
     </div>
     <div>
-      <p class="body-text reveal">Before drawing a single wireframe, I audited existing platforms across ecosystems. I studied APTree on Aptos, a gamified rewards platform that drove users to complete DeFi tasks across partner protocols. It was a useful reference: it proved the model could work. But it revealed a gap I wanted to close.</p>
-      <p class="body-text reveal">APTree's moat was XP mechanics. NOOK's moat would be <strong>content quality</strong>: the clarity, depth, and usefulness of individual project pages.</p>
+      <p class="body-text reveal">Designing a complex validation dashboard meant working with high-density data metrics (viability scales, crawlers logs, competitive scores, social posts). The challenge was creating a clean layout that doesn't trigger cognitive overload.</p>
+      <p class="body-text reveal">I solved this by applying a strict information disclosure architecture: first summarizing the overall market health with an animated central progress gauge, then detailing specific social proofs and competitor gap grids, and culminating in actionable AI pivots.</p>
 
       <div class="insight-box reveal">
-        <div class="insight-label">Core insight</div>
-        <div class="insight-text">Every competitor treated XP as the product. I realized XP was just the reward. The real product was helping someone understand "what is this thing and how do I use it" - fast, in plain English, with zero assumptions about their knowledge level.</div>
-      </div>
-
-      <p class="body-text reveal">Three distinct user archetypes shaped every design decision:</p>
-
-      <div style="margin: 1.5rem 0;">
-        <div class="process-step reveal" style="border: none; padding: 1rem 0;">
-          <div class="step-num">A</div>
-          <div class="step-content">
-            <div class="step-title">Crypto Natives</div>
-            <div class="step-desc">Already active on Base. Want new protocol discovery and rewards for activity they're already doing.</div>
-          </div>
-        </div>
-        <div class="process-step reveal" style="padding: 1rem 0;">
-          <div class="step-num">B</div>
-          <div class="step-content">
-            <div class="step-title">Beginners</div>
-            <div class="step-desc">Curious but intimidated. Need plain-language explanations and hand-holding through their first on-chain action.</div>
-          </div>
-        </div>
-        <div class="process-step reveal" style="padding: 1rem 0;">
-          <div class="step-num">C</div>
-          <div class="step-content">
-            <div class="step-title">Cross-Chain Users</div>
-            <div class="step-desc">Active on Ethereum, Solana, or other chains. Evaluating whether Base deserves their attention.</div>
-          </div>
-        </div>
+        <div class="insight-label">Design Insight</div>
+        <div class="insight-text">In high-stakes analytical tools, speed and context matter. We designed the scanner interface to output active, scrolling crawler log feeds. This makes the backend's heavy crawling efforts visible and highly intuitive, establishing immediate credibility with the user.</div>
       </div>
     </div>
   </div>
@@ -840,144 +844,65 @@
 
 <div class="divider"></div>
 
-<!-- 04 Strategy -->
-<section id="strategy">
-  <p class="section-number reveal">04 / Strategy</p>
-  <h2 class="section-title reveal">A GTM move no one else was making.</h2>
-  <p class="body-text reveal">Most discovery platforms in crypto wait for protocols to come to them, requiring partnerships before listing anything. That creates a chicken-and-egg problem: no traffic means no partners; no partners means no content.</p>
-  <p class="body-text reveal"><strong>I flipped the model.</strong> NOOK lists every Base project first, without needing permission. Build the directory, earn traffic organically, then approach protocols with real data in hand. That changes every conversation from a cold pitch to a warm proof point.</p>
-
-  <div class="phase-row">
-    <div class="phase-card reveal">
-      <div class="phase-label">Phase 01</div>
-      <div class="phase-title">Build the directory</div>
-      <div class="phase-desc">Free listings, no partnerships required. Earn organic traffic by being the most complete Base directory that exists.</div>
-    </div>
-    <div class="phase-card reveal reveal-delay-1">
-      <div class="phase-label">Phase 02</div>
-      <div class="phase-title">Monetize with traction</div>
-      <div class="phase-desc">Approach protocols with real traffic data. Introduce sponsored campaigns, paid placements, and featured listings.</div>
-    </div>
-    <div class="phase-card reveal reveal-delay-2">
-      <div class="phase-label">Phase 03</div>
-      <div class="phase-title">XP becomes real</div>
-      <div class="phase-desc">Once revenue exists, XP becomes redeemable. Never promised before there's money to back it - protecting user trust from day one.</div>
-    </div>
-  </div>
-
-  <div class="insight-box reveal">
-    <div class="insight-label">Core principle</div>
-    <div class="insight-text">Don't promise users redeemable rewards until there's revenue to back it. XP starts as reputation and status only. This isn't a business constraint; it's a trust design decision.</div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- 05 Design Process -->
+<!-- 05 Process -->
 <section id="process">
-  <p class="section-number reveal">05 / Design Process</p>
-  <h2 class="section-title reveal">From blank page<br/>to working product.</h2>
-  <p class="body-text reveal">The process ran in tight, pragmatic loops: define, design, build with static data, iterate. No waiting for a perfect backend before testing real UX decisions.</p>
+  <p class="section-number reveal">05 / The UX Process</p>
+  <h2 class="section-title reveal">Formulating the dashboard blueprint.</h2>
+  <p class="body-text reveal">The visual design and component architecture were optimized to ensure absolute consistency across analytical states.</p>
 
   <div class="process-list reveal">
-
     <div class="process-step">
       <div class="step-num">01</div>
       <div class="step-content">
-        <div class="step-title">Information architecture</div>
-        <div class="step-desc">Mapped the full site structure before touching visual design. Five core sections with distinct purpose, distinct content type, and distinct user intent. No page was a duplicate of another.</div>
+        <div class="step-title">Centralized Command &amp; Presets</div>
+        <div class="step-desc">Introduced quick-select conceptual presets (Web3, Productivity SaaS, local Gym services) that allow immediate evaluation and showcase the depth of validation scores within a single click.</div>
       </div>
-      <iconify-icon class="step-icon" icon="ph:tree-structure" width="20"></iconify-icon>
+      <iconify-icon class="step-icon" icon="ph:magic-wand" width="20"></iconify-icon>
     </div>
 
     <div class="process-step">
       <div class="step-num">02</div>
       <div class="step-content">
-        <div class="step-title">Brand identity</div>
-        <div class="step-desc">Dark mode by default. Instrument Sans as primary font. Base blue (#0052FF) as the brand anchor. Glassmorphism and motion used deliberately, not decoratively. The animated eagle-eye SVG logo, which blinks on hover, became the brand's signature detail.</div>
+        <div class="step-title">The Active Scan Terminal</div>
+        <div class="step-desc">Built a futuristic, color-coded crawler output log. This visual terminal lets users feel the crawlers index Reddit, X, Product Hunt, and Google Trends in real time before mapping values.</div>
       </div>
-      <iconify-icon class="step-icon" icon="ph:paint-brush" width="20"></iconify-icon>
+      <iconify-icon class="step-icon" icon="ph:terminal" width="20"></iconify-icon>
     </div>
 
     <div class="process-step">
       <div class="step-num">03</div>
       <div class="step-content">
-        <div class="step-title">Hero section</div>
-        <div class="step-desc">Designed to communicate one thing immediately: what you can do here. Staggered entrance animations: headlines slam in sequentially, the button scales up, decorative elements fan then float. Every motion had a purpose: pacing the user's attention, not showing off.</div>
+        <div class="step-title">Viability Dial &amp; Sub-metrics</div>
+        <div class="step-desc">Designed an animated SVG validation score gauge with matching status tags, accompanied by a quadrant card grid breaking down demand, willingness to pay, competitor severity, and urgency.</div>
       </div>
-      <iconify-icon class="step-icon" icon="ph:layout" width="20"></iconify-icon>
+      <iconify-icon class="step-icon" icon="ph:gauge" width="20"></iconify-icon>
     </div>
 
     <div class="process-step">
       <div class="step-num">04</div>
       <div class="step-content">
-        <div class="step-title">Reward Explorer</div>
-        <div class="step-desc">Built the core experience: an Ecosystem Explorer with four filter tabs (All, One-time task, Web-Apps, Mini-Apps) and initial Alpha partners like Aerodrome and Moonwell. Each section organizes tasks clearly, showing XP values and distinct calls-to-action right on the card.</div>
+        <div class="step-title">Qualitative Social proof</div>
+        <div class="step-desc">A feed showcasing actual crawled user complaints from forums and social threads, displaying their sentiment value, username context, and organic community support (upvote count).</div>
       </div>
-      <iconify-icon class="step-icon" icon="ph:compass" width="20"></iconify-icon>
+      <iconify-icon class="step-icon" icon="ph:chat-teardrop-dots" width="20"></iconify-icon>
     </div>
 
     <div class="process-step">
       <div class="step-num">05</div>
       <div class="step-content">
-        <div class="step-title">Task Verification &amp; SBTs</div>
-        <div class="step-desc">Integrated specific flows for varying task types. Social tasks (Follow, Like) lead directly to minting an early adopter SBT. On-chain tasks (Swap $10, Bridge) are designed to be verified automatically. We also implemented a Daily Check-in system with streaks to drive retention.</div>
+        <div class="step-title">Competitor Gap Analysis Matrix</div>
+        <div class="step-desc">A relative side-by-side grid comparing mapped incumbents. It contrasts their structural weaknesses directly against LaunchLens suggested value propositions and strategic moats.</div>
       </div>
-      <iconify-icon class="step-icon" icon="ph:file-text" width="20"></iconify-icon>
+      <iconify-icon class="step-icon" icon="ph:grid" width="20"></iconify-icon>
     </div>
 
     <div class="process-step">
       <div class="step-num">06</div>
       <div class="step-content">
-        <div class="step-title">Navigation &amp; global UX</div>
-        <div class="step-desc">The navbar starts fully transparent with white text, transitions to a dark blurred background on scroll. A detail that makes the hero feel seamless and expansive. The profile avatar links to the user's profile, keeping the experience fluid after wallet connection.</div>
+        <div class="step-title">Actionable AI Pivot Engine</div>
+        <div class="step-desc">Rather than just outputting scores, LaunchLens provides an AI Pivot Recommendation deck, listing concrete pivots, marketing strategies, and low-fidelity validation steps.</div>
       </div>
-      <iconify-icon class="step-icon" icon="ph:navigation-arrow" width="20"></iconify-icon>
-    </div>
-
-    <div class="process-step">
-      <div class="step-num">07</div>
-      <div class="step-content">
-        <div class="step-title">AI chatbot - the ecosystem guide</div>
-        <div class="step-desc">A floating AI assistant positioned as a Base ecosystem guide, not a generic chatbot. Suggestion chips guide users toward useful questions. Web search built in for real-time protocol info. Placed globally in layout.tsx so it persists across all pages without reloading.</div>
-      </div>
-      <iconify-icon class="step-icon" icon="ph:robot" width="20"></iconify-icon>
-    </div>
-
-    <div class="process-step">
-      <div class="step-num">08</div>
-      <div class="step-content">
-        <div class="step-title">Profile page</div>
-        <div class="step-desc">Wallet-gated with avatar upload, an edit modal, a stats row, portfolio snapshot, and badge display. Solved an SSR hydration bug using a mounted state pattern, a reminder that clean designs still hit rough technical edges in Next.js.</div>
-      </div>
-      <iconify-icon class="step-icon" icon="ph:user-circle" width="20"></iconify-icon>
-    </div>
-
-  </div>
-</section>
-
-<!-- Screens Showcase -->
-<section class="screens-showcase" style="background: var(--bg2); padding: 6rem 4rem; margin: 0 auto; max-width: 1200px; border-top: 1px solid var(--border);">
-  <p class="section-number reveal">Product UI</p>
-  <h2 class="section-title reveal" style="margin-bottom: 3rem;">The Front Door to Base.</h2>
-  
-  <div class="screen-layout" style="display: flex; flex-direction: column; gap: 3rem;">
-    <!-- Main Dashboard Placeholder -->
-    <div class="reveal" style="width: 100%; aspect-ratio: 16/9; background: var(--bg3); border: 1px dashed var(--blue-mid); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1rem;">
-      <iconify-icon icon="ph:image" width="48" style="color: var(--off);"></iconify-icon>
-      <div style="color: var(--off); font-family: 'Syne', sans-serif;">Replace this placeholder with an &lt;img&gt; of your Nook dashboard later</div>
-    </div>
-
-    <!-- Two Col Screens -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-      <div class="reveal reveal-delay-1" style="width: 100%; aspect-ratio: 4/3; background: var(--bg3); border: 1px dashed var(--blue-mid); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1rem;">
-        <iconify-icon icon="ph:image" width="48" style="color: var(--off);"></iconify-icon>
-        <div style="color: var(--off); font-family: 'Syne', sans-serif;">Insert another Nook screenshot here</div>
-      </div>
-      <div class="reveal reveal-delay-2" style="width: 100%; aspect-ratio: 4/3; background: var(--bg3); border: 1px dashed var(--blue-mid); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1rem;">
-        <iconify-icon icon="ph:image" width="48" style="color: var(--off);"></iconify-icon>
-        <div style="color: var(--off); font-family: 'Syne', sans-serif;">Insert a mobile view or profile view here</div>
-      </div>
+      <iconify-icon class="step-icon" icon="ph:lightbulb-filament" width="20"></iconify-icon>
     </div>
   </div>
 </section>
@@ -986,52 +911,38 @@
 
 <!-- 06 Key Decisions -->
 <section id="decisions">
-  <p class="section-number reveal">06 / Key Design Decisions</p>
-  <h2 class="section-title reveal">The calls that shaped<br/>what NOOK became.</h2>
-  <p class="body-text reveal">Good product design isn't just about what you build. It's about what you refuse to build, and why.</p>
+  <p class="section-number reveal">06 / Design Decisions</p>
+  <h2 class="section-title reveal">Decisions that defined the dashboard.</h2>
+  <p class="body-text reveal">A design is defined by what you choose to highlight and what you choose to structure. Here are our key visual QA calls.</p>
 
   <div class="decision-grid reveal">
     <div class="decision-card">
       <div class="decision-title">
         <iconify-icon class="decision-icon" icon="ph:eye" width="16"></iconify-icon>
-        Clarity over gamification
+        Empirical Proof over Jargon
       </div>
-      <div class="decision-desc">XP is a reward mechanism, not the product. Project pages that make Base accessible to anyone are the real differentiator. Discovery and understanding come first, always.</div>
+      <div class="decision-desc">Instead of complex theoretical math, we highlight direct community screenshots and pain statements. Founders validate with actual user text, establishing immediate product context.</div>
     </div>
     <div class="decision-card">
       <div class="decision-title">
-        <iconify-icon class="decision-icon" icon="ph:x-circle" width="16"></iconify-icon>
-        No referral system
+        <iconify-icon class="decision-icon" icon="ph:terminal-window" width="16"></iconify-icon>
+        The Scanning Stage
       </div>
-      <div class="decision-desc">Scrapped completely to protect the XP economy. Referrals invite farming and abuse before a single protocol partnership is signed. Organic growth only.</div>
+      <div class="decision-desc">We deliberately show progress logs during validation scans. This visual loader transforms wait times into an engaging, high-tech experience, keeping users highly focused.</div>
     </div>
     <div class="decision-card">
       <div class="decision-title">
-        <iconify-icon class="decision-icon" icon="ph:columns" width="16"></iconify-icon>
-        Categorized task flows
+        <iconify-icon class="decision-icon" icon="ph:desktop" width="16"></iconify-icon>
+        Dual-mode dashboard toggle
       </div>
-      <div class="decision-desc">One-time social tasks (minting an SBT) and recurring partner tasks (Web-Apps vs Mini-Apps) are kept strictly separate to prevent cognitive overload for beginners.</div>
+      <div class="decision-desc">Allowing an instant switch between individual startup validation results and global platform statistics showcases the flexibility and SaaS scalability of the dashboard blocks.</div>
     </div>
     <div class="decision-card">
       <div class="decision-title">
-        <iconify-icon class="decision-icon" icon="ph:database" width="16"></iconify-icon>
-        Static data first
+        <iconify-icon class="decision-icon" icon="ph:palette" width="16"></iconify-icon>
+        Glassmorphism dark aesthetics
       </div>
-      <div class="decision-desc">Consciously accepted hardcoded project data while the backend is being built. Speed to test the UX mattered more than backend completeness at this stage.</div>
-    </div>
-    <div class="decision-card">
-      <div class="decision-title">
-        <iconify-icon class="decision-icon" icon="ph:code" width="16"></iconify-icon>
-        CSS Modules over Tailwind
-      </div>
-      <div class="decision-desc">New components use CSS Modules for consistency with the existing codebase, preventing style drift across a growing component library.</div>
-    </div>
-    <div class="decision-card">
-      <div class="decision-title">
-        <iconify-icon class="decision-icon" icon="ph:moon-stars" width="16"></iconify-icon>
-        Dark/light mode from day one
-      </div>
-      <div class="decision-desc">System preference detection, localStorage persistence, CSS custom properties. Not a nice-to-have - a core requirement for a crypto-native audience.</div>
+      <div class="decision-desc">Constructed the prototype in pure dark-mode styling utilizing glassmorphic cards and electric violet variables. Highly harmonious color scales represent Deborah's senior designer DNA.</div>
     </div>
   </div>
 </section>
@@ -1043,85 +954,46 @@
   <div class="two-col">
     <div class="two-col-sticky">
       <p class="section-number reveal">07 / Learnings</p>
-      <h2 class="section-title reveal">What this project taught me.</h2>
-      <p class="body-text reveal">NOOK is still in active development, but the design decisions made early have already defined what kind of product it's becoming, and what kind it's refusing to be.</p>
+      <h2 class="section-title reveal">Lessons from a 3-week sprint.</h2>
+      <p class="body-text reveal">Building a functional, interactive React prototype and integrating it natively inside a static portfolio is a masterclass in clean architecture and design precision.</p>
     </div>
     <div class="lesson-stack reveal">
       <div class="lesson-card">
         <div class="lesson-num">01</div>
         <div>
-          <div class="lesson-title">Content strategy is product strategy</div>
-          <div class="lesson-desc">The decision to make individual project pages NOOK's moat wasn't a design decision; it was a business one. In Web3, where everything looks the same, the product that helps people actually understand things wins.</div>
+          <div class="lesson-title">Design density is a typography challenge</div>
+          <div class="lesson-desc">High-density SaaS dashboards succeed or fail purely on typographic hierarchy. Choosing clean monospace scales for metrics, and distinct weights for card content, prevents layouts from feeling cluttered.</div>
         </div>
       </div>
       <div class="lesson-card">
         <div class="lesson-num">02</div>
         <div>
-          <div class="lesson-title">Traffic before partnerships changes power dynamics</div>
-          <div class="lesson-desc">By listing all Base projects without permission first, NOOK removes the single biggest GTM blocker for a new platform. Good design creates leverage, not just delight.</div>
+          <div class="lesson-title">Motion should pace, never distract</div>
+          <div class="lesson-desc">Animations are visual cues, not decoration. The scrolling scan logs and the animated circular progress gauge serve to pace the user's focus, emphasizing data processing speeds.</div>
         </div>
       </div>
       <div class="lesson-card">
         <div class="lesson-num">03</div>
         <div>
-          <div class="lesson-title">Phased promises are a design principle</div>
-          <div class="lesson-desc">Not promising redeemable XP until revenue exists is a trust design decision. What you don't ship matters as much as what you do. Restraint in feature scope is a form of craft.</div>
-        </div>
-      </div>
-      <div class="lesson-card">
-        <div class="lesson-num">04</div>
-        <div>
-          <div class="lesson-title">Technical constraints sharpen design thinking</div>
-          <div class="lesson-desc">Designing for an 8GB RAM machine forced thinking about performance as a design value. Downgrading to Next.js 15.1 to avoid memory crashes wasn't a setback; it was a constraint that made the product more disciplined.</div>
+          <div class="lesson-title">Baseline compilation guarantees trust</div>
+          <div class="lesson-desc">Maintaining a fully clean TypeScript build with zero unused locales or broken imports is as essential as visual alignment. A design is only as strong as its under-the-hood stability.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- 08 What's Next -->
-<section id="next">
-  <p class="section-number reveal">08 / What's Next</p>
-  <h2 class="section-title reveal">The road ahead.</h2>
-  <p class="body-text reveal">The next milestone is connecting NOOK to a real backend: Supabase for the database, Alchemy for on-chain verification, and a task system that works across three verification methods: on-chain, partner API, and manual review.</p>
-
-  <ul class="next-list reveal">
-    <li>
-      <div class="next-bullet"></div>
-      <div><strong>Supabase backend</strong> - user wallets, XP balances, completed tasks, daily check-in streaks, and events</div>
-    </li>
-    <li>
-      <div class="next-bullet"></div>
-      <div><strong>On-chain task verification</strong> - Alchemy webhooks monitoring user wallet transactions against task criteria in real time</div>
-    </li>
-    <li>
-      <div class="next-bullet"></div>
-      <div><strong>NOOK Events</strong> - paid and sponsored campaigns with XP or prizes, the primary revenue stream once organic traffic is established</div>
-    </li>
-    <li>
-      <div class="next-bullet"></div>
-      <div><strong>Leaderboard</strong> - a reputation layer that gives XP social meaning before it becomes redeemable</div>
-    </li>
-    <li>
-      <div class="next-bullet"></div>
-      <div><strong>Protocol partnership outreach</strong> - approaching Base protocols with real traffic data instead of cold pitches</div>
-    </li>
-  </ul>
-</section>
-
 <!-- Footer -->
 <footer>
   <div class="footer-left">
-    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:-0.02em;margin-bottom:0.4rem;">NOOK <span style="color:var(--blue);">·</span> Case Study</div>
-    <div>Designed &amp; built by Debbie and Oxy &nbsp;·&nbsp; Base Blockchain &nbsp;·&nbsp; 2025–2026</div>
+    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;letter-spacing:-0.03em;margin-bottom:0.4rem;">LAUNCH<span>LENS</span></div>
+    <div>Designed &amp; built by Chidozie Deborah &nbsp;·&nbsp; Startup Validation Dashboard &nbsp;·&nbsp; 2026</div>
   </div>
   <div class="footer-right">
-    <span class="footer-tag">Next.js</span>
+    <span class="footer-tag">React</span>
     <span class="footer-tag">TypeScript</span>
-    <span class="footer-tag">RainbowKit</span>
-    <span class="footer-tag">Base L2</span>
+    <span class="footer-tag">Tailwind CSS</span>
+    <span class="footer-tag">Shadcn UI</span>
   </div>
 </footer>
 
@@ -1144,7 +1016,7 @@
   }
   animateRing();
 
-  document.querySelectorAll('a, button, .problem-card, .phase-card, .decision-card, .lesson-card').forEach(el => {
+  document.querySelectorAll('a, button, .problem-card, .phase-card, .decision-card, .lesson-card, iframe').forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.style.width = '16px';
       cursor.style.height = '16px';
@@ -1185,4 +1057,3 @@
 </script>
 </body>
 </html>
-HTMLEOF
