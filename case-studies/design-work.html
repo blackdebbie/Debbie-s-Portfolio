@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design Archive | Chidozie Deborah</title>
+  <meta name="description" content="Dedicated UI/UX Design Case Studies archive by Chidozie Deborah. Pure Figma visuals, wireframes, prototypes, and user research." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --bg-surface: #F9FAFB;
+      --text: #111827;
+      --muted: #4B5563;
+      --border: #E5E7EB;
+      --primary: #5E67E6; /* Indigo Violet Accent */
+      --primary-hover: #4B52C7;
+      --font-body: 'Karla', sans-serif;
+      --font-head: 'Syne', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-top: 120px; /* Space for fixed navbar */
+    }
+
+    /* CUSTOM CURSOR */
+    .cursor {
+      width: 8px; height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      position: fixed;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 10000;
+      transition: width 0.2s, height 0.2s, background-color 0.2s;
+    }
+    .cursor-follower {
+      width: 32px; height: 32px;
+      border: 1px solid var(--primary);
+      border-radius: 50%;
+      position: fixed;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s ease-out, border-color 0.2s, background-color 0.2s;
+    }
+
+    /* FLOATY CAPSULE NAV */
+    nav {
+      position: fixed;
+      top: 24px; left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 1200px;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 100px;
+      padding: 12px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+      z-index: 1000;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+      transition: transform 0.2s;
+    }
+    .nav-left:hover {
+      transform: scale(0.98);
+    }
+    .nav-left img {
+      height: 36px;
+      border-radius: 6px;
+    }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-center a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-center a:hover {
+      color: var(--primary);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .nav-cta {
+      background: var(--text);
+      color: var(--bg);
+      text-decoration: none;
+      padding: 10px 24px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover {
+      background: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* HEADER */
+    header {
+      padding: 60px 0 40px 0;
+      max-width: 800px;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--primary);
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      transition: transform 0.2s;
+    }
+    .back-btn:hover {
+      transform: translateX(-4px);
+    }
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.8rem, 6vw, 4.8rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    h1 span {
+      color: var(--primary);
+    }
+    .lead-text {
+      font-size: 1.15rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 680px;
+    }
+
+    /* CATEGORIES & FILTER PILLS */
+    .filter-section {
+      margin-bottom: 48px;
+      display: flex;
+      justify-content: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+    }
+    .pill {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 10px 24px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .pill:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(94, 103, 230, 0.04);
+    }
+    .pill.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+      box-shadow: 0 4px 15px rgba(94, 103, 230, 0.2);
+    }
+
+    /* 3-COLUMN GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px 24px;
+      margin-bottom: 80px;
+    }
+
+    /* DESIGN CARD */
+    .card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s;
+      opacity: 1;
+      transform: translateY(0);
+      will-change: transform, opacity;
+    }
+    .card.hidden {
+      display: none;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(94, 103, 230, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      background: var(--bg-surface);
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-img-inner {
+      position: absolute;
+      inset: 0;
+      transition: transform 0.5s ease;
+    }
+    .card:hover .card-img-inner {
+      transform: scale(1.05);
+    }
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-body {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-cat {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .card h3 {
+      font-family: var(--font-head);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 24px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--border);
+    }
+    .meta-tag {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 500;
+    }
+
+    .card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.88rem;
+      font-weight: 700;
+      transition: color 0.2s, transform 0.2s;
+      margin-top: auto;
+    }
+    .card-cta i {
+      font-size: 0.75rem;
+      transition: transform 0.2s;
+    }
+    .card:hover .card-cta {
+      color: var(--primary);
+    }
+    .card:hover .card-cta i {
+      transform: translateX(4px);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 60px 0;
+      background: var(--bg-surface);
+      margin-top: 120px;
+      text-align: center;
+    }
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .footer-logo {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .footer-logo span {
+      color: var(--primary);
+    }
+    .footer-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.6;
+    }
+    .footer-socials {
+      display: flex;
+      gap: 16px;
+    }
+    .social-btn {
+      width: 40px; height: 40px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .social-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+    .copy {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 24px;
+    }
+
+    /* RESPONSIVE LAYOUTS */
+    @media (max-width: 992px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+      body {
+        padding-top: 100px;
+      }
+      nav {
+        top: 16px;
+        padding: 10px 24px;
+      }
+      .nav-center {
+        display: none; /* Hide navigation links on tablet/mobile */
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      h1 {
+        font-size: 2.8rem;
+      }
+      header {
+        padding: 40px 0 20px 0;
+      }
+      nav {
+        width: 92%;
+        padding: 8px 16px;
+      }
+      .nav-left span {
+        display: none; /* Hide 'UI DEBBIE' text, just keep logo */
+      }
+      .nav-cta {
+        padding: 8px 16px;
+        font-size: 0.78rem;
+      }
+      .cursor, .cursor-follower {
+        display: none; /* Hide custom cursor on mobile */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- FLOATING NAV -->
+  <nav>
+    <a href="../index.html" class="nav-left">
+      <img src="../media/image/logo.svg" alt="UI DEBBIE">
+      <span style="margin-left: 8px;">UI DEBBIE</span>
+    </a>
+    <div class="nav-center">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#services">Services</a>
+      <a href="../index.html#projects" style="color: var(--primary); font-weight: 700;">Design Work</a>
+      <a href="../index.html#live-projects">Live Projects</a>
+      <a href="../index.html#experience">Experience</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://www.upwork.com/freelancers/~01ea83173bd60bd566?mp_source=share" class="nav-cta" target="_blank">Hire Me</a>
+    </div>
+  </nav>
+
+  <!-- CONTENT -->
+  <div class="container">
+    
+    <!-- HEADER -->
+    <header>
+      <a href="../index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+      <h1>Design <span>Archive.</span></h1>
+      <p class="lead-text">
+        A premium showcase of dedicated Figma case studies, product structures, and visual interfaces. Pure design solutions optimized for performance, trust, and exceptional visual communication.
+      </p>
+    </header>
+
+    <!-- CATEGORIES / FILTERS -->
+    <div class="filter-section">
+      <button class="pill active" data-filter="all">All Work</button>
+      <button class="pill" data-filter="mobile">Mobile UI</button>
+      <button class="pill" data-filter="web">Web Platforms</button>
+      <button class="pill" data-filter="systems">Design Systems</button>
+    </div>
+
+    <!-- CARDS GRID -->
+    <div class="grid" id="projects-grid">
+      
+      <!-- Card 1: Signal AI -->
+      <div class="card" data-category="web">
+        <div class="card-img">
+          <div class="card-img-inner">
+            <img src="../media/image/Frame 2147224674.png" alt="Signal AI Dashboard">
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Web Platform</div>
+          <h3>Signal AI Redesign</h3>
+          <p>A senior UI/UX redesign of an enterprise AI marketing dashboard. Transforms complex data and heavy tables into clean, actionable, high-conversion visual interfaces.</p>
+          <div class="card-meta">
+            <span class="meta-tag">Figma</span>
+            <span class="meta-tag">UX Research</span>
+            <span class="meta-tag">SaaS Dashboard</span>
+          </div>
+          <a href="case-study-1.html" class="card-cta">View Case Study <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Card 2: CareSync -->
+      <div class="card" data-category="mobile">
+        <div class="card-img">
+          <div class="card-img-inner">
+            <img src="../media/image/Frame 2147224574.png" alt="CareSync Dashboard">
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Mobile UI & App</div>
+          <h3>CareSync Healthcare</h3>
+          <p>A high-fidelity patient management dashboard and companion mobile tracking system. Engineered for clean information retrieval and reduced doctor cognitive load.</p>
+          <div class="card-meta">
+            <span class="meta-tag">Figma</span>
+            <span class="meta-tag">Mobile App</span>
+            <span class="meta-tag">User Journey</span>
+          </div>
+          <a href="case-study-2.html" class="card-cta">View Case Study <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Card 3: MailNova AI -->
+      <div class="card" data-category="web">
+        <div class="card-img">
+          <div class="card-img-inner">
+            <img src="../media/image/MacBook Air (2022) (2).png" alt="MailNova AI Web Design">
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Web Platform</div>
+          <h3>MailNova Marketing App</h3>
+          <p>A conversions-driven product marketing landing page and web workspace dashboard designed for an advanced, trust-first business AI automation platform.</p>
+          <div class="card-meta">
+            <span class="meta-tag">Figma</span>
+            <span class="meta-tag">Landing Page</span>
+            <span class="meta-tag">Wireframing</span>
+          </div>
+          <a href="case-study-3.html" class="card-cta">View Case Study <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Card 4: LaunchLens -->
+      <div class="card" data-category="systems">
+        <div class="card-img">
+          <div class="card-img-inner">
+            <img src="../media/image/layer_project_image.jpg" alt="LaunchLens System">
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Design System</div>
+          <h3>LaunchLens Design System</h3>
+          <p>An extensive, responsive component library and color system created for a high-performance startup validator, featuring neon accents and glassmorphic widgets.</p>
+          <div class="card-meta">
+            <span class="meta-tag">Figma</span>
+            <span class="meta-tag">Component Library</span>
+            <span class="meta-tag">Autolayout</span>
+          </div>
+          <a href="case-study-4.html" class="card-cta">View Case Study <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Card 5: Silveroak -->
+      <div class="card" data-category="web">
+        <div class="card-img">
+          <div class="card-img-inner">
+            <img src="../media/image/Free MacBook Air 15_ mockup on dark textured rocks (Mockuuups Studio).png" alt="Silveroak Law Firm Mockup">
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Web Platform</div>
+          <h3>Silveroak Legal Firm</h3>
+          <p>A premier corporate law firm digital web portal designed to inspire high trust, convey institutional authority, and maximize qualified client booking consultations.</p>
+          <div class="card-meta">
+            <span class="meta-tag">Figma</span>
+            <span class="meta-tag">Brand Identity</span>
+            <span class="meta-tag">Wireframe</span>
+          </div>
+          <a href="case-study-5.html" class="card-cta">View Case Study <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Card 6: Pet Life -->
+      <div class="card" data-category="systems">
+        <div class="card-img">
+          <div class="card-img-inner">
+            <img src="Free MacBook Pro mockup on round table (Mockuuups Studio).png" alt="Pet Life Mockup">
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-cat">Design System</div>
+          <h3>Pet Life Ecosystem</h3>
+          <p>A full product suite including vet bookings, grooming, and pet stores. Designed around a comprehensive, highly playful design system and interactive flows.</p>
+          <div class="card-meta">
+            <span class="meta-tag">Figma</span>
+            <span class="meta-tag">Interactive Proto</span>
+            <span class="meta-tag">Typography System</span>
+          </div>
+          <a href="case-study-6.html" class="card-cta">View Case Study <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <a href="../index.html" class="footer-logo">UI <span>DEBBIE.</span></a>
+        <p class="footer-desc">Crafting pixel-perfect visual design systems, interactive interfaces, and strategic user journeys that elevate product communication.</p>
+        <div class="footer-socials">
+          <a href="https://www.behance.net/adachidozie" target="_blank" class="social-btn"><i class="fa-brands fa-behance"></i></a>
+          <a href="https://www.upwork.com/freelancers/~01ea83173bd60bd566?mp_source=share" target="_blank" class="social-btn"><i class="fa-solid fa-briefcase"></i></a>
+          <a href="mailto:adachidozie@gmail.com" class="social-btn"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+        <p class="copy">&copy; 2026 Chidozie Deborah. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // CUSTOM CURSOR LOGIC
+      const cursor = document.getElementById("cursor");
+      const cursorFollower = document.getElementById("cursorFollower");
+
+      if (window.innerWidth > 640) {
+        document.addEventListener("mousemove", (e) => {
+          cursor.style.left = e.clientX + "px";
+          cursor.style.top = e.clientY + "px";
+          
+          cursorFollower.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`;
+        });
+
+        // Hover expansions
+        const interactiveElements = document.querySelectorAll("a, button, .pill");
+        interactiveElements.forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            cursor.style.transform = "translate(-50%, -50%) scale(1.5)";
+            cursor.style.backgroundColor = "rgba(94, 103, 230, 0.2)";
+            cursorFollower.style.transform = `translate3d(calc(${cursorFollower.offsetLeft}px - 50%), calc(${cursorFollower.offsetTop}px - 50%), 0) scale(1.8)`;
+            cursorFollower.style.backgroundColor = "rgba(94, 103, 230, 0.05)";
+          });
+          el.addEventListener("mouseleave", () => {
+            cursor.style.transform = "translate(-50%, -50%) scale(1)";
+            cursor.style.backgroundColor = "var(--primary)";
+            cursorFollower.style.transform = `translate3d(calc(${cursorFollower.offsetLeft}px - 50%), calc(${cursorFollower.offsetTop}px - 50%), 0) scale(1)`;
+            cursorFollower.style.backgroundColor = "transparent";
+          });
+        });
+      }
+
+      // CATEGORY FILTERING LOGIC
+      const pills = document.querySelectorAll(".pill");
+      const cards = document.querySelectorAll(".card");
+
+      pills.forEach((pill) => {
+        pill.addEventListener("click", () => {
+          // Toggle active pill classes
+          pills.forEach((p) => p.classList.remove("active"));
+          pill.classList.add("active");
+
+          const filter = pill.getAttribute("data-filter");
+
+          cards.forEach((card) => {
+            const category = card.getAttribute("data-category");
+
+            if (filter === "all" || category.includes(filter)) {
+              card.classList.remove("hidden");
+              card.style.opacity = "0";
+              card.style.transform = "translateY(15px)";
+              
+              // Smooth stagger fade in
+              setTimeout(() => {
+                card.style.transition = "opacity 0.4s ease, transform 0.4s ease, border-color 0.3s, box-shadow 0.3s";
+                card.style.opacity = "1";
+                card.style.transform = "translateY(0)";
+              }, 50);
+            } else {
+              card.style.opacity = "0";
+              card.style.transform = "translateY(15px)";
+              
+              // Hide after transition completes
+              setTimeout(() => {
+                card.classList.add("hidden");
+              }, 300);
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
