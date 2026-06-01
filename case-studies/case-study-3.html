@@ -40,15 +40,15 @@
     }
 
     /* TYPOGRAPHY */
-    h1, h2, h3, h4 {
+    h1, h2, h4 {
       font-weight: 700;
       line-height: 1.1;
       letter-spacing: -0.02em;
     }
 
     h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); text-align: center; margin-bottom: 24px; }
-    h2 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 16px; }
-    h3 { font-size: 1.25rem; margin-bottom: 12px; }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.4rem); margin-bottom: 16px; }
+    h3 { font-size: 1.15rem; font-weight: 500; margin-bottom: 12px; line-height: 1.2; }
 
     p { color: var(--muted); }
 
@@ -60,7 +60,7 @@
     }
 
     section {
-      padding: 100px 0;
+      padding: 80px 0;
       position: relative;
       overflow: hidden; /* Prevent horizontal stretch from background glow nodes */
     }
@@ -315,7 +315,7 @@
     .section-header {
       text-align: center;
       max-width: 700px;
-      margin: 0 auto 64px;
+      margin: 0 auto 48px;
     }
     .steps-grid {
       display: grid;
@@ -360,7 +360,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 64px;
       align-items: center;
-      margin-bottom: 120px;
+      margin-bottom: 80px;
     }
     .deep-dive-row:nth-child(even) .dd-content { order: 2; }
     .deep-dive-row:nth-child(even) .dd-image { order: 1; }
@@ -461,7 +461,7 @@
       gap: 32px;
     }
     .bento-card-content p { font-size: 0.95rem; line-height: 1.5; color: var(--muted); }
-    .bento-card-content h3 { font-size: 1.25rem; margin: 0; color: #fff; }
+    .bento-card-content h3 { font-size: 1.15rem; margin: 0; color: #fff; }
     
     .bento-arrow-icon {
       width: 48px;
@@ -605,7 +605,7 @@
       text-align: center;
       background: linear-gradient(180deg, transparent, rgba(255, 107, 0, 0.05));
       border-top: 1px solid var(--border-light);
-      padding: 120px 0;
+      padding: 90px 0;
     }
 
     /* FOOTER */
@@ -659,12 +659,14 @@
       .nav-inner .btn { display: none !important; }
       .nav-hamburger-btn { display: flex !important; }
       .nav-links { display: none; }
-      h1 { font-size: 2.3rem !important; }
+      .hero { padding-top: 100px !important; }
+      h1 { font-size: 2.2rem !important; }
+      h2 { font-size: 1.45rem !important; }
       h1 br { display: none !important; }
       .hero-sub { font-size: 1rem !important; max-width: 420px !important; margin: 0 auto 32px !important; }
       .hero-graphic { height: auto !important; max-width: 100% !important; margin: 0 auto !important; }
       .btn { padding: 10px 20px !important; font-size: 0.9rem !important; border-radius: 6px !important; }
-      section { padding: 80px 0; }
+      section { padding: 60px 0; }
       .step-card { min-height: 220px !important; display: flex !important; flex-direction: column !important; justify-content: center !important; }
       .benefits-grid { grid-template-columns: 1fr; }
       .benefit-card { min-height: 240px !important; }
@@ -680,10 +682,10 @@
       .footer-bottom { font-size: 0.8rem !important; }
     }
     @media (max-width: 480px) {
-      h1 { font-size: 1.9rem !important; line-height: 1.2 !important; }
-      .hero { padding-top: 120px; }
+      h1 { font-size: 2.2rem !important; line-height: 1.2 !important; }
+      .hero { padding-top: 100px !important; }
       .hero-sub { max-width: 250px !important; }
-      section { padding: 60px 0; }
+      section { padding: 45px 0; }
       .container { padding: 0 16px; }
       .hero-actions { flex-direction: column; gap: 12px; }
       .btn { width: 100% !important; }
@@ -691,7 +693,7 @@
       .hero-graphic img { border-radius: 12px; }
       .steps-grid { grid-template-columns: 1fr; }
       .step-card { padding: 24px; }
-      .deep-dive-row { margin-bottom: 48px; gap: 24px; }
+      .deep-dive-row { margin-bottom: 36px; gap: 24px; }
       .bento-card { padding: 24px 16px !important; }
       .bento-card-content h3 { font-size: 1.15rem; }
       .bento-envelope-layout img { width: 100px; }
@@ -744,7 +746,7 @@
   <section class="hero">
     <div class="glow-bg"></div>
     <div class="container">
-      <h1>Write emails without,<br>ever thinking every sentence.</h1>
+      <h1>Write emails without, <br>ever thinking every sentence.</h1>
       <p class="hero-sub">An AI email assistant that learns your tone and writes perfect emails in seconds. Save hours every week.</p>
       <div class="hero-actions">
         <a href="signup.html" class="btn btn-primary">Get Started</a>
