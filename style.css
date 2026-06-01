@@ -949,7 +949,7 @@
       .exp-item { grid-template-columns: 1fr; gap: 8px; }
       footer { padding: 32px 20px; }
       .footer-inner { flex-direction: column; text-align: center; }
-      .projects-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .projects-header { flex-direction: row; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: nowrap; }
       .about-img-wrap { margin: 0 auto; }
       .about-img-badge { right: 10px; bottom: 10px; }
       .about-stats-row { grid-template-columns: repeat(3, 1fr); }
