@@ -6,27 +6,23 @@
 <title>LaunchLens – Startup Validation Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Instrument+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Instrument+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
 <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 <style>
   :root {
-    --bg: #070706;
-    --card-bg: rgba(18, 18, 16, 0.45);
-    --card-hover: rgba(28, 28, 26, 0.6);
-    --border: rgba(255, 255, 255, 0.05);
-    --border-bright: rgba(255, 255, 255, 0.12);
+    --bg: #07080a; /* Dark premium background matching image */
+    --card-bg: #111216; /* Card backgrounds matching image */
+    --card-inner: #191a20; /* Inner secondary panels */
+    --border: rgba(255, 255, 255, 0.04);
+    --border-bright: rgba(255, 255, 255, 0.08);
     --text-primary: #F5F4F0;
-    --text-muted: #8E8A7F;
-    --primary: #6366F1; /* Indigo neon accent */
-    --primary-dim: rgba(99, 102, 241, 0.08);
-    --primary-mid: rgba(99, 102, 241, 0.25);
-    --emerald: #10B981;
-    --emerald-dim: rgba(16, 185, 129, 0.08);
-    --rose: #F43F5E;
-    --rose-dim: rgba(244, 63, 94, 0.08);
-    --amber: #F59E0B;
-    --amber-dim: rgba(245, 158, 11, 0.08);
-    --radius: 12px;
+    --text-muted: #7E828E;
+    --primary: #b8ff22; /* Pixel-perfect neon-lime green accent from image */
+    --primary-dim: rgba(184, 255, 34, 0.08);
+    --primary-mid: rgba(184, 255, 34, 0.25);
+    --radius-lg: 24px; /* Deep rounded corners from image */
+    --radius-md: 16px;
+    --radius-sm: 8px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,11 +32,12 @@
     font-family: 'Instrument Sans', sans-serif;
     font-weight: 300;
     min-height: 100vh;
-    display: flex;
     overflow-x: hidden;
+    cursor: none;
+    padding-bottom: 2rem;
   }
 
-  /* Custom Cursor */
+  /* Custom Interactive Cursor */
   .cursor {
     width: 8px; height: 8px;
     background: var(--primary);
@@ -64,456 +61,832 @@
     transition: transform 0.18s ease;
   }
 
-  /* Sidebar styling */
-  aside {
-    width: 260px;
-    background: rgba(11, 11, 10, 0.85);
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+  /* Progress Bar */
+  .progress-bar {
     position: fixed;
     top: 0; left: 0;
-    z-index: 50;
+    height: 2px;
+    background: var(--primary);
+    z-index: 1000;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  /* Container */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 1.5rem;
-    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* Pixel-perfect Header Capsule Nav */
+  header {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 100px; /* Fully rounded capsule */
+    padding: 0.65rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    backdrop-filter: blur(16px);
   }
 
   .logo-area {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-    padding-left: 0.5rem;
+    gap: 0.5rem;
   }
   .logo-icon {
-    width: 32px; height: 32px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, var(--primary), #4F46E5);
+    color: var(--primary);
+    font-size: 1.4rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    font-weight: bold;
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+    animation: rotateSlow 20s linear infinite;
   }
   .logo-text {
     font-family: 'Syne', sans-serif;
     font-weight: 800;
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     letter-spacing: -0.03em;
+    color: var(--text-primary);
   }
-  .logo-text span { color: var(--primary); }
 
-  /* Nav Links */
-  .nav-group-label {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--text-muted);
-    font-weight: 600;
-    margin: 1.5rem 0 0.5rem 0.5rem;
+  /* Rounded menu capsule from image */
+  .menu-capsule {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
   }
-  .nav-menu { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
-  .nav-item {
+  .menu-tab {
+    padding: 0.5rem 1.25rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .menu-tab:hover {
+    color: var(--text-primary);
+  }
+  .menu-tab.active {
+    background: var(--primary);
+    color: #07080a; /* Dark text on green background matching image */
+    font-weight: 600;
+  }
+
+  .user-badge {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.65rem 0.85rem;
-    border-radius: 8px;
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.88rem;
-    font-weight: 400;
-    transition: all 0.2s ease;
-    cursor: pointer;
   }
-  .nav-item iconify-icon { font-size: 1.1rem; }
-  .nav-item:hover, .nav-item.active {
-    color: var(--text-primary);
-    background: var(--card-hover);
-  }
-  .nav-item.active {
-    border-left: 3px solid var(--primary);
-    border-radius: 0 8px 8px 0;
-  }
-
-  /* Main Wrapper */
-  .main-wrapper {
-    margin-left: 260px;
-    flex: 1;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: var(--bg);
-    position: relative;
-  }
-
-  /* Header */
-  header {
-    height: 64px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2rem;
-    position: sticky;
-    top: 0;
-    background: rgba(7, 7, 6, 0.8);
-    backdrop-filter: blur(12px);
-    z-index: 40;
-  }
-  .header-title { font-weight: 500; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; }
-  .header-actions { display: flex; align-items: center; gap: 1rem; }
-
-  /* Pulse Green Dot */
-  .status-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--emerald-dim);
-    color: var(--emerald);
-    border: 1px solid rgba(16, 185, 129, 0.15);
-    padding: 0.35rem 0.75rem;
-    border-radius: 100px;
-    font-size: 0.75rem;
-    font-weight: 500;
-  }
-  .pulse-dot {
-    width: 6px; height: 6px;
-    background: var(--emerald);
+  .action-dot-btn {
+    width: 34px; height: 34px;
     border-radius: 50%;
-    position: relative;
-  }
-  .pulse-dot::after {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    border: 2px solid var(--emerald);
-    animation: ping 1.5s infinite;
-  }
-  @keyframes ping {
-    100% { transform: scale(2.2); opacity: 0; }
-  }
-
-  /* Switch Mode Button */
-  .switch-btn {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--border-bright);
-    color: var(--text-primary);
-    padding: 0.45rem 1rem;
-    border-radius: 8px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .switch-btn:hover { background: var(--card-hover); border-color: var(--primary-mid); }
-
-  /* Body Content container */
-  .content { padding: 2rem; flex: 1; display: flex; flex-direction: column; }
-
-  /* Sandbox View */
-  .sandbox-view { display: flex; flex-direction: column; flex: 1; align-items: center; justify-content: center; max-width: 800px; margin: 0 auto; width: 100%; }
-  .sandbox-hero { text-align: center; margin-bottom: 2.5rem; }
-  .sandbox-hero h1 { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 0.75rem; }
-  .sandbox-hero p { color: var(--text-muted); font-size: 0.95rem; max-width: 540px; margin: 0 auto; line-height: 1.6; }
-
-  /* Dynamic search layout */
-  .search-container {
-    width: 100%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    margin-bottom: 3rem;
-  }
-  .search-input {
-    width: 100%;
-    height: 56px;
-    background: rgba(18, 18, 16, 0.6);
-    border: 1px solid var(--border-bright);
-    border-radius: 14px;
-    padding: 0 10rem 0 3rem;
-    color: var(--text-primary);
-    font-family: inherit;
-    font-size: 0.98rem;
-    transition: all 0.2s ease;
-  }
-  .search-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 20px rgba(99, 102, 241, 0.1); }
-  .search-icon-left { position: absolute; left: 1rem; color: var(--text-muted); font-size: 1.25rem; }
-  .validate-btn {
-    position: absolute;
-    right: 0.5rem;
-    height: 42px;
-    background: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 0 1.5rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: background 0.2s;
-  }
-  .validate-btn:hover { background: #4F46E5; }
-
-  /* Presets grid */
-  .presets-title { font-size: 0.72rem; text-transform: uppercase; font-weight: 600; color: var(--text-muted); letter-spacing: 0.1em; margin-bottom: 1rem; text-align: center; }
-  .presets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; width: 100%; }
-  .preset-card {
-    background: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.25rem;
-    text-align: left;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .preset-card:hover { background: var(--card-hover); border-color: var(--primary-mid); }
-  .preset-badge {
-    display: inline-block;
-    font-size: 0.68rem;
-    padding: 0.2rem 0.5rem;
-    background: var(--primary-dim);
-    color: var(--primary);
-    border-radius: 100px;
-    border: 1px solid rgba(99,102,241,0.15);
-    margin-bottom: 0.75rem;
-    font-weight: 500;
-  }
-  .preset-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.35rem; }
-  .preset-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-  /* Scanner View */
-  .scanner-view {
-    display: none;
-    flex-direction: column;
+    background: rgba(255,255,255,0.02);
+    display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 600px;
-    margin: 0 auto;
-    width: 100%;
-    flex: 1;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
   }
-  .scanner-header {
-    width: 100%;
+  .action-dot-btn:hover {
+    border-color: var(--border-bright);
+    color: var(--text-primary);
+  }
+  .avatar-circle {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FF6B6B, #4D96FF);
+    border: 2px solid var(--border-bright);
+    overflow: hidden;
+  }
+  .avatar-circle img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  /* Big Title Section */
+  .title-section {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 0.75rem;
-    margin-bottom: 1.5rem;
+    padding: 0.5rem 0.5rem 0;
   }
-  .scanner-title { font-weight: 600; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; }
-  .scanner-title iconify-icon { color: var(--primary); }
-  .terminal-box {
-    width: 100%;
-    height: 280px;
-    background: #000;
+  .page-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+    letter-spacing: -0.03em;
+  }
+  .title-btn {
+    background: var(--card-bg);
     border: 1px solid var(--border-bright);
-    border-radius: 12px;
-    padding: 1.25rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--emerald);
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-  }
-  .terminal-line { display: flex; gap: 0.5rem; line-height: 1.4; }
-  .terminal-prompt { color: var(--text-muted); user-select: none; }
-  .terminal-text.accent { color: var(--amber); }
-  .terminal-text.success { color: #22D3EE; font-weight: bold; }
-  .progress-wrapper { width: 100%; margin-top: 1.5rem; }
-  .progress-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 500; }
-  .progress-bg { width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 100px; overflow: hidden; }
-  .progress-fill { width: 0%; height: 100%; background: var(--primary); transition: width 0.3s ease; box-shadow: 0 0 10px var(--primary); }
-
-  /* Report View */
-  .report-view { display: none; flex-direction: column; gap: 1.5rem; width: 100%; max-width: 1100px; margin: 0 auto; }
-  .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.82rem; border: none; background: none; cursor: pointer; font-weight: 500; transition: color 0.2s; align-self: flex-start; }
-  .back-btn:hover { color: var(--text-primary); }
-
-  /* Header card */
-  .report-header-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 2rem;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
-  }
-  .report-header-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 50% 50% at 50% 0%, rgba(99,102,241,0.06) 0%, transparent 100%);
-    pointer-events: none;
-  }
-  .report-meta-content { display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
-  .report-badges { display: flex; gap: 0.5rem; }
-
-  /* Circle Dial Gauge */
-  .dial-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    background: rgba(0,0,0,0.2);
-    border: 1px solid var(--border);
-    padding: 1rem 1.5rem;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-  }
-  .dial-svg { width: 72px; height: 72px; transform: rotate(-90deg); position: relative; }
-  .dial-bg { fill: none; stroke: rgba(255,255,255,0.04); stroke-width: 6; }
-  .dial-fill { fill: none; stroke: var(--primary); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 213.6; stroke-dashoffset: 213.6; transition: stroke-dashoffset 1s ease-out; }
-  .dial-number { font-family: 'JetBrains Mono', monospace; font-size: 1.25rem; font-weight: 700; color: var(--text-primary); position: absolute; }
-  .dial-metric-text { display: flex; flex-direction: column; gap: 0.2rem; }
-  .dial-metric-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 600; }
-  .dial-metric-val { font-size: 0.9rem; font-weight: 700; }
-
-  /* Sub-metrics Grid */
-  .metrics-quad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-  .metric-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.25rem;
-    transition: background 0.3s;
-  }
-  .metric-card-label { font-size: 0.68rem; text-transform: uppercase; font-weight: 600; color: var(--text-muted); letter-spacing: 0.08em; margin-bottom: 0.5rem; }
-  .metric-card-value-row { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.35rem; }
-  .metric-card-value { font-family: 'JetBrains Mono', monospace; font-size: 1.8rem; font-weight: 700; }
-  .metric-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; }
-
-  /* Pains & Competitors Grid */
-  .grid-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-  .pane-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  .pane-header { padding: 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.75rem; }
-  .pane-title { font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; }
-  .pane-desc { font-size: 0.78rem; color: var(--text-muted); padding: 0.5rem 1.25rem 0; }
-  .pane-content { display: flex; flex-direction: column; divide-y: 1px solid var(--border); }
-
-  /* Pain Feed Items */
-  .pain-item { padding: 1.25rem; border-bottom: 1px solid var(--border); transition: background 0.2s; }
-  .pain-item:last-child { border-bottom: none; }
-  .pain-item:hover { background: rgba(255,255,255,0.01); }
-  .pain-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; }
-  .pain-source { padding: 0.15rem 0.45rem; border-radius: 4px; font-weight: 600; text-transform: uppercase; font-size: 0.65rem; }
-  .pain-source.reddit { background: rgba(249, 115, 22, 0.1); color: #F97316; border: 1px solid rgba(249, 115, 22, 0.2); }
-  .pain-source.twitter { background: rgba(14, 165, 233, 0.1); color: #0EA5E9; border: 1px solid rgba(14, 165, 233, 0.2); }
-  .pain-source.hackernews { background: rgba(142, 138, 127, 0.1); color: var(--text-muted); border: 1px solid var(--border); }
-  .pain-body { font-size: 0.88rem; font-style: italic; line-height: 1.5; color: rgba(245,244,240,0.85); }
-
-  /* Competitors Items */
-  .comp-item { padding: 1.25rem; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.75rem; }
-  .comp-item:last-child { border-bottom: none; }
-  .comp-name-row { display: flex; justify-content: space-between; align-items: center; }
-  .comp-name { font-weight: 600; font-size: 0.88rem; }
-  .comp-tag { font-size: 0.68rem; color: var(--rose); background: var(--rose-dim); border: 1px solid rgba(244,63,94,0.15); padding: 0.2rem 0.5rem; border-radius: 100px; font-weight: 500; display: inline-flex; align-items: center; gap: 0.25rem; }
-  .comp-matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-  .comp-box { padding: 0.75rem; border-radius: 8px; font-size: 0.78rem; line-height: 1.45; }
-  .comp-box.weakness { background: var(--rose-dim); border: 1px solid rgba(244,63,94,0.1); }
-  .comp-box.advantage { background: var(--emerald-dim); border: 1px solid rgba(16,185,129,0.1); }
-  .comp-box-title { font-weight: 600; display: block; margin-bottom: 0.25rem; }
-  .comp-box-title.red { color: var(--rose); }
-  .comp-box-title.green { color: var(--emerald); }
-
-  /* AI Pivot Card */
-  .pivot-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
-  .pivot-verdict { background: var(--primary-dim); border: 1px solid rgba(99,102,241,0.2); padding: 1.25rem; border-radius: 12px; font-size: 0.92rem; font-weight: 500; display: flex; gap: 0.75rem; line-height: 1.5; }
-  .pivot-verdict iconify-icon { font-size: 1.25rem; color: var(--primary); flex-shrink: 0; }
-  .pivot-list { list-style-position: inside; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.88rem; color: var(--text-muted); }
-  .pivot-list li span { color: var(--text-primary); font-weight: 500; }
-  .pivot-actions { display: flex; gap: 1rem; border-top: 1px solid var(--border); padding-top: 1.5rem; }
-
-  /* Premium Buttons */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    height: 40px;
-    padding: 0 1.25rem;
-    border-radius: 8px;
+    color: var(--text-primary);
+    padding: 0.65rem 1.25rem;
+    border-radius: 100px;
     font-size: 0.85rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
-    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
-  .btn.primary { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(99,102,241,0.2); }
-  .btn.primary:hover { background: #4F46E5; box-shadow: 0 6px 16px rgba(99,102,241,0.3); }
-  .btn.secondary { background: rgba(255,255,255,0.03); color: var(--text-primary); border: 1px solid var(--border-bright); }
-  .btn.secondary:hover { background: var(--card-hover); }
+  .title-btn:hover {
+    background: var(--card-inner);
+    border-color: var(--primary-mid);
+  }
 
-  /* Efferd Analytics Admin Dashboard View */
-  .admin-view { display: none; flex-direction: column; gap: 1.5rem; width: 100%; max-width: 1100px; margin: 0 auto; }
-  .chart-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+  /* Metrics Panel Row Grid */
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+  .metric-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .metric-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .metric-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
 
-  /* Custom stylized mock charts */
-  .col-3 { grid-column: span 3; }
-  .col-2 { grid-column: span 2; }
-  .col-1 { grid-column: span 1; }
+  /* Stacked Avatars and Timeline Grid */
+  .timeline-bar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .months-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .progress-bar-container {
+    width: 100%; height: 5px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%; background: var(--primary);
+    border-radius: 100px;
+    box-shadow: 0 0 8px var(--primary);
+  }
+  .stacked-group {
+    display: flex;
+    align-items: center;
+    margin-top: 0.35rem;
+  }
+  .stacked-avatar {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 1.5px solid var(--card-bg);
+    margin-left: -6px;
+    overflow: hidden;
+    background: #555;
+  }
+  .stacked-avatar:first-child { margin-left: 0; }
+  .stacked-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-  /* Visitors Chart Stylized Bars */
-  .bar-chart-container { display: flex; align-items: flex-end; justify-content: space-between; height: 160px; padding-top: 1rem; width: 100%; }
-  .bar-column { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; flex: 1; }
-  .bar-fill { width: 70%; background: var(--primary-mid); border-radius: 4px 4px 0 0; transition: height 1s ease; position: relative; border-top: 2px solid var(--primary); }
-  .bar-fill:hover { background: var(--primary); }
-  .bar-label { font-size: 0.65rem; color: var(--text-muted); font-weight: 500; }
+  /* Available for Instant Payout Widget */
+  .payout-widget {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
+  .payout-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.35rem;
+  }
+  .payout-bar {
+    width: 28px; border-radius: 6px;
+    background: var(--card-inner);
+    border: 1px solid var(--border);
+    transition: height 0.3s ease;
+  }
+  .payout-bar.highlight {
+    background: var(--primary);
+    border: none;
+    box-shadow: 0 0 15px var(--primary-mid);
+  }
+  .payout-btn {
+    background: var(--text-primary);
+    color: #07080a;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .payout-btn:hover { transform: scale(1.04); }
+
+  /* Capsule Filters Bar */
+  .filters-row {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .filters-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .filters-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-right: 0.5rem;
+  }
+  .filter-select-capsule {
+    background: var(--card-inner);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 0.45rem 1rem;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-select-capsule:hover {
+    border-color: var(--border-bright);
+    background: rgba(255,255,255,0.03);
+  }
   
-  /* Browser share ring mock */
-  .browser-grid { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
+  /* Search input */
+  .search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 240px;
+  }
+  .search-capsule-input {
+    width: 100%; height: 34px;
+    background: var(--card-inner);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 0 1rem 0 2.25rem;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.82rem;
+    transition: all 0.2s;
+  }
+  .search-capsule-input:focus {
+    outline: none; border-color: var(--primary);
+  }
+  .search-capsule-icon {
+    position: absolute; left: 0.85rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  /* Main Dynamic Content Split View */
+  .split-pane-grid {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  /* Left Ingestion Feed Pane */
+  .left-pane-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .left-pane-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .pane-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .pane-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+  .pill-bar {
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 0.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    align-self: flex-start;
+  }
+  .pill-tab {
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .pill-tab.active {
+    background: var(--card-inner);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+  }
+  .pill-tab.highlight {
+    background: var(--primary);
+    color: #07080a;
+    font-weight: 600;
+  }
+
+  /* Ingestion feed list */
+  .feed-list {
+    display: flex;
+    flex-direction: column;
+    divide-y: 1px solid var(--border);
+    max-height: 480px;
+    overflow-y: auto;
+  }
+  .feed-item {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .feed-item:last-child { border-bottom: none; }
+  .feed-item:hover, .feed-item.active {
+    background: rgba(255,255,255,0.015);
+  }
+  .feed-item.active {
+    border-left: 3px solid var(--primary);
+  }
+  .feed-item-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .feed-item-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border-bright);
+    overflow: hidden;
+  }
+  .feed-item-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .feed-item-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .feed-item-id {
+    font-weight: 600; font-size: 0.85rem;
+  }
+  .feed-item-time {
+    font-size: 0.72rem; color: var(--text-muted);
+  }
+  .feed-item-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.35rem;
+  }
+  .feed-status-badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    background: var(--card-inner);
+    border: 1px solid var(--border);
+  }
+  .feed-status-badge.highlight {
+    background: var(--text-primary);
+    color: #07080a;
+  }
+  .feed-item-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  /* Right Details Panel Pane */
+  .right-pane-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    min-height: 520px;
+  }
+  .details-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.25rem;
+  }
+  .details-id-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .details-id-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .details-id-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .details-company-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: flex-start;
+  }
+  .company-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .company-logo-avatar {
+    width: 22px; height: 22px;
+    border-radius: 4px;
+    background: var(--primary-dim);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.72rem;
+  }
+  .company-name { font-weight: 600; font-size: 0.95rem; }
+
+  .details-user-block {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .user-sub-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border-bright);
+    overflow: hidden;
+  }
+  .user-sub-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .user-sub-meta { display: flex; flex-direction: column; gap: 0.1rem; }
+  .user-sub-name { font-weight: 600; font-size: 0.78rem; }
+  .user-sub-title { font-size: 0.65rem; color: var(--text-muted); }
+
+  /* Quote Block */
+  .details-quote-block {
+    background: var(--card-inner);
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    font-style: italic;
+    color: rgba(245,244,240,0.85);
+  }
+
+  /* Three Sub Cards Grid from image */
+  .details-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .sub-card {
+    background: var(--card-inner);
+    border: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .sub-card-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+  .sub-card-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  /* Calculations summary footer */
+  .details-summary-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    margin-top: auto;
+  }
+  .summary-metrics-row {
+    display: flex;
+    gap: 3rem;
+  }
+  .summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .summary-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .summary-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 1.15rem;
+  }
+  .summary-val.highlight {
+    color: var(--primary);
+  }
+  .footer-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .footer-circle-btn {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--border-bright);
+    background: var(--card-inner);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .footer-circle-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--primary-mid);
+  }
+  .footer-action-btn-lime {
+    background: var(--primary);
+    color: #07080a;
+    border: none;
+    padding: 0.65rem 1.5rem;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(184, 255, 34, 0.2);
+  }
+  .footer-action-btn-lime:hover {
+    background: #a2e01b;
+    box-shadow: 0 6px 20px rgba(184, 255, 34, 0.35);
+  }
+
+  /* 2. CRAWL ENGINE LOG TERMINAL VIEW */
+  .crawl-view-panel {
+    display: none;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+  }
+  .terminal-box {
+    background: #000;
+    border: 1px solid var(--border-bright);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: #38BDF8;
+    height: 380px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.85);
+  }
+  .terminal-line { display: flex; gap: 0.5rem; line-height: 1.5; }
+  .terminal-line.green { color: var(--primary); }
+  .terminal-line.amber { color: var(--amber); }
+  .terminal-line.cyan { color: #22D3EE; font-weight: bold; }
+  .terminal-prompt { color: var(--text-muted); user-select: none; }
+  .terminal-progress-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .progress-meta { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--text-muted); font-weight: 500; }
+  .progress-bar-bg { width: 100%; height: 8px; background: rgba(255,255,255,0.03); border-radius: 100px; overflow: hidden; }
+  .progress-bar-fill-neon { height: 100%; background: var(--primary); border-radius: 100px; width: 0%; transition: width 0.3s; box-shadow: 0 0 10px var(--primary); }
+
+  /* 3. PLATFORM TELEMETRY VIEW */
+  .admin-view-panel {
+    display: none;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+  }
+  .admin-chart-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+  .span-3 { grid-column: span 3; }
+  .span-2 { grid-column: span 2; }
+  .span-1 { grid-column: span 1; }
+
+  /* Dynamic stylized charts using pure CSS */
+  .bar-chart-holder {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 180px;
+    padding-top: 1rem;
+    width: 100%;
+  }
+  .chart-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+  }
+  .chart-bar-element {
+    width: 65%;
+    background: rgba(184, 255, 34, 0.15);
+    border-radius: 4px 4px 0 0;
+    transition: height 1s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    border-top: 2px solid var(--primary);
+  }
+  .chart-bar-element:hover {
+    background: var(--primary);
+    box-shadow: 0 0 12px var(--primary-mid);
+  }
+  .chart-bar-label { font-size: 0.65rem; color: var(--text-muted); font-weight: 500; }
+
+  .browser-metrics-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; }
   .browser-row { display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; }
-  .browser-meta-label { display: flex; align-items: center; gap: 0.5rem; }
-  .browser-bullet { width: 8px; height: 8px; border-radius: 50%; }
-  .browser-percentage { font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+  .browser-label-left { display: flex; align-items: center; gap: 0.5rem; }
+  .bullet-color { width: 8px; height: 8px; border-radius: 50%; }
+  .percentage-mono { font-family: 'JetBrains Mono', monospace; font-weight: 600; }
 
-  /* Tables mock */
-  .admin-table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; }
-  .admin-table th { text-align: left; font-size: 0.68rem; text-transform: uppercase; font-weight: 600; color: var(--text-muted); padding: 0.65rem 0.5rem; border-bottom: 1px solid var(--border); letter-spacing: 0.05em; }
-  .admin-table td { padding: 0.75rem 0.5rem; font-size: 0.85rem; border-bottom: 1px solid var(--border); }
-  .admin-table tr:last-child td { border-bottom: none; }
-  
-  /* Responsiveness */
+  .telemetry-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+  .telemetry-table th { text-align: left; font-size: 0.68rem; text-transform: uppercase; font-weight: 600; color: var(--text-muted); padding: 0.65rem 0.5rem; border-bottom: 1px solid var(--border); letter-spacing: 0.05em; }
+  .telemetry-table td { padding: 0.75rem 0.5rem; font-size: 0.85rem; border-bottom: 1px solid var(--border); }
+  .telemetry-table tr:last-child td { border-bottom: none; }
+
+  /* 4. AI RECOMMENDATIONS & PIVOTS PANEL */
+  .ai-view-panel {
+    display: none;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+  }
+  .pivot-box {
+    background: var(--primary-dim);
+    border: 1px solid rgba(184, 255, 34, 0.15);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .pivot-box iconify-icon { font-size: 1.4rem; color: var(--primary); flex-shrink: 0; }
+  .pivot-box-title { font-weight: 600; margin-bottom: 0.25rem; }
+  .pivots-details-list {
+    list-style: none; display: flex; flex-direction: column; gap: 0.75rem;
+  }
+  .pivots-details-list li {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+  .pivot-num-circle {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--card-inner);
+    border: 1px solid var(--border-bright);
+    color: var(--primary);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+  }
+
+  /* Keyframe Animations */
+  @keyframes rotateSlow {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes rotatePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  /* Responsive styling */
   @media (max-width: 1000px) {
-    aside { width: 72px; padding: 1rem 0.5rem; align-items: center; }
-    .logo-text, .nav-group-label, .nav-item span { display: none; }
-    .logo-area { margin-bottom: 3rem; padding-left: 0; }
-    .main-wrapper { margin-left: 72px; }
-    .metrics-quad { grid-template-columns: repeat(2, 1fr); }
-    .grid-two-col { grid-template-columns: 1fr; }
-    .chart-grid { grid-template-columns: 1fr; }
-    .col-3, .col-2, .col-1 { grid-column: span 1; }
+    header { border-radius: 20px; padding: 0.5rem 1rem; }
+    .logo-text { display: none; }
+    .metrics-row { grid-template-columns: repeat(2, 1fr); }
+    .split-pane-grid { grid-template-columns: 1fr; }
+    .admin-chart-grid { grid-template-columns: 1fr; }
+    .span-3, .span-2, .span-1 { grid-column: span 1; }
   }
   @media (max-width: 600px) {
-    header { padding: 0 1rem; }
-    .content { padding: 1.25rem; }
-    .presets-grid { grid-template-columns: 1fr; }
-    .metrics-quad { grid-template-columns: 1fr; }
-    .report-header-card { flex-direction: column; align-items: flex-start; padding: 1.5rem; }
-    .dial-wrapper { width: 100%; justify-content: center; }
-    .btn { width: 100%; justify-content: center; }
-    .pivot-actions { flex-direction: column; }
+    .metrics-row { grid-template-columns: 1fr; }
+    .filters-row { flex-direction: column; border-radius: 24px; align-items: stretch; gap: 0.75rem; }
+    .search-wrapper { width: 100%; }
+    .menu-capsule { display: none; }
+    .details-title-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .details-cards-grid { grid-template-columns: 1fr; }
+    .summary-metrics-row { gap: 1.5rem; }
+    .details-summary-footer { flex-direction: column; align-items: stretch; gap: 1.25rem; }
+    .footer-actions { width: 100%; }
+    .footer-action-btn-lime { flex: 1; justify-content: center; }
   }
 </style>
 </head>
@@ -521,631 +894,653 @@
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+<div class="progress-bar" id="progressBar"></div>
 
-<!-- Sidebar navigation -->
-<aside>
-  <div class="logo-area">
-    <div class="logo-icon">L</div>
-    <div class="logo-text">LAUNCH<span>LENS</span></div>
-  </div>
-
-  <div class="nav-group-label">Explore</div>
-  <ul class="nav-menu">
-    <li>
-      <div class="nav-item active" id="nav-dash">
-        <iconify-icon icon="ph:compass-bold"></iconify-icon>
-        <span>Idea Validator</span>
-      </div>
-    </li>
-    <li>
-      <div class="nav-item" id="nav-stats">
-        <iconify-icon icon="ph:chart-bar-bold"></iconify-icon>
-        <span>Global Telemetry</span>
-      </div>
-    </li>
-    <li>
-      <div class="nav-item" onclick="alert('Feature locked in sandbox mode.')">
-        <iconify-icon icon="ph:funnel-bold"></iconify-icon>
-        <span>Funnels</span>
-      </div>
-    </li>
-    <li>
-      <div class="nav-item" onclick="alert('Feature locked in sandbox mode.')">
-        <iconify-icon icon="ph:arrows-split-bold"></iconify-icon>
-        <span>Flows</span>
-      </div>
-    </li>
-  </ul>
-
-  <div class="nav-group-label">Configure</div>
-  <ul class="nav-menu">
-    <li>
-      <div class="nav-item" onclick="alert('Platform settings are locked in validation sandbox.')">
-        <iconify-icon icon="ph:gear-six-bold"></iconify-icon>
-        <span>Integrations</span>
-      </div>
-    </li>
-  </ul>
-</aside>
-
-<!-- Main Wrapper -->
-<div class="main-wrapper">
+<!-- Top Capsule-nav floating layout matching image -->
+<div class="container">
+  
   <header>
-    <div class="header-title">
-      <span>LaunchLens Platform</span>
-      <span class="status-tag">
-        <span class="pulse-dot"></span>
-        <span>Validation Engine Ingesting</span>
-      </span>
+    <div class="logo-area">
+      <iconify-icon icon="ph:asterisk-bold" class="logo-icon"></iconify-icon>
+      <div class="logo-text">launch<span>lens</span></div>
     </div>
-    <div class="header-actions">
-      <button class="switch-btn" id="mode-toggle-btn">
-        <iconify-icon icon="ph:chart-line-bold" id="toggle-icon"></iconify-icon>
-        <span id="toggle-label">Platform Analytics</span>
-      </button>
+
+    <!-- Capsule Menu Tabs directly matching image -->
+    <div class="menu-capsule">
+      <div class="menu-tab active" id="tab-sandbox">
+        <iconify-icon icon="ph:compass-bold"></iconify-icon>
+        <span>• Sandbox</span>
+      </div>
+      <div class="menu-tab" id="tab-crawl">
+        <iconify-icon icon="ph:terminal-bold"></iconify-icon>
+        <span>Crawlers</span>
+      </div>
+      <div class="menu-tab" id="tab-matrix">
+        <iconify-icon icon="ph:columns-bold"></iconify-icon>
+        <span>Moat Matrix</span>
+      </div>
+      <div class="menu-tab" id="tab-pivot">
+        <iconify-icon icon="ph:sparkle-bold"></iconify-icon>
+        <span>AI Pivot Deck</span>
+      </div>
+      <div class="menu-tab" id="tab-admin">
+        <iconify-icon icon="ph:chart-bar-bold"></iconify-icon>
+        <span>Platform Admin</span>
+      </div>
+    </div>
+
+    <div class="user-badge">
+      <div class="action-dot-btn" onclick="resetSandbox()">
+        <iconify-icon icon="ph:arrow-clockwise-bold"></iconify-icon>
+      </div>
+      <div class="avatar-circle">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256" alt="Avatar"/>
+      </div>
     </div>
   </header>
 
-  <!-- Body Content -->
-  <div class="content">
+  <!-- Big Title Area -->
+  <div class="title-section">
+    <h1 class="page-title" id="main-page-title">Validation Sandbox</h1>
+    <button class="title-btn" id="main-action-btn">
+      <iconify-icon icon="ph:sparkle-bold" style="color:var(--primary);"></iconify-icon>
+      <span id="main-action-label">Validate New Idea</span>
+    </button>
+  </div>
 
-    <!-- 1. SANDBOX LANDING INPUT VIEW -->
-    <div class="sandbox-view" id="view-input">
-      <div class="sandbox-hero">
-        <h1>What are you building?</h1>
-        <p>Type your startup idea or value proposition below. LaunchLens will index public rants, search trends, and direct competitor lists to map proof of demand.</p>
-      </div>
-
-      <div class="search-container">
-        <iconify-icon icon="ph:search" class="search-icon-left"></iconify-icon>
-        <input type="text" class="search-input" id="idea-input" placeholder="e.g. A white-label booking app specifically for boutique Pilates gyms..."/>
-        <button class="validate-btn" id="run-validate-btn">
-          <span>Validate</span>
-          <iconify-icon icon="ph:arrow-right"></iconify-icon>
-        </button>
-      </div>
-
-      <div class="presets-title">Or click a curated concept preset to scan:</div>
-      <div class="presets-grid">
-        <div class="preset-card" onclick="selectPreset('web3')">
-          <span class="preset-badge">Fintech &amp; Web3</span>
-          <div class="preset-title">Web3 Micro-donations</div>
-          <div class="preset-desc">ChainGive: Gasless, one-click stablecoin donations for bloggers using Web3Auth social log-ins.</div>
+  <!-- Row 1: High Fidelity Analytics Cards directly matching image -->
+  <div class="metrics-row">
+    <!-- Card 1: Overdue equivalent -->
+    <div class="metric-card">
+      <span class="metric-label">Market Demand Score</span>
+      <div class="metric-value" id="m-val-demand">92.4%</div>
+      <div class="timeline-bar">
+        <div class="months-row">
+          <span>Sep</span>
+          <span>Oct</span>
+          <span>Nov</span>
+          <span>Dec</span>
         </div>
-        <div class="preset-card" onclick="selectPreset('linter')">
-          <span class="preset-badge">Design Productivity</span>
-          <div class="preset-title">AI UI/UX Linter</div>
-          <div class="preset-desc">DesignCop: A Figma plugin checking layouts against CSS AST tokens in real time on pull requests.</div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" style="width: 85%;"></div>
         </div>
-        <div class="preset-card" onclick="selectPreset('gym')">
-          <span class="preset-badge">Local Boutique SaaS</span>
-          <div class="preset-title">Gym Booking SaaS</div>
-          <div class="preset-desc">FitSync: White-labeled mobile class booking scheduling and SMS automation built for boutique gyms.</div>
+        <div class="stacked-group">
+          <div class="stacked-avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100"/></div>
+          <div class="stacked-avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100"/></div>
+          <div class="stacked-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=100"/></div>
+          <div class="stacked-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100"/></div>
         </div>
       </div>
     </div>
 
-    <!-- 2. SCANNERS ANIMATION VIEW -->
-    <div class="scanner-view" id="view-scanning">
-      <div class="scanner-header">
-        <div class="scanner-title">
-          <iconify-icon icon="ph:terminal-bold"></iconify-icon>
-          <span>Ingestion Logs Terminal</span>
+    <!-- Card 2: Due next month equivalent -->
+    <div class="metric-card">
+      <span class="metric-label">Crawled Frustration Index</span>
+      <div class="metric-value" id="m-val-pains">2,450.00</div>
+      <div class="timeline-bar">
+        <div class="months-row">
+          <span>Sep</span>
+          <span>Oct</span>
+          <span>Nov</span>
+          <span>Dec</span>
         </div>
-        <span class="status-tag" style="background:rgba(99,102,241,0.08); color:var(--primary); border-color:var(--primary-mid);">
-          Crawling active threads...
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" style="width: 60%; background:#8E8A7F; box-shadow:none;"></div>
+        </div>
+        <div class="stacked-group">
+          <div class="stacked-avatar"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=100"/></div>
+          <div class="stacked-avatar"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=100"/></div>
+          <div class="stacked-avatar"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100"/></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Average time to get paid equivalent -->
+    <div class="metric-card">
+      <span class="metric-label">Average API Ingestion Speed</span>
+      <div class="metric-value">180 ms</div>
+      <div style="font-size:0.75rem; color:var(--text-muted); line-height:1.4; margin-top:0.5rem;">
+        Average crawler pipeline ping across public community endpoints.
+      </div>
+    </div>
+
+    <!-- Card 4: Available for Instant Payout equivalent -->
+    <div class="metric-card">
+      <span class="metric-label">Failure Prevention Index</span>
+      <div class="metric-value">3.2x</div>
+      <div class="payout-widget">
+        <div class="payout-bars">
+          <div class="payout-bar" style="height: 12px;"></div>
+          <div class="payout-bar highlight" style="height: 38px;"></div>
+          <div class="payout-bar" style="height: 22px;"></div>
+        </div>
+        <button class="payout-btn" onclick="startScanner('DesignCop concept')">Scan Concept</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sub-row filters directly matching image -->
+  <div class="filters-row">
+    <div class="filters-left">
+      <span class="filters-label">Active filters</span>
+      <div class="filter-select-capsule">
+        <span>Niche: All Categories</span>
+        <iconify-icon icon="ph:caret-down-bold"></iconify-icon>
+      </div>
+      <div class="filter-select-capsule">
+        <span>Proof: Strong Viability</span>
+        <iconify-icon icon="ph:caret-down-bold"></iconify-icon>
+      </div>
+    </div>
+
+    <div class="search-wrapper">
+      <iconify-icon icon="ph:search-bold" class="search-capsule-icon"></iconify-icon>
+      <input type="text" class="search-capsule-input" id="sandbox-search-input" placeholder="Validate custom idea..."/>
+    </div>
+  </div>
+
+  <!-- VIEW 1: CORE VALIDATION SANDBOX SPLIT PANE -->
+  <div class="split-pane-grid" id="panel-sandbox">
+    
+    <!-- Left Pane: Crawled Pain Index matching "Unpaid Invoices" layout -->
+    <div class="left-pane-card">
+      <div class="left-pane-header">
+        <div class="pane-title-row">
+          <span class="pane-title">Crawled Pain Signals</span>
+          <iconify-icon icon="ph:funnel-bold" style="color:var(--text-muted); cursor:pointer;"></iconify-icon>
+        </div>
+
+        <div class="pill-bar">
+          <div class="pill-tab active" id="pill-all" onclick="filterSignals('all')">All Signals</div>
+          <div class="pill-tab" id="pill-reddit" onclick="filterSignals('reddit')">Reddit 5</div>
+          <div class="pill-tab highlight" id="pill-twitter" onclick="filterSignals('twitter')">Twitter 3</div>
+        </div>
+      </div>
+
+      <!-- Scroll Ingest feed list -->
+      <div class="feed-list" id="pain-feed-list">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+
+    <!-- Right Details Pane matching "Invoice Details" layout -->
+    <div class="right-pane-card">
+      
+      <div class="details-title-row">
+        <div class="details-id-block">
+          <span class="details-id-label" id="det-niche">Fintech &amp; Web3</span>
+          <span class="details-id-val" id="det-id">#SIGNAL-427-012</span>
+        </div>
+        <div class="details-company-block">
+          <span class="details-id-label">Source Platform</span>
+          <div class="company-badge-row">
+            <span class="company-logo-avatar" id="det-platform-icon">R</span>
+            <span class="company-name" id="det-platform-name">Reddit</span>
+          </div>
+        </div>
+        <div class="details-user-block">
+          <div class="user-sub-avatar">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" id="det-avatar"/>
+          </div>
+          <div class="user-sub-meta">
+            <span class="user-sub-name" id="det-author">u/dev_designer</span>
+            <span class="user-sub-title">Verified Signal Creator</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real customer quote block replacing items -->
+      <div class="details-quote-block" id="det-quote">
+        "Detailed customer quote will load here."
+      </div>
+
+      <!-- Sub metrics grid of 3 cards matching image -->
+      <div class="details-cards-grid">
+        <div class="sub-card">
+          <span class="sub-card-value" id="det-sub-demand">92%</span>
+          <span class="sub-card-label">Demand Index</span>
+        </div>
+        <div class="sub-card">
+          <span class="sub-card-value" id="det-sub-pay">84%</span>
+          <span class="sub-card-label">Willingness to Pay</span>
+        </div>
+        <div class="sub-card">
+          <span class="sub-card-value" id="det-sub-urgency">90%</span>
+          <span class="sub-card-label">Urgency Coefficient</span>
+        </div>
+      </div>
+
+      <!-- Mapped competitor matrix gap -->
+      <div class="details-quote-block" style="font-style:normal; display:flex; flex-direction:column; gap:0.50rem; background:#14151b;">
+        <span style="font-weight:600; font-size:0.85rem; color:var(--text-primary); display:flex; align-items:center; gap:0.35rem;">
+          <iconify-icon icon="ph:columns-bold" style="color:var(--primary);"></iconify-icon>
+          <span>Strategic Competitor Moat Analysis</span>
         </span>
-      </div>
-
-      <div class="terminal-box" id="terminal">
-        <!-- Javascript prints logs here -->
-      </div>
-
-      <div class="progress-wrapper">
-        <div class="progress-meta">
-          <span>Data Ingestion Sync</span>
-          <span id="scan-progress-percentage">0%</span>
-        </div>
-        <div class="progress-bg">
-          <div class="progress-fill" id="scan-progress-fill"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. DETAILED VALIDATION REPORT VIEW -->
-    <div class="report-view" id="view-report">
-      <button class="back-btn" onclick="backToInput()">
-        <iconify-icon icon="ph:arrow-left-bold"></iconify-icon>
-        <span>Validate another idea</span>
-      </button>
-
-      <!-- Main report card header -->
-      <div class="report-header-card">
-        <div class="report-meta-content">
-          <div class="report-badges">
-            <span class="preset-badge" id="report-niche">SaaS &amp; Productivity</span>
-            <span class="status-tag">Ingested 1,240 public signals</span>
+        <div class="comp-matrix">
+          <div class="comp-box weakness">
+            <span class="comp-box-title red">Incumbent Gap:</span>
+            <span id="det-gap-weak">Competitor weakness details.</span>
           </div>
-          <h2 class="section-title" style="margin-bottom:0.5rem;" id="report-title">Startup Viability Report</h2>
-          <p class="body-text" style="font-size:0.92rem;" id="report-pitch">Concept value proposition details.</p>
-        </div>
-
-        <div class="dial-wrapper">
-          <div class="dial-svg">
-            <svg width="72" height="72">
-              <circle cx="36" cy="36" r="34" class="dial-bg"></circle>
-              <circle cx="36" cy="36" r="34" class="dial-fill" id="report-dial-fill"></circle>
-            </svg>
-            <div class="dial-number" id="report-score-num">85</div>
-          </div>
-          <div class="dial-metric-text">
-            <span class="dial-metric-label">viability score</span>
-            <span class="dial-metric-val" id="report-score-label">Strong Viability</span>
+          <div class="comp-box advantage">
+            <span class="comp-box-title green">LaunchLens Advantage:</span>
+            <span id="det-gap-moat">Moat strategies.</span>
           </div>
         </div>
       </div>
 
-      <!-- Metrics Quadrant -->
-      <div class="metrics-quad">
-        <div class="metric-card">
-          <div class="metric-card-label">Market Demand</div>
-          <div class="metric-card-value-row">
-            <div class="metric-card-value" id="m-demand">92%</div>
-            <iconify-icon icon="ph:trend-up-bold" style="color:var(--emerald); font-size:1.1rem;"></iconify-icon>
+      <!-- Calculations summary footer matching image -->
+      <div class="details-summary-footer">
+        <div class="summary-metrics-row">
+          <div class="summary-item">
+            <span class="summary-label">Aggregated Index</span>
+            <span class="summary-val" id="det-sum-agg">87.4%</span>
           </div>
-          <div class="metric-card-desc">Social indexing search volumes and topic frequency are highly active.</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-card-label">Willingness to Pay</div>
-          <div class="metric-card-value-row">
-            <div class="metric-card-value" id="m-pay">84%</div>
-            <iconify-icon icon="ph:trend-up-bold" style="color:var(--emerald); font-size:1.1rem;"></iconify-icon>
-          </div>
-          <div class="metric-card-desc">Frustrations indicate active losses in revenue or major labor sinks.</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-card-label">Moat Advantage</div>
-          <div class="metric-card-value-row">
-            <div class="metric-card-value" id="m-moat">78%</div>
-            <iconify-icon icon="ph:trend-up-bold" style="color:var(--emerald); font-size:1.1rem;"></iconify-icon>
-          </div>
-          <div class="metric-card-desc">Significant functional gaps verified in direct competitor platforms.</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-card-label">Urgency of Pain</div>
-          <div class="metric-card-value-row">
-            <div class="metric-card-value" id="m-urgency">90%</div>
-            <iconify-icon icon="ph:trend-up-bold" style="color:var(--emerald); font-size:1.1rem;"></iconify-icon>
-          </div>
-          <div class="metric-card-desc">Problem must be resolved daily; target users seeking immediate hacks.</div>
-        </div>
-      </div>
-
-      <!-- Feed / competitor analysis grid -->
-      <div class="grid-two-col">
-        <!-- Customer Pains -->
-        <div class="pane-card">
-          <div class="pane-header">
-            <iconify-icon icon="ph:warning-circle-bold" style="color:var(--amber); font-size:1.25rem;"></iconify-icon>
-            <span class="pane-title">Reddit &amp; Twitter Pain Index Feed</span>
-          </div>
-          <div class="pane-desc">Aggregated raw social signals matching your startup keywords.</div>
-          <div class="pane-content" id="pain-feed-container">
-            <!-- Dynamically populated -->
+          <div class="summary-item">
+            <span class="summary-label">Estimated Moat</span>
+            <span class="summary-val highlight" id="det-sum-moat">High Moat</span>
           </div>
         </div>
-
-        <!-- Competitor landscape -->
-        <div class="pane-card">
-          <div class="pane-header">
-            <iconify-icon icon="ph:columns-bold" style="color:var(--primary); font-size:1.25rem;"></iconify-icon>
-            <span class="pane-title">Competitor Mappings &amp; Moat Advantage</span>
+        <div class="footer-actions">
+          <div class="footer-circle-btn" onclick="alert('Signal archived.')">
+            <iconify-icon icon="ph:bookmark-simple-bold"></iconify-icon>
           </div>
-          <div class="pane-desc">Where legacy options fall short and how you capture defensible value.</div>
-          <div class="pane-content" id="competitor-container">
-            <!-- Dynamically populated -->
+          <div class="footer-circle-btn" onclick="alert('Signal shared.')">
+            <iconify-icon icon="ph:share-bold"></iconify-icon>
           </div>
-        </div>
-      </div>
-
-      <!-- AI suggestions -->
-      <div class="pivot-card">
-        <div class="pane-title" style="font-size:1.1rem;">
-          <iconify-icon icon="ph:sparkle-bold" style="color:var(--primary);"></iconify-icon>
-          <span>LaunchLens AI Pivot Engine Recommendations</span>
-        </div>
-        <div class="pivot-verdict">
-          <iconify-icon icon="ph:check-circle-bold"></iconify-icon>
-          <div id="ai-verdict">AI Pivot Summary Verdict</div>
-        </div>
-        <ul class="pivot-list" id="ai-steps">
-          <!-- Dynamically populated -->
-        </ul>
-        <div class="pivot-actions">
-          <button class="btn primary" onclick="alert('Validation report PDF downloaded! (Simulated)')">
-            <iconify-icon icon="ph:download-simple-bold"></iconify-icon>
-            <span>Download Report PDF</span>
-          </button>
-          <button class="btn secondary" onclick="backToInput()">
-            <iconify-icon icon="ph:arrow-clockwise-bold"></iconify-icon>
-            <span>Validate another concept</span>
+          <button class="footer-action-btn-lime" onclick="openAIPivotsView()">
+            <span>Review AI Pivot Deck</span>
+            <iconify-icon icon="ph:sparkle-bold"></iconify-icon>
           </button>
         </div>
       </div>
-    </div>
 
-    <!-- 4. EFFERD PLATFORM ADMIN TELEMETRY VIEW -->
-    <div class="admin-view" id="view-admin">
-      <div class="chart-grid">
-        <!-- Large Chart -->
-        <div class="metric-card col-3">
-          <div class="logo-area" style="margin-bottom: 0.5rem; justify-content: space-between;">
-            <div style="font-weight: 600; font-size: 0.95rem;">Validation Activity (Aggregate Scans)</div>
-            <span class="status-tag" style="background: var(--primary-dim); color: var(--primary); border-color: var(--primary-mid);">
-              +14.8% monthly growth
-            </span>
-          </div>
-          <div class="metric-card-desc">Scans compiled across global founders in the last 12 months.</div>
-          
-          <div class="bar-chart-container">
-            <div class="bar-column">
-              <div class="bar-fill" style="height: 40%;"></div>
-              <span class="bar-label">Jan</span>
-            </div>
-            <div class="bar-column">
-              <div class="bar-fill" style="height: 65%;"></div>
-              <span class="bar-label">Feb</span>
-            </div>
-            <div class="bar-column">
-              <div class="bar-fill" style="height: 50%;"></div>
-              <span class="bar-label">Mar</span>
-            </div>
-            <div class="bar-column">
-              <div class="bar-fill" style="height: 60%;"></div>
-              <span class="bar-label">Apr</span>
-            </div>
-            <div class="bar-column">
-              <div class="bar-fill" style="height: 75%;"></div>
-              <span class="bar-label">May</span>
-            </div>
-            <div class="bar-column">
-              <div class="bar-fill" style="height: 90%;"></div>
-              <span class="bar-label">Jun</span>
-            </div>
-            <div class="bar-column">
-              <div class="bar-fill" style="height: 55%;"></div>
-              <span class="bar-label">Jul</span>
-            </div>
-            <div class="bar-column">
-              <div class="bar-fill" style="height: 95%;"></div>
-              <span class="bar-label">Aug</span>
-            </div>
-            <div class="bar-column">
-              <div class="bar-fill" style="height: 70%;"></div>
-              <span class="bar-label">Sep</span>
-            </div>
-            <div class="bar-column">
-              <div class="bar-fill" style="height: 80%;"></div>
-              <span class="bar-label">Oct</span>
-            </div>
-            <div class="bar-column">
-              <div class="bar-fill" style="height: 100%;"></div>
-              <span class="bar-label">Nov</span>
-            </div>
-            <div class="bar-column">
-              <div class="bar-fill" style="height: 45%;"></div>
-              <span class="bar-label">Dec</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Dial widget -->
-        <div class="metric-card col-1" style="display:flex; flex-direction:column; justify-content:space-between;">
-          <div>
-            <div class="metric-card-label" style="display:flex; align-items:center; gap:0.5rem;">
-              <span class="pulse-dot"></span>
-              <span>Founders active now</span>
-            </div>
-            <div class="metric-card-value-row">
-              <div class="metric-card-value">124</div>
-            </div>
-            <div class="metric-card-desc">Active startup idea checks running on platform APIs.</div>
-          </div>
-          <div style="border-top:1px solid var(--border); padding-top:1rem; margin-top:1rem;">
-            <div class="metric-card-label">Browser share</div>
-            <div class="browser-grid">
-              <div class="browser-row">
-                <span class="browser-meta-label">
-                  <span class="browser-bullet" style="background:var(--primary);"></span>
-                  <span>Chrome</span>
-                </span>
-                <span class="browser-percentage">65%</span>
-              </div>
-              <div class="browser-row">
-                <span class="browser-meta-label">
-                  <span class="browser-bullet" style="background:#EF4444;"></span>
-                  <span>Safari</span>
-                </span>
-                <span class="browser-percentage">33%</span>
-              </div>
-              <div class="browser-row">
-                <span class="browser-meta-label">
-                  <span class="browser-bullet" style="background:var(--amber);"></span>
-                  <span>Others</span>
-                </span>
-                <span class="browser-percentage">2%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Top validation queries -->
-        <div class="metric-card col-2">
-          <div style="font-weight: 600; font-size: 0.92rem; margin-bottom: 0.5rem;">Hot Trending Niches</div>
-          <div class="metric-card-desc">Most highly searched startup queries globally.</div>
-          
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>Niche Category</th>
-                <th>Validation Score</th>
-                <th>Interest Rate</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>AI &amp; Developer Tools</td>
-                <td><span style="color:var(--emerald); font-weight:600;">93% (Excellent)</span></td>
-                <td>+45.2% 🔥</td>
-              </tr>
-              <tr>
-                <td>B2B SaaS automations</td>
-                <td><span style="color:var(--emerald); font-weight:600;">87% (Strong)</span></td>
-                <td>+24.1%</td>
-              </tr>
-              <tr>
-                <td>DeFi Stablecoin tips</td>
-                <td><span style="color:var(--emerald); font-weight:600;">85% (Strong)</span></td>
-                <td>+18.7%</td>
-              </tr>
-              <tr>
-                <td>Sustainable local commerce</td>
-                <td><span style="color:var(--rose); font-weight:600;">54% (Weak)</span></td>
-                <td>-8.3%</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- API response speeds -->
-        <div class="metric-card col-2">
-          <div style="font-weight: 600; font-size: 0.92rem; margin-bottom: 0.5rem;">Active Crawler APIs Vitals</div>
-          <div class="metric-card-desc">Real-time status of connected community index scripts.</div>
-          
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>Target Crawler</th>
-                <th>API Status</th>
-                <th>Ping Speed</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Reddit Data Pipeline</td>
-                <td><span style="color:var(--emerald); font-weight:600;">Healthy</span></td>
-                <td>124ms</td>
-              </tr>
-              <tr>
-                <td>Twitter Signal Aggregator</td>
-                <td><span style="color:var(--emerald); font-weight:600;">Healthy</span></td>
-                <td>280ms</td>
-              </tr>
-              <tr>
-                <td>Product Hunt Indexer</td>
-                <td><span style="color:var(--emerald); font-weight:600;">Healthy</span></td>
-                <td>189ms</td>
-              </tr>
-              <tr>
-                <td>Google Ingestion Engine</td>
-                <td><span style="color:var(--emerald); font-weight:600;">Healthy</span></td>
-                <td>310ms</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
 
   </div>
+
+  <!-- VIEW 2: CRAWL ENGINE LOG TERMINAL -->
+  <div class="crawl-view-panel" id="panel-crawl">
+    <div class="terminal-box" id="terminal-screen">
+      <!-- Logs printed dynamically -->
+    </div>
+    
+    <div class="terminal-progress-section">
+      <div class="progress-meta">
+        <span>Crawling Public Channels &amp; Platforms</span>
+        <span id="progress-percent-lbl">0%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill-neon" id="progress-fill-neon"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW 3: COMPREHENSIVE PLATFORM TELEMETRY -->
+  <div class="admin-view-panel" id="panel-admin">
+    <div class="admin-chart-grid">
+      <!-- Active Scans bar chart -->
+      <div class="metric-card span-3">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-weight: 700; font-size: 1.05rem;">SaaS Validation Activity Feed</div>
+          <span class="status-tag" style="background:var(--primary-dim); color:var(--primary); border:none;">
+            +14.8% Monthly Increase
+          </span>
+        </div>
+        <span class="metric-label">Monthly Validation scans computed across active accounts.</span>
+        
+        <div class="bar-chart-holder">
+          <div class="chart-col">
+            <div class="chart-bar-element" style="height: 38%;"></div>
+            <span class="chart-bar-label">Jan</span>
+          </div>
+          <div class="chart-col">
+            <div class="chart-bar-element" style="height: 60%;"></div>
+            <span class="chart-bar-label">Feb</span>
+          </div>
+          <div class="chart-col">
+            <div class="chart-bar-element" style="height: 52%;"></div>
+            <span class="chart-bar-label">Mar</span>
+          </div>
+          <div class="chart-col">
+            <div class="chart-bar-element" style="height: 62%;"></div>
+            <span class="chart-bar-label">Apr</span>
+          </div>
+          <div class="chart-col">
+            <div class="chart-bar-element" style="height: 75%;"></div>
+            <span class="chart-bar-label">May</span>
+          </div>
+          <div class="chart-col">
+            <div class="chart-bar-element" style="height: 90%;"></div>
+            <span class="chart-bar-label">Jun</span>
+          </div>
+          <div class="chart-col">
+            <div class="chart-bar-element" style="height: 58%;"></div>
+            <span class="chart-bar-label">Jul</span>
+          </div>
+          <div class="chart-col">
+            <div class="chart-bar-element" style="height: 96%;"></div>
+            <span class="chart-bar-label">Aug</span>
+          </div>
+          <div class="chart-col">
+            <div class="chart-bar-element" style="height: 70%;"></div>
+            <span class="chart-bar-label">Sep</span>
+          </div>
+          <div class="chart-col">
+            <div class="chart-bar-element" style="height: 85%;"></div>
+            <span class="chart-bar-label">Oct</span>
+          </div>
+          <div class="chart-col">
+            <div class="chart-bar-element" style="height: 100%;"></div>
+            <span class="chart-bar-label">Nov</span>
+          </div>
+          <div class="chart-col">
+            <div class="chart-bar-element" style="height: 48%;"></div>
+            <span class="chart-bar-label">Dec</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-time telemetry right pane widget -->
+      <div class="metric-card span-1" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div class="metric-label" style="display:flex; align-items:center; gap:0.5rem; text-transform:uppercase;">
+            <span class="pulse-dot"></span>
+            <span>Platform Active Founders</span>
+          </div>
+          <div class="metric-value" style="margin-top:0.35rem;">124</div>
+          <div class="metric-label" style="margin-top:0.25rem;">Checking validation channels now.</div>
+        </div>
+        <div style="border-top:1px solid var(--border); padding-top:1rem; margin-top:1rem;">
+          <span class="metric-label">Visitor Device share</span>
+          <div class="browser-metrics-list">
+            <div class="browser-row">
+              <span class="browser-label-left">
+                <span class="bullet-color" style="background:var(--primary);"></span>
+                <span>Chrome Desktop</span>
+              </span>
+              <span class="percentage-mono">65%</span>
+            </div>
+            <div class="browser-row">
+              <span class="browser-label-left">
+                <span class="bullet-color" style="background:#EF4444;"></span>
+                <span>Safari iOS</span>
+              </span>
+              <span class="percentage-mono">33%</span>
+            </div>
+            <div class="browser-row">
+              <span class="browser-label-left">
+                <span class="bullet-color" style="background:var(--amber);"></span>
+                <span>Others</span>
+              </span>
+              <span class="percentage-mono">2%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- trending niches table -->
+      <div class="metric-card span-2">
+        <div style="font-weight: 700; font-size: 1rem;">Trending Startup Queries</div>
+        <span class="metric-label">Highest frequency niches validated by global founders.</span>
+        
+        <table class="telemetry-table">
+          <thead>
+            <tr>
+              <th>Topic niche</th>
+              <th>Validation Score</th>
+              <th>Growth Trend</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AI Developer linters</td>
+              <td><span style="color:var(--primary); font-weight:600;">93% (Excellent)</span></td>
+              <td>+45.2% 🔥</td>
+            </tr>
+            <tr>
+              <td>B2B SaaS calendar booking</td>
+              <td><span style="color:var(--primary); font-weight:600;">87% (Strong)</span></td>
+              <td>+24.1%</td>
+            </tr>
+            <tr>
+              <td>Gasless crypto tipping jars</td>
+              <td><span style="color:var(--primary); font-weight:600;">85% (Strong)</span></td>
+              <td>+18.7%</td>
+            </tr>
+            <tr>
+              <td>Local boutique commerce</td>
+              <td><span style="color:var(--rose); font-weight:600;">54% (Weak)</span></td>
+              <td>-8.3%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- api response status -->
+      <div class="metric-card span-2">
+        <div style="font-weight: 700; font-size: 1rem;">API Crawler pipelines</div>
+        <span class="metric-label">Connected endpoint sync status and speeds.</span>
+        
+        <table class="telemetry-table">
+          <thead>
+            <tr>
+              <th>API Target Endpoint</th>
+              <th>Status</th>
+              <th>Ingestion Delay</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Reddit forum parser</td>
+              <td><span style="color:var(--emerald); font-weight:600;">Active</span></td>
+              <td>124ms</td>
+            </tr>
+            <tr>
+              <td>Twitter keyword search</td>
+              <td><span style="color:var(--emerald); font-weight:600;">Active</span></td>
+              <td>280ms</td>
+            </tr>
+            <tr>
+              <td>Product Hunt index bot</td>
+              <td><span style="color:var(--emerald); font-weight:600;">Active</span></td>
+              <td>189ms</td>
+            </tr>
+              <td>Google keyword trends</td>
+              <td><span style="color:var(--emerald); font-weight:600;">Active</span></td>
+              <td>310ms</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW 4: AI PIVOT DECK PANEL -->
+  <div class="ai-view-panel" id="panel-ai">
+    <div class="pivot-box">
+      <iconify-icon icon="ph:sparkle-bold"></iconify-icon>
+      <div>
+        <div class="pivot-box-title">LaunchLens AI Recommendation Summary</div>
+        <div id="ai-verdict-summary">Concept validation scores indicate strong potential. Here are your optimized pivot opportunities.</div>
+      </div>
+    </div>
+    
+    <ul class="pivots-details-list" id="ai-steps-stack">
+      <!-- AI steps populated dynamically -->
+    </ul>
+    
+    <div class="footer-actions" style="margin-top:1rem; border-top:1px solid var(--border); padding-top:1.5rem;">
+      <button class="footer-action-btn-lime" onclick="alert('Validation report PDF downloaded! (Simulated)')">
+        <iconify-icon icon="ph:download-simple-bold"></iconify-icon>
+        <span>Download Full Validation PDF</span>
+      </button>
+      <button class="title-btn" onclick="backToSandbox()">
+        <iconify-icon icon="ph:arrow-left-bold"></iconify-icon>
+        <span>Back to Sandbox</span>
+      </button>
+    </div>
+  </div>
+
 </div>
 
 <script>
-  // 1. Theme and cursor logic
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-  });
-
-  function animateRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
-
-  function addHoverEffect(elements) {
-    elements.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.transform = 'translate(-50%,-50%) scale(1.8)';
-        ring.style.transform = 'translate(-50%,-50%) scale(1.4)';
-        ring.style.borderColor = 'var(--primary)';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.transform = 'translate(-50%,-50%) scale(1)';
-        ring.style.transform = 'translate(-50%,-50%) scale(1)';
-        ring.style.borderColor = 'var(--primary-mid)';
-      });
-    });
-  }
-  addHoverEffect(document.querySelectorAll('button, input, .preset-card, .nav-item'));
-
-  // 2. Global state & UI elements
-  let activeMode = "sandbox"; // "sandbox" | "admin"
-  let presetData = {
-    web3: {
-      name: "ChainGive",
-      niche: "Fintech & Web3 Creator Economy",
-      score: 87,
-      metrics: { demand: 90, pay: 84, competition: 89, urgency: 85 },
-      pains: [
-        { source: "reddit", author: "u/content_king99", content: "I want to tip creators $0.50 for cool posts, but credit card processors take a flat $0.35 + 3% fee! That ruins micro-payments completely." },
-        { source: "twitter", author: "@web3_enthusiast", content: "Tip jars using standard crypto are terrible. Copy-pasting raw hex wallet addresses, checking gas fees, and signing metamask prompts just to send $1 is a massive user experience nightmare." },
-        { source: "hackernews", author: "digitalnomad", content: "Most micro-donation platforms hold your money until you reach $50, then charge ridiculous payout fees. A truly peer-to-peer payout framework would be game-changing." }
-      ],
+  // Dynamic validation signals database
+  const signalsDatabase = [
+    {
+      id: "#SIGNAL-427-012",
+      niche: "Design Productivity",
+      platform: "Reddit",
+      platformIcon: "R",
+      author: "u/pixel_perfector",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100",
+      time: "2 hours ago",
+      status: "Frustrated",
+      statusHighlight: true,
+      quote: "I spent 4 hours today manually reviewing front-end pull requests because the engineering team completely ignored my Figma grid layout, margins, and border-radii values again. There has to be a linter for this.",
+      metrics: { demand: 95, pay: 92, urgency: 91 },
       competitors: [
-        { name: "Patreon", gap: "Centralized, high platform transaction cuts (8-12%), lacks true micro-payments.", moat: "Direct wallet-to-wallet micro-payouts using scalable L2 networks (Base/Arbitrum) with flat 0.5% cuts." },
-        { name: "Gitcoin tips", gap: "Strictly developer-focused, complex setup requiring MetaMask / Web3 wallet.", moat: "Account abstraction enables instant web3 wallets via standard Google/X social logins." }
+        { name: "Zeplin Specs", gap: "Static layout values only; no automated validation against active code repositories.", moat: "AST-based comparison engine checking Figma variables directly inside Github pull requests." },
+        { name: "Anima App", gap: "Focuses on generating raw HTML/CSS, which is usually messy and rejected by devs.", moat: "Integrated strictly as a linter and design spec QA tool, preventing messy code exports." }
       ],
       aiPivots: [
-        "Deploy <span>one-click login</span> utilizing Web3Auth for seamless onboarding of non-crypto users.",
-        "Partner with premium <span>Substack writers</span> and indie bloggers for early SDK integrations.",
-        "Provide auto-conversions to <span>stablecoins (USDC)</span> to bypass standard price volatility."
+        "Publish a lightweight, high-performance Figma plugin first to seed design developer loops.",
+        "Integrate directly with GitHub actions as a design QA checker to automatically block out-of-spec PRs.",
+        "Provide full support for custom CSS variables and Tailwind theme configurations."
       ],
-      recommendation: "Highly Viable. Strong consumer demand and powerful user pain points. Focus purely on removing the technical wallet friction to convert mainstream audiences."
+      recommendation: "Elite Viability. Design-to-code specs alignment remains a multi-million dollar bottleneck for corporate product teams. High premium B2B SaaS value."
     },
-    linter: {
-      name: "DesignCop",
-      niche: "Developer & Designer Productivity",
-      score: 93,
-      metrics: { demand: 95, pay: 92, competition: 94, urgency: 91 },
-      pains: [
-        { source: "reddit", author: "u/pixel_perfector", content: "I spent 4 hours today manually reviewing front-end pull requests because the engineering team completely ignored my Figma grid layout, margins, and border-radii values again." },
-        { source: "twitter", author: "@dev_designer_war", content: "Handing over Figma files is just throwing things over a massive brick wall. There needs to be an automated compiler that tells developers instantly if a layout is broken or out of sync with CSS tokens." },
-        { source: "hackernews", author: "front_end_guy", content: "We tried using Figma code exports, but they are incredibly messy and unusable in real React/Tailwind production apps. A clean linter on pull requests would save our sprints." }
-      ],
+    {
+      id: "#SIGNAL-312-045",
+      niche: "Fintech & Web3",
+      platform: "Twitter",
+      platformIcon: "T",
+      author: "@micropayments_guy",
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100",
+      time: "1 day ago",
+      status: "Active Pain",
+      statusHighlight: false,
+      quote: "I want to tip content creators $0.20 or $0.50, but credit card processors take a flat $0.35 + 3% fee! That ruins micro-payments completely. Standard crypto could solve this, but copy-pasting wallet keys is a giant UX nightmare.",
+      metrics: { demand: 90, pay: 84, urgency: 85 },
       competitors: [
-        { name: "Zeplin", gap: "Purely static asset and spec inspector. No automated checking or PR workflows.", moat: "AST-based comparison engine that automatically scans GitHub PRs against the Figma single source of truth." },
-        { name: "Anima App", gap: "Focuses on direct HTML generation, which usually yields unmaintainable code.", moat: "Acts strictly as a linter and QA tool, integrating directly into existing design systems and custom Tailwind configurations." }
+        { name: "Patreon", gap: "Centralized, takes a massive cut (8-12%), lacks any capability for true micropayments.", moat: "Direct wallet-to-wallet micro-donations utilizing scalable Layer-2 networks (Base/Arbitrum) with 0.5% cuts." },
+        { name: "Gitcoin tips", gap: "Extremely developer-focused, requires high-friction crypto wallet signing.", moat: "Account abstraction enables instant web3 wallets via standard Google/X social sign-ins." }
       ],
       aiPivots: [
-        "Publish a lightweight, high-performance <span>Figma plugin</span> first to seed designer interest.",
-        "Integrate directly with <span>GitHub Actions</span> as a design QA checker to automatically block out-of-spec PRs.",
-        "Provide full support for <span>custom CSS variables</span> and Tailwind theme configurations."
+        "Deploy one-click login utilizing Web3Auth for seamless onboarding of non-crypto users.",
+        "Partner with premium Substack writers and indie bloggers for early SDK integrations.",
+        "Provide auto-conversions to localized stablecoins (USDC) to bypass standard price volatility."
       ],
-      recommendation: "Elite Viability. Design-to-code alignment remains a multi-million dollar bottleneck for corporate product teams. High premium SaaS value potential."
+      recommendation: "Strong Viability. Solid consumer demand and powerful user pain points. Focus strictly on removing the technical wallet friction to convert mainstream audiences."
     },
-    gym: {
-      name: "FitSync",
-      niche: "Local Business Management SaaS",
-      score: 68,
-      metrics: { demand: 70, pay: 65, competition: 62, urgency: 75 },
-      pains: [
-        { source: "reddit", author: "u/crossfit_box_boss", content: "Mindbody charges us $250 a month and is filled with bloat we never use! I just want my members to book a class slot and pay their dues via text without the massive overhead." },
-        { source: "twitter", author: "@boutiquefit", content: "We paid an agency $12,000 to build a custom booking application, and now it's breaking on iOS 17 and they are charging $200/hr for minor fixes. This is highway robbery." },
-        { source: "hackernews", author: "smallbiz_builder", content: "Most gym booking tools force members to register long logins. If we could automate scheduling through simple WhatsApp or SMS links, conversions would skyrocket." }
-      ],
+    {
+      id: "#SIGNAL-591-008",
+      niche: "Boutique SaaS",
+      platform: "HackerNews",
+      platformIcon: "H",
+      author: "gym_box_boss",
+      avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=100",
+      time: "3 days ago",
+      status: "Overpaying",
+      statusHighlight: false,
+      quote: "Mindbody charges boutique gym owners $250 a month and is filled with bloat we never use! I just want my members to book a class slot and pay their dues via text without the massive overhead.",
+      metrics: { demand: 70, pay: 65, urgency: 75 },
       competitors: [
-        { name: "Mindbody", gap: "Overpriced, bloated features, steep learning curve for local trainers.", moat: "Simple $49 flat monthly fee, white-labeled template design, focus entirely on mobile SMS class booking." },
-        { name: "ClassPass", gap: "Eats into small business margins and acts as a generic aggregator.", moat: "Empowers direct owner-to-member relationships without taking heavy cut percentages." }
+        { name: "Mindbody CRM", gap: "Overpriced, steep learning curve, includes dozens of unused features for local owners.", moat: "Simple $49 flat monthly fee, white-labeled template design, focus entirely on mobile SMS class booking." },
+        { name: "ClassPass", gap: "Aggregate platform that eats into small business margins and steals member relationships.", moat: "Empowers direct owner-to-member relationships without taking heavy cut percentages." }
       ],
       aiPivots: [
-        "Focus on boutique fitness niches first (<span>CrossFit, Pilates, Yoga</span>) where owner communities are tightly knit.",
-        "Provide seamless <span>Stripe/Apple Pay</span> integrations directly within the text message booking flow.",
-        "Automate gym intake waiver forms and <span>contract signing</span> through mobile friendly webviews."
+        "Focus on boutique fitness niches first (CrossFit, Pilates, Yoga) where owner communities are tightly knit.",
+        "Provide seamless Stripe/Apple Pay integrations directly within the text message booking flow.",
+        "Automate gym intake waver forms and contract signing through mobile friendly webviews."
       ],
       recommendation: "Moderate Viability. Market is highly crowded but local gym owners are deeply frustrated with legacy fees. Winning strategy is hyper-focused local SEO and pricing simplicity."
     }
+  ];
+
+  // 1. Navigation Panel Switches
+  const tabs = {
+    sandbox: document.getElementById('tab-sandbox'),
+    crawl: document.getElementById('tab-crawl'),
+    matrix: document.getElementById('tab-matrix'),
+    pivot: document.getElementById('tab-pivot'),
+    admin: document.getElementById('tab-admin')
   };
 
-  const navDash = document.getElementById('nav-dash');
-  const navStats = document.getElementById('nav-stats');
-  const modeToggleBtn = document.getElementById('mode-toggle-btn');
-  const toggleIcon = document.getElementById('toggle-icon');
-  const toggleLabel = document.getElementById('toggle-label');
+  const panels = {
+    sandbox: document.getElementById('panel-sandbox'),
+    crawl: document.getElementById('panel-crawl'),
+    matrix: document.getElementById('panel-sandbox'), // Shared with sandbox (the competitor cards)
+    pivot: document.getElementById('panel-ai'),
+    admin: document.getElementById('panel-admin')
+  };
 
-  const viewInput = document.getElementById('view-input');
-  const viewScanning = document.getElementById('view-scanning');
-  const viewReport = document.getElementById('view-report');
-  const viewAdmin = document.getElementById('view-admin');
+  function selectTab(activeKey) {
+    Object.keys(tabs).forEach(key => {
+      if (key === activeKey) {
+        tabs[key].classList.add('active');
+        panels[key].style.display = activeKey === 'sandbox' || activeKey === 'matrix' ? 'grid' : 'flex';
+      } else {
+        tabs[key].classList.remove('active');
+        panels[key].style.display = 'none';
+      }
+    });
 
-  const ideaInput = document.getElementById('idea-input');
-  const runValidateBtn = document.getElementById('run-validate-btn');
-
-  // Toggle View Handler
-  function switchMode(mode) {
-    activeMode = mode;
-    if (mode === "sandbox") {
-      navDash.classList.add('active');
-      navStats.classList.remove('active');
-      viewAdmin.style.display = 'none';
-      viewInput.style.display = 'flex';
-      viewScanning.style.display = 'none';
-      viewReport.style.display = 'none';
-      
-      toggleIcon.setAttribute('icon', 'ph:chart-line-bold');
-      toggleLabel.innerText = "Platform Analytics";
-      ideaInput.value = "";
-    } else {
-      navDash.classList.remove('active');
-      navStats.classList.add('active');
-      viewAdmin.style.display = 'flex';
-      viewInput.style.display = 'none';
-      viewScanning.style.display = 'none';
-      viewReport.style.display = 'none';
-
-      toggleIcon.setAttribute('icon', 'ph:compass-bold');
-      toggleLabel.innerText = "Validation Sandbox";
-    }
-  }
-
-  navDash.addEventListener('click', () => switchMode('sandbox'));
-  navStats.addEventListener('click', () => switchMode('admin'));
-  modeToggleBtn.addEventListener('click', () => {
-    if (activeMode === "sandbox") switchMode('admin');
-    else switchMode('sandbox');
-  });
-
-  // 3. Scan & Validation Animation Engine
-  runValidateBtn.addEventListener('click', () => {
-    const query = ideaInput.value.trim();
-    if (query) {
-      startCrawlScan(query);
-    }
-  });
-  
-  ideaInput.addEventListener('keydown', (e) => {
-    if (e.key === "Enter") {
-      const query = ideaInput.value.trim();
-      if (query) startCrawlScan(query);
-    }
-  });
-
-  function selectPreset(presetKey) {
-    const data = presetData[presetKey];
-    ideaInput.value = data.name + " concept";
-    startCrawlScan(ideaInput.value, data);
-  }
-
-  function startCrawlScan(query, precompiledData = null) {
-    viewInput.style.display = 'none';
-    viewScanning.style.display = 'flex';
-    viewReport.style.display = 'none';
-
-    const terminal = document.getElementById('terminal');
-    terminal.innerHTML = "";
+    // Update Titles
+    const titleLbl = document.getElementById('main-page-title');
+    const actLbl = document.getElementById('main-action-label');
     
+    if (activeKey === 'sandbox') {
+      titleLbl.innerText = "Validation Sandbox";
+      actLbl.innerText = "Validate New Idea";
+    } else if (activeKey === 'crawl') {
+      titleLbl.innerText = "Crawl Index Logs";
+      actLbl.innerText = "Refresh Crawlers";
+    } else if (activeKey === 'matrix') {
+      titleLbl.innerText = "Competitor Moats";
+      actLbl.innerText = "Scan Incumbents";
+      // Scroll to competitor section in sandbox panel
+      document.getElementById('det-gap-weak').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else if (activeKey === 'pivot') {
+      titleLbl.innerText = "AI Pivot Recommendations";
+      actLbl.innerText = "Run AI Synthesis";
+    } else if (activeKey === 'admin') {
+      titleLbl.innerText = "Platform Telemetry";
+      actLbl.innerText = "Export System Logs";
+    }
+  }
+
+  tabs.sandbox.addEventListener('click', () => selectTab('sandbox'));
+  tabs.crawl.addEventListener('click', () => selectTab('crawl'));
+  tabs.matrix.addEventListener('click', () => selectTab('matrix'));
+  tabs.pivot.addEventListener('click', () => selectTab('pivot'));
+  tabs.admin.addEventListener('click', () => selectTab('admin'));
+
+  // 2. Interactive Search & Custom Validation Ingestion
+  const searchInput = document.getElementById('sandbox-search-input');
+  const actionBtn = document.getElementById('main-action-btn');
+
+  actionBtn.addEventListener('click', () => {
+    const val = searchInput.value.trim();
+    if (val) startScanner(val);
+    else startScanner("A white-label booking app specifically for boutique Pilates gyms...");
+  });
+
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === "Enter") {
+      const val = searchInput.value.trim();
+      if (val) startScanner(val);
+    }
+  });
+
+  function startScanner(query) {
+    selectTab('crawl');
+    const terminal = document.getElementById('terminal-screen');
+    terminal.innerHTML = "";
+
     const logs = [
       "🤖 LaunchLens Validation Crawler v2.5 initialized...",
       "🔍 parsing input query semantics...",
-      `📝 Target Idea: "${query.slice(0, 60)}..."`,
+      `📝 Target Idea: "${query.slice(0, 55)}..."`,
       "🌐 Spawning sub-crawlers across public APIs...",
       "📶 Connect [REDDIT API]: Connected. Crawling r/startups, r/solopreneur, r/ProductHacker...",
       "📶 Connect [X CRAWLER]: Connected. Filtering tweets for pain point intent...",
@@ -1158,160 +1553,203 @@
       "✅ Scan successfully completed! Generating startup profile dashboard..."
     ];
 
-    const progressFill = document.getElementById('scan-progress-fill');
-    const progressPercent = document.getElementById('scan-progress-percentage');
+    const progressFill = document.getElementById('progress-fill-neon');
+    const progressLbl = document.getElementById('progress-percent-lbl');
     
-    let step = 0;
+    let index = 0;
     progressFill.style.width = '0%';
-    progressPercent.innerText = '0%';
+    progressLbl.innerText = '0%';
 
     const interval = setInterval(() => {
-      if (step < logs.length) {
+      if (index < logs.length) {
         const line = document.createElement('div');
-        line.className = 'terminal-line';
-        
-        let textClass = 'terminal-text';
-        if (logs[step].includes("📶")) textClass += ' accent';
-        if (logs[step].includes("✅")) textClass += ' success';
+        let lineClass = 'terminal-line';
+        if (logs[index].includes("📶")) lineClass += ' amber';
+        if (logs[index].includes("✅")) lineClass += ' cyan';
+        if (logs[index].includes("🤖")) lineClass += ' green';
 
-        line.innerHTML = `<span class="terminal-prompt">&gt;</span><span class="${textClass}">${logs[step]}</span>`;
+        line.className = lineClass;
+        line.innerHTML = `<span class="terminal-prompt">&gt;</span><span>${logs[index]}</span>`;
         terminal.appendChild(line);
         terminal.scrollTop = terminal.scrollHeight;
 
-        const pct = Math.round(((step + 1) / logs.length) * 100);
+        const pct = Math.round(((index + 1) / logs.length) * 100);
         progressFill.style.width = pct + '%';
-        progressPercent.innerText = pct + '%';
-        step++;
+        progressPercent = pct + '%';
+        progressLbl.innerText = pct + '%';
+        index++;
       } else {
         clearInterval(interval);
         setTimeout(() => {
-          renderReport(query, precompiledData);
-        }, 600);
+          generateCustomReport(query);
+          selectTab('sandbox');
+        }, 500);
       }
-    }, 300);
+    }, 250);
   }
 
-  // 4. Render Mapped Validation Results
-  function renderReport(query, data = null) {
-    viewScanning.style.display = 'none';
-    viewReport.style.display = 'flex';
+  function generateCustomReport(query) {
+    const derivedScore = Math.floor(Math.random() * 20) + 70; // 70-90
+    const customData = {
+      id: "#SIGNAL-CUSTOM-" + Math.floor(Math.random() * 900 + 100),
+      niche: "Custom Identified Market",
+      platform: "Twitter",
+      platformIcon: "T",
+      author: "@early_adopter",
+      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100",
+      time: "Just now",
+      status: "Validated",
+      statusHighlight: true,
+      quote: `I've been trying to solve this problem: "${query}" for weeks using manual workarounds and complex spreadsheets. None of the current tools check this niche well.`,
+      metrics: { demand: derivedScore + 2, pay: derivedScore - 4, urgency: derivedScore },
+      competitors: [
+        { name: "Manual spreadsheets", gap: "Tedious, breaks easily, non-collaborative, slow to update.", moat: "Sleek automatic visual metrics tracking." },
+        { name: "Legacy systems", gap: "Bloated enterprise tools, high pricing tiers, slow onboarding.", moat: "Self-serve, lightweight interface built for high conversion speed." }
+      ],
+      aiPivots: [
+        "Narrow your target audience specifically to small teams of 2 to 10 to establish early PMF.",
+        "Differentiate from massive incumbents by focusing on speed, automated integrations, and elite design.",
+        "Set up simple landing pages with waitlist forms to measure true buyer interest before writing code."
+      ],
+      recommendation: "Viable Concept. Social crawls show active frustration with manual workarounds. Build a fast, lightweight MVP specifically addressing the primary bottleneck."
+    };
 
-    // If no preset data, compile custom dynamic report
-    if (!data) {
-      const derivedScore = Math.floor(Math.random() * 20) + 68; // 68-88
-      data = {
-        name: query.split(" ").slice(0, 2).join(" ") || "Custom Concept",
-        niche: "Identified Product Market",
-        score: derivedScore,
-        metrics: {
-          demand: Math.floor(Math.random() * 15) + 75,
-          pay: Math.floor(Math.random() * 20) + 65,
-          competition: Math.floor(Math.random() * 20) + 70,
-          urgency: Math.floor(Math.random() * 15) + 80
-        },
-        pains: [
-          { source: "reddit", author: "u/early_adopter", content: `I've been trying to solve this for weeks using manual Google Sheets and notifications. None of the current tools check this niche well.` },
-          { source: "twitter", author: "@founder_daily", content: `Why is there no simple, borderless platform to manage this? Incumbents are too bloated and charge way too much before proving value.` }
-        ],
-        competitors: [
-          { name: "Manual Excel sheets", gap: "Extremely tedious, non-collaborative, breaks as data grows.", moat: "Sleek automatic visual synchronization with 100% accurate data metrics." },
-          { name: "Enterprise Platforms", gap: "Massive onboarding friction, very expensive pricing tiers.", moat: "Ultra lightweight, self-serve interface built purely for speed." }
-        ],
-        aiPivots: [
-          "Narrow your launch focus to <span>small design teams</span> to seed organic loops.",
-          "Differentiate from massive incumbents by highlighting <span>extreme speed and simplicity</span>.",
-          "Validate early pricing models by setting up a <span>one-click mock waitlist page</span>."
-        ],
-        recommendation: "Highly Viable Concept. Community search volumes show clear frustration with current manual alternatives. Build a simple, lightweight MVP focusing purely on the primary bottleneck."
-      };
-    }
+    // Add to signals database and load
+    signalsDatabase.unshift(customData);
+    populateSignalsList();
+    loadDetails(customData);
+  }
 
-    // Set UI values
-    document.getElementById('report-title').innerText = data.name + " Report";
-    document.getElementById('report-niche').innerText = data.niche;
-    document.getElementById('report-pitch').innerText = query;
-    document.getElementById('report-score-num').innerText = data.score;
-    
-    let scoreLabel = "Strong Viability";
-    if (data.score >= 90) scoreLabel = "Excellent Viability";
-    else if (data.score < 75) scoreLabel = "Refinement Viable";
-    document.getElementById('report-score-label').innerText = scoreLabel;
+  // 3. Populate and Interactive Details Mappings
+  const painsFeed = document.getElementById('pain-feed-list');
 
-    // Set Metrics
-    document.getElementById('m-demand').innerText = data.metrics.demand + "%";
-    document.getElementById('m-pay').innerText = data.metrics.pay + "%";
-    document.getElementById('m-moat').innerText = data.metrics.competition + "%";
-    document.getElementById('m-urgency').innerText = data.metrics.urgency + "%";
-
-    // Set SVGGauge Dial Circle
-    const dialFill = document.getElementById('report-dial-fill');
-    const offset = 213.6 * (1 - data.score / 100);
-    dialFill.style.strokeDashoffset = offset;
-
-    // Pop pain feed
-    const painsFeed = document.getElementById('pain-feed-container');
+  function populateSignalsList(filter = 'all') {
     painsFeed.innerHTML = "";
-    data.pains.forEach(p => {
+    signalsDatabase.forEach(sig => {
+      // Apply filters
+      if (filter === 'reddit' && sig.platform.toLowerCase() !== 'reddit') return;
+      if (filter === 'twitter' && sig.platform.toLowerCase() !== 'twitter') return;
+
       const item = document.createElement('div');
-      item.className = 'pain-item';
+      item.className = 'feed-item';
+      item.id = `item-${sig.id}`;
+      item.onclick = () => loadDetails(sig);
+
       item.innerHTML = `
-        <div class="pain-meta">
-          <div style="display:flex; align-items:center; gap:0.5rem;">
-            <span class="pain-source ${p.source}">${p.source}</span>
-            <span>${p.author}</span>
+        <div class="feed-item-left">
+          <div class="feed-item-avatar">
+            <img src="${sig.avatar}"/>
           </div>
-          <span>just now</span>
+          <div class="feed-item-meta">
+            <span class="feed-item-id">${sig.id}</span>
+            <span class="feed-item-time">${sig.platform} · ${sig.time}</span>
+          </div>
         </div>
-        <p class="pain-body">"${p.content}"</p>
+        <div class="feed-item-right">
+          <span class="feed-status-badge ${sig.statusHighlight ? 'highlight' : ''}">${sig.status}</span>
+          <span class="feed-item-value">${sig.niche.split(" ")[0]}</span>
+        </div>
       `;
       painsFeed.appendChild(item);
     });
 
-    // Pop competitors
-    const compGrid = document.getElementById('competitor-container');
-    compGrid.innerHTML = "";
-    data.competitors.forEach(c => {
-      const item = document.createElement('div');
-      item.className = 'comp-item';
-      item.innerHTML = `
-        <div class="comp-name-row">
-          <span class="comp-name">${c.name}</span>
-          <span class="comp-tag">
-            <iconify-icon icon="ph:trend-down-bold"></iconify-icon>
-            <span>vulnerable gap</span>
-          </span>
-        </div>
-        <div class="comp-matrix">
-          <div class="comp-box weakness">
-            <span class="comp-box-title red">Incumbent Gap:</span>
-            <span>${c.gap}</span>
-          </div>
-          <div class="comp-box advantage">
-            <span class="comp-box-title green">LaunchLens Moat:</span>
-            <span>${c.moat}</span>
-          </div>
-        </div>
-      `;
-      compGrid.appendChild(item);
-    });
+    // Make first item active
+    const firstItem = painsFeed.querySelector('.feed-item');
+    if (firstItem) firstItem.click();
+  }
 
-    // Pop AI pivots
-    document.getElementById('ai-verdict').innerHTML = `<strong>AI Verdict:</strong> ${data.recommendation}`;
+  function loadDetails(sig) {
+    // Set active item class
+    painsFeed.querySelectorAll('.feed-item').forEach(el => el.classList.remove('active'));
+    const targetItem = document.getElementById(`item-${sig.id}`);
+    if (targetItem) targetItem.classList.add('active');
+
+    // Populate Details View
+    document.getElementById('det-niche').innerText = sig.niche;
+    document.getElementById('det-id').innerText = sig.id;
+    document.getElementById('det-platform-icon').innerText = sig.platformIcon;
+    document.getElementById('det-platform-name').innerText = sig.platform;
+    document.getElementById('det-avatar').src = sig.avatar;
+    document.getElementById('det-author').innerText = sig.author;
+    document.getElementById('det-quote').innerText = `"${sig.quote}"`;
+
+    document.getElementById('det-sub-demand').innerText = sig.metrics.demand + "%";
+    document.getElementById('det-sub-pay').innerText = sig.metrics.pay + "%";
+    document.getElementById('det-sub-urgency').innerText = sig.metrics.urgency + "%";
+
+    // Set calculations metrics
+    const overallScore = Math.round((sig.metrics.demand + sig.metrics.pay + sig.metrics.urgency) / 3);
+    document.getElementById('m-val-demand').innerText = overallScore + ".0%";
     
-    const stepsList = document.getElementById('ai-steps');
-    stepsList.innerHTML = "";
-    data.aiPivots.forEach((step, i) => {
+    // Animate circular progress fill
+    const offset = 213.6 * (1 - overallScore / 100);
+    const circle = document.getElementById('report-dial-fill');
+    if (circle) circle.style.strokeDashoffset = offset;
+    
+    document.getElementById('report-score-num').innerText = overallScore;
+    document.getElementById('report-score-label').innerText = overallScore >= 88 ? "Excellent Viability" : "Strong Viability";
+
+    // Mapped gap matrix
+    document.getElementById('det-gap-weak').innerText = sig.competitors[0].gap;
+    document.getElementById('det-gap-moat').innerText = sig.competitors[0].moat;
+
+    document.getElementById('det-sum-agg').innerText = overallScore + ".0%";
+    const moatLbl = document.getElementById('det-sum-moat');
+    if (overallScore >= 88) {
+      moatLbl.innerText = "Elite Moat";
+      moatLbl.style.color = "var(--primary)";
+    } else {
+      moatLbl.innerText = "High Moat";
+      moatLbl.style.color = "var(--emerald)";
+    }
+
+    // Set AI pivots deck state
+    document.getElementById('ai-verdict-summary').innerHTML = `<strong>Concept Verdict: </strong>${sig.recommendation}`;
+    const stepsStack = document.getElementById('ai-steps-stack');
+    stepsStack.innerHTML = "";
+    sig.aiPivots.forEach((step, i) => {
       const li = document.createElement('li');
-      li.innerHTML = `${i+1}. ${step}`;
-      stepsList.appendChild(li);
+      li.innerHTML = `
+        <div class="pivot-num-circle">0${i+1}</div>
+        <div>${step}</div>
+      `;
+      stepsStack.appendChild(li);
     });
   }
 
-  function backToInput() {
-    viewReport.style.display = 'none';
-    viewInput.style.display = 'flex';
-    ideaInput.value = "";
+  // 4. Pill Filters Left Pane
+  const pills = {
+    all: document.getElementById('pill-all'),
+    reddit: document.getElementById('pill-reddit'),
+    twitter: document.getElementById('pill-twitter')
+  };
+
+  function filterSignals(platform) {
+    Object.keys(pills).forEach(key => {
+      if (key === platform) pills[key].classList.add('active');
+      else pills[key].classList.remove('active');
+    });
+    populateSignalsList(platform);
   }
+
+  function openAIPivotsView() {
+    selectTab('pivot');
+  }
+
+  function backToSandbox() {
+    selectTab('sandbox');
+  }
+
+  function resetSandbox() {
+    searchInput.value = "";
+    filterSignals('all');
+  }
+
+  // Initial load
+  populateSignalsList();
+  
+  // Custom cursor hover styling
+  addHoverEffect(document.querySelectorAll('.menu-tab, .filter-select-capsule, .pill-tab, .feed-item, .footer-circle-btn, .footer-action-btn-lime'));
 </script>
 </body>
 </html>
